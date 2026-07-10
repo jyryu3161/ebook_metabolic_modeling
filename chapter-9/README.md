@@ -54,6 +54,19 @@
 
 [새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=9)
 
+## 이 장을 읽는 방법
+
+AI와 GEM을 결합할 때에는 “정확도”보다 먼저 **무엇을 예측했고, 어떤 자료로 검증했으며, 어떤 제약을 지켰는가**를 확인한다.
+
+1. AI의 역할이 solver 근사, 기계론 모델 보정, 후보 우선순위화 중 무엇인지 구분한다.
+2. label의 출처·버전·생성 규칙을 기록한다.
+3. train/test split이 세포주·배지·생물종 수준의 일반화를 실제로 시험하는지 확인한다.
+4. flux 결과는 $$\max|\mathbf S\mathbf v|$$, 경계 위반, feasibility, calibration을 함께 평가한다.
+
+{% hint style="warning" %}
+같은 GEM에서 만든 그래프 특성과 FBA label을 무작위로 나눈 성능은 새로운 생물학적 조건에 대한 일반화 성능을 보장하지 않는다.
+{% endhint %}
+
 ## 학습 목표
 
 이 장을 마치면 다음을 할 수 있다.

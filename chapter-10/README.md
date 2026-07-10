@@ -62,6 +62,19 @@ flowchart TD
 
 [새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=10)
 
+## 이 장을 읽는 방법
+
+이 장에서는 코드를 “한 번 실행”하는 것과 분석을 “재현 가능하게 남기는 것”을 구분한다. 각 실습은 다음 네 질문으로 마무리한다.
+
+1. 어떤 모델 파일·버전·checksum을 사용했는가?
+2. 배지, 목적함수, 플럭스 경계, solver와 허용오차는 무엇인가?
+3. solver 상태, $$\max|\mathbf S\mathbf v|$$, 경계 위반을 확인했는가?
+4. 결과·그림·환경·실행 명령을 다른 사람이 다시 실행할 수 있게 남겼는가?
+
+{% hint style="warning" %}
+노트북의 셀 출력만 저장하는 것으로는 재현성이 확보되지 않는다. 입력 파일 해시, 패키지 lockfile, 난수 seed와 실행 순서를 함께 기록한다.
+{% endhint %}
+
 ## 학습 목표
 
 이 장을 마치면 다음을 할 수 있습니다.

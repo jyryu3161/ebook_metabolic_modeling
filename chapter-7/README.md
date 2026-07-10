@@ -41,6 +41,19 @@
 
 [새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=7)
 
+## 이 장을 읽는 방법
+
+질병 대사 모델의 목표는 “표적 하나를 단정”하는 것이 아니라, 모델 가정 아래에서 **실험 검증 우선순위를 세우는 것**이다.
+
+1. 질병과 정상 상태에 같은 단위·조건 체계를 적용한다.
+2. 단일 결손, 이중 결손, 부분 억제를 구분해 계산한다.
+3. 질병 효과뿐 아니라 정상 조직의 최악 효과와 환경 변화에 대한 강건성을 평가한다.
+4. 후보를 실험으로 옮길 때에는 rescue, isogenic control, target engagement를 계획한다.
+
+{% hint style="warning" %}
+유전자 knockout은 완전 기능 상실의 근사다. 실제 약물은 부분 억제·off-target·시간 의존 노출·조직 분포를 가지므로 동일한 결론으로 해석할 수 없다.
+{% endhint %}
+
 ## 학습 목표
 
 이 장을 마치면 다음을 수행할 수 있다.

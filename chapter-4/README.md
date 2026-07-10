@@ -37,6 +37,18 @@
 
 [새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=4)
 
+## 이 장을 읽는 방법
+
+플럭스 균형 분석(Flux Balance Analysis, FBA)은 세 가지를 함께 읽어야 한다. **물질수지**, **플럭스 경계**, **목적함수**다. 어느 하나라도 바뀌면 답도 달라질 수 있다.
+
+1. 먼저 $$\mathbf S\mathbf v=\mathbf0$$으로 가능한 상태를 제한한다.
+2. 다음으로 배지·방향성·용량을 플럭스 경계로 적용한다.
+3. 마지막으로 목적함수를 최대화하거나 최소화해 가능한 해 가운데 하나를 고른다.
+
+{% hint style="info" %}
+`optimal`은 주어진 수치 허용오차 안에서 최적해를 찾았다는 solver 상태다. 생물학적 가설이 검증되었다는 뜻은 아니다.
+{% endhint %}
+
 ## 학습 목표
 
 이 장을 마치면 다음을 할 수 있습니다.
