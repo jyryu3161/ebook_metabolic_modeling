@@ -1,0 +1,18 @@
+# Raw source materials (lecture notes, PPT, labs) — not part of the published book
+raw_data/
+
+# macOS
+.DS_Store
+
+# Editor / tooling local state
+.omc/
+.bkit/
+.claude/settings.local.json
+docs/.pdca-status.json
+docs/.bkit-memory.json
+
+# Local Python/Jupyter environments and caches
+.venv/
+.venv-*/
+__pycache__/
+.ipynb_checkpoints/
