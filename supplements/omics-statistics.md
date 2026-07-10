@@ -236,9 +236,9 @@ print(reject)
 
 ## 다음 읽기
 
-- 정규화 값을 GPR과 반응 점수로 변환하는 법: [Chapter 6](../chapter-6.-omics.md)
-- 통계적 예측 성능(MCC, ROC-AUC, PR-AUC): [Chapter 7](../chapter-7..md), [Chapter 9](../chapter-9.-ai.md)
-- Human2 범용 GEM과 그로부터 구축한 연령·성별 기관 파생 모델의 구분: [Chapter 5](../chapter-5..md)
+- 정규화 값을 GPR과 반응 점수로 변환하는 법: [Chapter 6](../chapter-6/README.md)
+- 통계적 예측 성능(MCC, ROC-AUC, PR-AUC): [Chapter 7](../chapter-7/README.md), [Chapter 9](../chapter-9/README.md)
+- Human2 범용 GEM과 그로부터 구축한 연령·성별 기관 파생 모델의 구분: [Chapter 5](../chapter-5/README.md)
 
 ## 참고문헌 / 공식 문서
 

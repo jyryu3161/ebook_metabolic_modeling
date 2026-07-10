@@ -273,7 +273,7 @@ $$
 | Human1 | Robinson et al. 2020, [DOI 10.1126/scisignal.aaz1482](https://doi.org/10.1126/scisignal.aaz1482) | Recon/HMR 계보 통합과 Git 기반 living model |
 | Human2 | Luo et al. 2026, [DOI 10.1073/pnas.2516511123](https://doi.org/10.1073/pnas.2516511123) | LLM 보조 선별과 전문가 확인으로 GPR을 점검하고, 별도의 전문가·커뮤니티 큐레이션으로 반응을 정비해 Human-GEM v2를 공개 |
 
-이 계보는 한 줄이 아닙니다. Recon2와 HMR2가 갈라져 발전했고, Human1은 HMR2·iHsa·Recon3D를 병합했습니다. Human2의 범용 GEM은 정상상태 기반 지식베이스이며, 연령·성별 기관 모델이나 whole-body model은 이를 바탕으로 구축한 **파생 생태계**입니다. 상세한 분기형 계보와 모델 수치의 counting convention은 [Chapter 5](chapter-5..md)를 참고하십시오.
+이 계보는 한 줄이 아닙니다. Recon2와 HMR2가 갈라져 발전했고, Human1은 HMR2·iHsa·Recon3D를 병합했습니다. Human2의 범용 GEM은 정상상태 기반 지식베이스이며, 연령·성별 기관 모델이나 whole-body model은 이를 바탕으로 구축한 **파생 생태계**입니다. 상세한 분기형 계보와 모델 수치의 counting convention은 [Chapter 5](chapter-5/README.md)를 참고하십시오.
 
 ## 논문을 읽을 때 공통으로 확인할 것
 
