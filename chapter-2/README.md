@@ -54,6 +54,16 @@ flowchart LR
 
 Flux의 단위는 모델 convention에 따라 다르며, 이 교재의 COBRApy 예제에서는 일반적으로 $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$를 사용한다.
 
+## 대화형 도해: 핵심 가정과 결과 해석
+
+{% hint style="info" %}
+아래 도해는 **교육용 개념·모의 데이터**를 조작하여 이 장의 핵심 가정과 해석 범위를 확인하는 보조 자료이다. 실제 GEM 결과로 인용할 수 없으며, 실제 계산은 모델 버전·배지·목적함수·solver·허용오차를 고정한 실습 코드로 재현해야 한다.
+{% endhint %}
+
+{% embed url="https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=2" %}
+
+[새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=2)
+
 ## 학습 목표
 
 이 장을 마치면 다음을 수행할 수 있다.

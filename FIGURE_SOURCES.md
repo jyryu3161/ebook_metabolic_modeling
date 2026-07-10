@@ -117,6 +117,12 @@ Mermaid 도식은 각 Markdown의 fenced source가 원본이며 GitBook/Mermaid 
 | 9.9 | [`chapter-9/lab.md`](chapter-9/lab.md) | 그래프 특징→필수성 RF→평가→PCA/K-Means 실습; 재사용 없음 | 로컬 COBRApy·NetworkX·scikit-learn 코드를 저자가 요약; 외부 시각물 없음. | 2026-07-10 |
 | 10.1 | [`chapter-10/README.md`](chapter-10/README.md) | preflight부터 JSON provenance까지의 튜토리얼 의존 흐름; 재사용 없음 | 이 저장소의 장·셀 구조를 저자가 요약; 외부 시각물 없음. | 2026-07-10 |
 
+### 대화형 도해
+
+| ID | 자산·최초 위치 | 내용·생성 조건 | 출처·권리 상태 |
+|:---|:---|:---|:---|
+| I-01 | [`interactive/index.html`](interactive/index.html); Chapters 1–10 각 `README.md` | 순수 HTML/SVG/JavaScript로 제작한 10개 조작형 교육 도해. Chapter 1–10의 모델 경계, S 행렬, GPR, FBA 가능영역, 재구축 근거, 오믹스 임계값, 선택성, production envelope, ROC, provenance를 각각 다룬다. 표본 점·수치·곡선은 **모의값**이며 외부 데이터 또는 실제 GEM 결과가 아니다. | 저자 자체 제작. 외부 그림·아이콘·데이터셋을 포함하지 않음. 개념 근거는 각 장의 본문 인용 문헌과 [대표 논문 가이드](landmark-papers.md)를 따른다. CDN 배포는 GitHub 저장소의 `main` 브랜치를 jsDelivr가 제공하는 방식이며, 네트워크 비가용 시 각 장의 정적 본문과 실습 코드를 대체하지 않는다. |
+
 ## 출판 전 남은 권리·재현성 조치
 
 1. 교재와 저자 자체 제작 자산에 적용할 저장소 차원의 라이선스를 저자가 결정하고 루트에 명시합니다.

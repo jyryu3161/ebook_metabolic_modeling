@@ -19,6 +19,16 @@
 
 유전자 결손 뒤 플럭스 예측에 사용하는 FBA, MOMA와 ROOM의 차이는 [유전자 교란 보충 자료](../supplements/perturbation-analysis.md)에서 다룬다. 발현 자료를 이용한 맥락 특이적 모델 구축은 [Chapter 6](../chapter-6/README.md)을 전제로 한다.
 
+## 대화형 도해: 핵심 가정과 결과 해석
+
+{% hint style="info" %}
+아래 도해는 **교육용 개념·모의 데이터**를 조작하여 이 장의 핵심 가정과 해석 범위를 확인하는 보조 자료이다. 실제 GEM 결과로 인용할 수 없으며, 실제 계산은 모델 버전·배지·목적함수·solver·허용오차를 고정한 실습 코드로 재현해야 한다.
+{% endhint %}
+
+{% embed url="https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=7" %}
+
+[새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=7)
+
 ## 학습 목표
 
 이 장을 마치면 다음을 수행할 수 있다.

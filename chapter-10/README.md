@@ -40,6 +40,16 @@ flowchart TD
 **왜 매번 `e_coli_core`인가?** 이 책 전체가 하나의 실행 예제 스레드로 `e_coli_core`(반응 95개·대사물 72개·유전자 137개, 기본 조건 최대 성장률 μ≈0.874 h⁻¹)를 사용한다. 작은 모델이기 때문에 노트북 하나로 몇 초 안에 모든 계산을 반복 실행할 수 있고, 동시에 GPR·구획·biomass 반응을 모두 갖춘 "축소판 진짜 GEM"이라서 배운 개념이 헛돌지 않는다. 사람 대사 모델(Human1, Recon3D)이나 산업 규모 대장균 모델(iML1515: 유전자 1,516개·반응 2,712개·대사물 1,877개)로 같은 코드를 확장하는 방법은 각 절의 본문에서 안내한다.
 {% endhint %}
 
+## 대화형 도해: 핵심 가정과 결과 해석
+
+{% hint style="info" %}
+아래 도해는 **교육용 개념·모의 데이터**를 조작하여 이 장의 핵심 가정과 해석 범위를 확인하는 보조 자료이다. 실제 GEM 결과로 인용할 수 없으며, 실제 계산은 모델 버전·배지·목적함수·solver·허용오차를 고정한 실습 코드로 재현해야 한다.
+{% endhint %}
+
+{% embed url="https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=10" %}
+
+[새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=10)
+
 ## 학습 목표
 
 이 장을 마치면 다음을 할 수 있습니다.

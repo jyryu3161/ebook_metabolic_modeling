@@ -30,6 +30,16 @@ flowchart LR
 *그림 8.1. 제8장의 전개: 섭동 뒤 가능한 플럭스 공간과 표현형을 예측하는 단계(§1–5)에서 결손·플럭스 조절을 설계 변수로 선택하고 생산 포락선과 커뮤니티 수준에서 검증하는 단계(§6–9)로 이동합니다. 출처: 저자 자체 제작; 개념 근거: MOMA([Segrè et al., 2002](https://doi.org/10.1073/pnas.232349399)), ROOM([Shlomi et al., 2005](https://doi.org/10.1073/pnas.0406346102)), OptKnock([Burgard et al., 2003](https://doi.org/10.1002/bit.10803)). 원 논문의 그림은 복제하거나 변형하지 않았습니다.*
 
 ---
+## 대화형 도해: 핵심 가정과 결과 해석
+
+{% hint style="info" %}
+아래 도해는 **교육용 개념·모의 데이터**를 조작하여 이 장의 핵심 가정과 해석 범위를 확인하는 보조 자료이다. 실제 GEM 결과로 인용할 수 없으며, 실제 계산은 모델 버전·배지·목적함수·solver·허용오차를 고정한 실습 코드로 재현해야 한다.
+{% endhint %}
+
+{% embed url="https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=8" %}
+
+[새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=8)
+
 ## 학습 목표
 
 이 장을 마치면 학습자는 다음을 할 수 있게 됩니다.

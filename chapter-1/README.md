@@ -32,6 +32,16 @@ flowchart TD
 
 이 장의 실습은 COBRApy의 `textbook` 모델을 사용한다. 이 모델은 *E. coli* 중심탄소대사를 95개 반응, 72개 구획별 대사물, 137개 유전자로 축약한 교육용 네트워크이다. 게놈 전체를 포괄하는 iML1515와 구분해야 하며, 여기서 얻는 수치를 생물 종의 고정된 네트워크 크기로 해석해서는 안 된다. 동일한 모델을 뒤 장에서도 사용하여 화학량론 행렬, GPR, FBA, FVA 및 유전자 결손 분석을 단계적으로 검증한다.
 
+## 대화형 도해: 핵심 가정과 결과 해석
+
+{% hint style="info" %}
+아래 도해는 **교육용 개념·모의 데이터**를 조작하여 이 장의 핵심 가정과 해석 범위를 확인하는 보조 자료이다. 실제 GEM 결과로 인용할 수 없으며, 실제 계산은 모델 버전·배지·목적함수·solver·허용오차를 고정한 실습 코드로 재현해야 한다.
+{% endhint %}
+
+{% embed url="https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=1" %}
+
+[새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=1)
+
 ## 학습 목표
 
 이 장을 마친 뒤에는 다음을 수행할 수 있어야 한다.

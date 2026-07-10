@@ -15,6 +15,16 @@
 이 장은 처음부터 끝까지 반응 3개짜리 아주 작은 장난감 네트워크 하나를 반복해서 손으로 풉니다 — 가능 영역을 오각형으로 그리고(3절), 심플렉스 타블로를 직접 계산하고(4절), 쌍대 문제로 그림자 가격을 유도하고(5절), pFBA로 무익한 순환을 제거하는(8절) 과정을 전부 **같은 숫자**로 검증합니다. 이렇게 작은 예제에서 확인한 원리는 그대로 95차원의 `e_coli_core`, 나아가 수천 차원의 genome-scale 모델에도 적용됩니다 — 차원만 커질 뿐 이론은 바뀌지 않습니다.
 
 ---
+## 대화형 도해: 핵심 가정과 결과 해석
+
+{% hint style="info" %}
+아래 도해는 **교육용 개념·모의 데이터**를 조작하여 이 장의 핵심 가정과 해석 범위를 확인하는 보조 자료이다. 실제 GEM 결과로 인용할 수 없으며, 실제 계산은 모델 버전·배지·목적함수·solver·허용오차를 고정한 실습 코드로 재현해야 한다.
+{% endhint %}
+
+{% embed url="https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=4" %}
+
+[새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=4)
+
 ## 학습 목표
 
 이 장을 마치면 다음을 할 수 있습니다.

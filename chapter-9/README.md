@@ -32,6 +32,16 @@
 | §10 | 불확실성과 도전과제 | 데이터 희소성, 화학량론적 타당성, 해석 가능성의 미해결 문제 |
 | §11 | 미래 연구 의제 | 예측이 아니라 검증 기준으로 이 분야를 읽는 법 |
 
+## 대화형 도해: 핵심 가정과 결과 해석
+
+{% hint style="info" %}
+아래 도해는 **교육용 개념·모의 데이터**를 조작하여 이 장의 핵심 가정과 해석 범위를 확인하는 보조 자료이다. 실제 GEM 결과로 인용할 수 없으며, 실제 계산은 모델 버전·배지·목적함수·solver·허용오차를 고정한 실습 코드로 재현해야 한다.
+{% endhint %}
+
+{% embed url="https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=9" %}
+
+[새 창에서 대화형 도해 열기](https://cdn.jsdelivr.net/gh/jyryu3161/ebook_metabolic_modeling@main/interactive/index.html?chapter=9)
+
 ## 학습 목표
 
 이 장을 마치면 다음을 할 수 있다.
