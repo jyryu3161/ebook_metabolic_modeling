@@ -1,6 +1,6 @@
 # 핵심 방법. 유전자 교란, MOMA와 ROOM
 
-> [Chapter 7의 질병 표적 탐색](../chapter-7/README.md)에 들어가기 전에 읽는 선행 페이지입니다. 유전자 결손을 반응 제약으로 바꾸는 법, FBA·MOMA·ROOM이 서로 다른 질문에 답한다는 점, COBRApy 결과를 올바르게 읽는 법을 정리합니다.
+> 이 보충은 [Chapter 7의 결손 기반 표적 해석](../chapter-7/README.md)과 [Chapter 8의 섭동·균주 설계](../chapter-8/README.md)를 잇는 선행 자료입니다. 처음에는 FBA·MOMA·ROOM이 서로 다른 질문에 답한다는 점과 결과 해석을 익히고, 공간 기하·이중 결손·균주 설계는 Chapter 8에서 심화합니다.
 
 ## 1. 유전자 결손은 GPR을 통해 반응 결손이 된다
 
