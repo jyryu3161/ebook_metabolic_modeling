@@ -1,95 +1,160 @@
-# 마무리: 요약 · 스스로 점검 · 용어
+# 마무리: 요약과 점검
 
 ## 한 장 요약
 
-- GEM의 "해부학(anatomy)"은 [Chapter 2](../chapter-2/README.md)의 화학량론 행렬 $$\mathbf{S}$$ 위에 얹히는 네 가지 구조 요소 — **GPR**, **구획과 운송**, **경계 반응(exchange/demand/sink)**, **바이오매스 목적함수** — 로 구성된다.
-- **GPR**은 유전자-반응 관계를 AND(효소 복합체)·OR(동위 효소) Boolean 논리로 인코딩하며, 이를 통해 유전자 결실을 반응 통량 제약으로 변환하고 유전자 필수성을 예측할 수 있다. 2.3절의 손 계산이 보여주듯, AND/OR의 **중첩 순서**에 따라 같은 세 유전자라도 결과가 달라진다. 인체 GPR은 아이소자임·대안적 스플라이싱·다중 서브유닛 복합체로 인해 원핵생물보다 훨씬 복잡하다(LDH, PDC, Hexokinase 사례).
-- **세포 구획**은 서로 다른 화학적 환경을 물리적으로 분리해 상반된 반응의 공존과 정교한 조절을 가능케 한다. 전체 규모의 그람음성 대장균 모델은 `c`, `p`, `e`를, 이 책의 축소 `textbook` 모델은 `c`, `e`만을 가지며, 인체 모델은 여러 세포소기관 구획을 구분한다. 구획화는 $$\mathbf{S}$$를 블록 구조로 만든다.
-- **운송 반응**은 확산·촉진확산·능동수송(PTS, ABC transporter 등)으로 구획 간 물질을 이동시키며, GPR과 아세포위 국소화 예측을 통해 구축된다. 구획·운송체의 기능 장애는 다양한 대사 질병(Zellweger, Gaucher, Pompe 등)으로 이어진다.
-- **경계 반응**은 exchange(세포외 대사물-환경), demand(세포내 대사물의 비가역적 배출), sink(세포내 대사물의 가역적 공급/배출) 세 종류로 나뉘며, 이들의 bounds 설정이 곧 모델의 성장 조건(배지)을 정의한다.
-- **바이오매스 목적함수**는 단백질·RNA·DNA·지질 등 대분자 조성비로 계산된 계수를 가진 특수 반응이며, GAM/NGAM으로 성장 관련/비성장 관련 에너지 요구를 반영한다. NGAM은 모델마다 다르게 큐레이션되므로(`e_coli_core`의 8.39 vs 문헌의 3.15), 항상 그 모델 자신의 값을 확인해야 한다.
-- 이 네 요소를 종합하면, 인체 GEM이 미생물 GEM보다 훨씬 큰 이유는 "화학이 더 복잡해서"가 아니라 **GPR의 조직 특이성과 구획·운송의 다층 구조** 때문임을 알 수 있다. `e_coli_core`·iML1515·Recon3D 삼자를 나란히 놓은 7.2절의 표는 이 결론을 세 가지 규모에서 동시에 확인시켜 준다.
-- 구획이 늘어나는 계산적 대가는 조합론으로도 셀 수 있다(3.6절): $$n$$개 구획을 완전 연결하려면 $$\binom{n}{2}$$개의 연결이 필요하지만, 실제 세포는 세포질을 중심으로 한 허브-스포크 구조($$n-1$$개)를 택해 배관을 절약한다.
-- 이 구조를 게놈 서열로부터 실제로 채워 넣는 재구축(reconstruction) 절차와 품질 관리(QC)는 [Chapter 5](../chapter-5/README.md)에서, 발현 데이터를 GPR·구획에 통합하는 맥락-특이적 모델링(iMAT, GIMME, tINIT)은 [Chapter 6](../chapter-6/README.md)에서 다룬다.
+GEM은 화학량론 행렬 $$\mathbf{S}$$, 반응 bounds, 목적함수에 유전자 연관과 구획·주석을 결합한 계산 모델이다. 각 정보가 답하는 질문과 해석의 한계는 다음과 같다.
 
-### 이 장에서 익힌 손 계산 도구 모음
+| 구조 | 모델에서의 표현 | 답하는 질문 | 주요 한계 |
+|:---|:---|:---|:---|
+| 화학량론 | $$\mathbf{S}$$의 행과 열 | 어떤 대사물이 어떤 비율로 생성·소비되는가? | 농도, 반응속도식, 조절을 직접 담지 않는다. |
+| GPR | 유전자 ID의 Boolean 식 | 어떤 유전자 기능이 반응을 가능하게 하는가? | 발현량이나 효소 용량을 뜻하지 않는다. |
+| 구획 | 대사물의 compartment 라벨 | 반응물과 생성물이 어느 모델 공간에 있는가? | 라벨은 생물학적 위치 근거와 함께 검증해야 한다. |
+| 운송 | 서로 다른 구획 행에 계수를 갖는 반응 열 | 구획 사이 이동이 어떤 물질·에너지와 결합되는가? | 방향과 기작은 bounds·주석으로 추가 판정한다. |
+| 경계 | exchange, demand, sink 반응과 bounds | 환경에서 무엇을 흡수·분비할 수 있는가? | sink는 누락 경로를 가리고 허위 생산을 만들 수 있다. |
+| 바이오매스 | 조성·에너지 계수를 갖는 반응 열 | 새 세포 물질 생산에 무엇이 필요한가? | 조성, 정규화와 유지 에너지는 조건·모델 의존적이다. |
+| 목적함수 | 계수 벡터 $$\mathbf{c}$$ | 가능한 플럭스 중 무엇을 최적화하는가? | 생물학적 목적을 가정하므로 실험 맥락과 검증이 필요하다. |
 
-| 도구 | 핵심 공식 | 어디서 배웠나 |
-|:---|:---|:---:|
-| GPR AND/OR 평가 | $$r_{\text{AND}} = \min(g_A,g_B)$$, $$r_{\text{OR}} = \max(g_C,g_D)$$ | 2.1·2.3·2.8절 |
-| 이소자임 필수성 조합론 | $$k$$개 동위 효소 중 반응을 끄는 조합은 $$2^k-1$$가지 중 1가지 | 2.8절 |
-| 구획 연결 토폴로지 | 완전 연결 $$\binom{n}{2}$$ vs 허브-스포크 $$n-1$$ | 3.6절 |
-| 예측 도구 정확도 분해 | 정확도·민감도·정밀도(혼동행렬) | 3.7절 |
-| 교환 반응 부호 규약 | $$v<0$$ 흡수, $$v>0$$ 분비 | 5.1b절 |
-| BOF 계수 계산 | $$c_i = f_{\text{macro}} \times w_{\text{DW}} / M_i$$ | 6.2절 |
-| GAM/NGAM 회귀 | 기울기=GAM, 절편=NGAM | 6.3절 |
+*Table S.1. GEM 구조 요소의 저장 위치, 해석 질문과 한계.*
 
-*Table S.1: 이 장에서 등장한 손 계산 공식 전체 목록. 다음 장부터는 이 공식들을 이미 안다고 가정하고 이야기를 진행합니다.*
+## 1. 규모 지표는 분모를 명시한다
 
----
+반응 수 $$n$$을 유전자 수 $$G$$로 나눈 $$n/G$$는 모델의 전역적 크기 비율이다. 한 유전자가 평균 몇 반응에 연결되는지를 구하려면 GPR의 유전자-반응 incidence를 세어야 한다.
+
+$$
+A=\sum_{j\in R}|G_j|,
+$$
+
+여기서 $$G_j$$는 반응 $$j$$의 GPR에 등장하는 서로 다른 유전자 집합이다. COBRApy 0.30.0의 `textbook` 모델에서는 $$n=95$$, $$G=137$$, GPR 연관 반응이 69개, $$A=158$$이므로
+
+$$
+\frac{n}{G}=0.693,\qquad
+\frac{A}{G}=1.153,\qquad
+\frac{A}{69}=2.290
+$$
+
+이다. 세 값은 각각 전역 크기 비율, 유전자당 평균 반응 incidence, GPR 연관 반응당 평균 유전자 incidence를 뜻한다. 같은 숫자로 서로를 대신할 수 없다.
+
+## 2. GPR은 유전자 기능 가용성의 논리식이다
+
+효소 복합체의 필수 소단위는 AND, 같은 반응을 대신 촉매하는 동위 효소는 OR로 표현한다.
+
+$$
+z_r=(z_A\land z_B)\lor z_C,
+$$
+
+여기서 $$z_g\in\{0,1\}$$은 유전자의 기능적 가용성을 나타낸다. 이는 mRNA 발현량이나 효소 활성량이 아니다. 혼합 AND/OR 규칙은 괄호와 구문 트리에 따라 평가해야 하며, 문자열을 임의로 분할해서는 안 된다.
+
+`textbook` 모델의 상호 배타적 분류는 GPR 없음 26개, 단일 유전자 27개, OR-only 27개, AND-only 10개, mixed 5개이다. 예를 들어 OR-only 비율은 전체 반응을 분모로 하면 $$27/95$$, GPR이 있는 반응만 분모로 하면 $$27/69$$이다. 빈 GPR은 자발 반응만을 뜻하지 않는다. 경계·바이오매스 반응, 알려지지 않은 효소와 주석 누락도 포함될 수 있다.
+
+반응의 GPR 판정과 성장 표현형도 구분한다. 유전자 $$a,b$$가 합성 치사라는 것은 선택한 배지·목적함수·성장 임계값 $$\varepsilon$$에서
+
+$$
+\mu_{-a}>\varepsilon,\qquad
+\mu_{-b}>\varepsilon,\qquad
+\mu_{-a,-b}\leq\varepsilon
+$$
+
+를 만족한다는 뜻이다. 두 유전자가 특정 반응을 끈다는 사실만으로 합성 치사를 확정할 수 없다. 우회경로와 전체 네트워크를 포함한 최적화가 필요하다.
+
+## 3. 구획은 라벨과 생물학적 공간을 연결한다
+
+원핵생물도 하나의 균질한 공간이 아니다. 그람음성 세균의 전체 규모 모델은 세포질, 주변세포질, 세포외 공간을 구분할 수 있고, 교육용 축소 모델은 일부 공간을 합칠 수 있다. 진핵 모델은 미토콘드리아, 소포체, 골지체, 리소좀, 퍼옥시좀 등 더 많은 소기관을 구분한다. 실제 구획과 모델 라벨의 대응은 모델 문서에서 확인한다.
+
+구획별 내부 반응 열을 $$R_c,R_m$$, 두 구획을 잇는 운송 반응 열을 $$R_T$$라 하면 행렬은 개념적으로
+
+$$
+\mathbf S=
+\begin{bmatrix}
+\mathbf S_c & \mathbf 0 & \mathbf T_c\\
+\mathbf 0 & \mathbf S_m & \mathbf T_m
+\end{bmatrix}
+$$
+
+와 같은 직사각형 블록 구조를 갖는다. 운송 반응은 별도의 “비대각 정사각 블록”이 아니라, 두 행 블록에 동시에 0이 아닌 계수를 갖는 **열**이다.
+
+구획별 pH, 산화환원 상태와 보조인자 비율은 조건에 따라 달라지며, $$\mathbf{S}$$만으로 고정 농도비가 정해지지 않는다. 효소의 위치는 직접 실험, 큐레이션된 데이터베이스, 서열 신호와 예측 도구, 상동성 근거를 구분하여 기록한다. 국소화 예측 도구를 비교할 때는 같은 라벨 정의, 같은 독립 시험 자료와 같은 지표를 사용해야 하며, 서로 다른 논문의 정확도 숫자를 그대로 순위화해서는 안 된다.
+
+## 4. 운송 반응은 물질과 에너지의 결합을 기록한다
+
+단순 이동은 같은 화학종이 두 구획 행에 각각 $$-1$$과 $$+1$$을 갖는다. 능동수송과 공동수송은 ATP, PEP, 양성자 또는 이온을 같은 열에 포함하여 결합을 표현한다. 운송 방향은 반응식뿐 아니라 bounds, 전하와 이온 기울기 가정까지 확인해야 한다.
+
+구획 수만으로 운송 반응 수를 $$\binom{k}{2}$$ 또는 $$k-1$$로 계산할 수는 없다. 실제 수는 막의 연결성, 운반되는 대사물 종류, 수송체 기작, 방향과 모델 해상도에 따라 달라진다.
+
+## 5. 배지는 모든 exchange bounds의 집합이다
+
+교환 반응을 $$X_e\rightarrow\emptyset$$으로 저장하는 COBRA 모델에서는 음의 플럭스가 흡수, 양의 플럭스가 분비이다. 하한을 0으로 바꾸면 흡수만 막고 분비는 허용하며, 양방향을 모두 막으려면 bounds를 $$(0,0)$$으로 둔다. 다른 방향 규약의 모델에서는 부호를 반대로 읽어야 한다.
+
+배지는 포도당과 산소 두 값이 아니라 모든 허용 흡수율의 벡터이다. 단일 탄소원 조건을 만들 때는 목표 탄소원을 열고 다른 이용 가능한 탄소원을 모두 닫으며, 질소·인·황·무기 이온과 산소 조건도 함께 기록한다. 탄소원 결핍은 모든 탄소원 흡수를 닫았다는 운영적 정의가 필요하다. 성장 불가 여부는 목적함수, NGAM, sink와 예기치 않은 영양소 공급을 포함하여 계산으로 검증한다.
+
+고정된 모델의 배지만 바꾸면 $$\mathbf S$$는 같고 bounds만 달라진다. 발현 자료로 조건별 반응 집합을 다시 선택한 맥락 특이적 모델에서는 $$\mathbf S$$도 달라질 수 있다.
+
+## 6. BOF의 반응, 생성물과 목적함수를 분리한다
+
+바이오매스 반응은 전구체와 에너지를 소비하는 $$\mathbf S$$의 열이다. 바이오매스 의사대사물은 선택적 표현이며 모든 모델에 존재하지 않는다. 목적함수는 별도의 벡터 $$\mathbf c$$로 반응을 선택한다. 바이오매스 반응이 1 gDW 기준으로 정규화되고 균형 성장을 가정한 경우에만 그 플럭스를 특정 성장률 $$\mu\ [\mathrm{h^{-1}}]$$로 직접 해석한다.
+
+단백질 질량분율을 $$f_P$$, 아미노산 잔기 몰분율을 $$y_i$$, 잔기 몰질량을 $$M_i^{\mathrm{res}}$$라 하면
+
+$$
+\overline M_{\mathrm{res}}=\sum_i y_iM_i^{\mathrm{res}},\qquad
+b_i=\frac{1000f_Py_i}{\overline M_{\mathrm{res}}}
+\quad[\mathrm{mmol\,gDW^{-1}}].
+$$
+
+잔기 질량분율 $$\alpha_i$$를 사용한다면 $$b_i=1000f_P\alpha_i/M_i^{\mathrm{res}}$$이다. 자유 단량체와 중합체 잔기의 몰질량을 구분하고, RNA·DNA에서는 NTP/dNTP 소비와 PP$$_i$$ 생성, 번역·전사의 추가 에너지 비용을 일관된 반응식으로 처리한다.
+
+질량 정규화는
+
+$$
+\sum_i\frac{b_iM_i^{\mathrm{eff}}}{1000}=f_{\mathrm{modeled}}
+$$
+
+로 확인한다. 이는 원소·전하 균형과 별도의 검사이며, ATP 가수분해 같은 에너지 항을 새 세포 물질의 질량으로 더하지 않는다.
+
+GAM은 BOF 한 단위당 성장 관련 ATP 요구량으로 $$\mathrm{mmol\ ATP\,gDW^{-1}}$$, NGAM은 시간당 기저 ATP 소비율로 $$\mathrm{mmol\ ATP\,gDW^{-1}\,h^{-1}}$$ 단위를 갖는다. NGAM은 보통 `ATPM`의 하한으로 구현한다. `textbook` 모델의 ATP 가수분해 항 59.81과 `ATPM` 하한 8.39는 이 파일의 값이지 보편 상수가 아니다. GAM·NGAM은 여러 조건의 성장률, 기질 흡수와 분비 측정치를 제약한 모델에 적합하고 불확실성을 평가해야 한다.
+
+다중 구획 모델에서도 BOF가 모든 구획의 대사물을 직접 소비한다고 가정하지 않는다. BOF가 사용하는 전구체 구획과 이를 공급하는 운송 반응을 모델마다 확인한다.
 
 ## 스스로 점검
 
-1. **GPR 손 계산**: GPR 규칙이 $$(\text{geneX OR geneY}) \; \text{AND} \; \text{geneZ}$$일 때, (a) geneX만 결손, (b) geneY와 geneZ를 함께 결손시킨 경우 각각 반응이 ON인지 OFF인지 2.3절의 방법으로 직접 계산해 보시오.
-   > 힌트: 먼저 괄호 안 OR을 계산한 뒤, 그 결과와 geneZ를 AND로 묶으세요. (a) geneX 결손 → (0 OR 1)=1, 1 AND geneZ(1)=1 → **ON**. (b) geneY, geneZ 결손 → (1 OR 0)=1, 1 AND 0(geneZ 결손)=0 → **OFF**.
+1. $$n/G$$, $$A/G$$와 $$A/n_{\mathrm{GPR}}$$가 각각 무엇을 측정하는지 설명하시오.
+2. $$(g_A\land g_B)\lor(g_C\land g_D)$$에서 각 단일·이중 결손의 반응 가용성을 평가하고, 이 결과만으로 합성 치사를 판정할 수 없는 이유를 쓰시오.
+3. 빈 GPR을 가질 수 있는 생물학적·모델링 원인을 네 가지 제시하시오.
+4. 두 구획과 하나의 운송 반응 집합을 갖는 $$\mathbf S$$의 블록 구조를 쓰고, 운송 열의 0이 아닌 계수 위치를 표시하시오.
+5. 국소화 예측 도구 두 개를 공정하게 비교하기 위한 시험 자료와 평가 지표의 조건을 설계하시오.
+6. 호기적 포도당 배지에서 호기적 아세테이트 배지로 바꿀 때 확인해야 할 exchange bounds 목록을 작성하시오.
+7. 자유 아미노산 몰질량과 잔기 몰질량으로 계산한 단백질 BOF 계수의 차이를 설명하시오.
+8. 어떤 모델에서 $$v_{\mathrm{bio}}=\mu$$라고 해석할 수 있는지 정규화·단위·목적함수 조건을 제시하시오.
+9. GAM과 NGAM을 추정하기 위한 다조건 실험 자료와 적합 절차를 설계하시오.
+10. 다중 구획 모델의 BOF가 특정 구획 전구체만 소비할 때 다른 구획의 생합성이 성장에 기여하는 경로를 추적하시오.
 
-2. **구획 개수 비교**: `e_coli_core`, iML1515, Recon3D는 각각 몇 개의 구획을 가지는가? 구획 수 차이가 반응 수 차이에 어떻게 기여하는지 1.2절과 7절의 논리로 설명하시오.
-   > 힌트: `e_coli_core`는 2개(`c`, `e`, 축소 모델), iML1515는 3개(`c`, `p`, `e`), Recon3D는 8개 이상. 구획이 늘어날수록 같은 화학종이 여러 노드로 쪼개지고, 이를 잇는 운송 반응이 새로 필요해진다.
+## 핵심 용어
 
-3. **경계 반응 구분**: 어떤 대사물 X가 모델 안에서 다른 반응에 의해 소비만 되고 생성되지는 않는데, 그 합성 경로가 아직 모델에 없다고 하자. 이 문제를 풀기 위해 exchange, demand, sink 중 무엇을 추가해야 하며 그 이유는?
-   > 힌트: X는 세포내 대사물이므로 exchange(세포외 전용)는 쓸 수 없다. X가 공급도 배출도 필요할 수 있다면 **sink**가 적절하다(5.2절 heme 예시 참고). 만약 X를 생성만 확인하면 되는 "테스트용 배출구"라면 **demand**가 더 적절하다.
+| 용어 | 정의 |
+|:---|:---|
+| GPR | 유전자 기능 가용성과 반응을 연결하는 Boolean 규칙 |
+| 효소 복합체 | 여러 필수 유전자 산물이 함께 있어야 작동하는 효소; 보통 AND로 표현 |
+| 동위 효소 | 서로 대체하여 같은 반응을 촉매할 수 있는 효소; 보통 OR로 표현 |
+| 합성 치사 | 각 단일 결손은 생존하지만 조합 결손은 정의한 성장 임계값 이하가 되는 표현형 |
+| 구획 | 대사물과 반응의 위치를 구별하는 모델 공간 |
+| 운송 반응 | 서로 다른 구획의 대사물을 연결하는 반응 |
+| Exchange | 경계 대사물과 환경 사이의 흡수·분비 반응 |
+| Demand | 내부 대사물을 보통 비가역적으로 제거하는 경계 반응 |
+| Sink | 내부 대사물의 공급과 제거를 가역적으로 허용하는 경계 반응 |
+| 바이오매스 반응 | 성장 조성 및 에너지 요구를 화학량론 계수로 표현한 반응 |
+| GAM | 바이오매스 생성량에 비례하는 성장 관련 ATP 요구량 |
+| NGAM | 시간당 기저 ATP 소비 요구량 |
 
-4. **BOF 계수 계산**: 어떤 미생물의 단백질 질량 비율이 50%이고, Glycine이 단백질에서 차지하는 질량 비율이 8%, Glycine의 몰 질량이 75.07 g/mol이라면 6.2절의 공식으로 Glycine의 BOF 계수(mmol/gDW)를 계산하시오.
-   > 힌트: $$c_{\text{Gly}} = \frac{0.50 \times 0.08}{75.07} \times 1000 \approx 0.533\ \text{mmol/gDW}$$.
+*Table S.2. Chapter 3의 핵심 용어.*
 
-5. **원핵 vs 진핵 비교**: Recon3D가 iML1515보다 반응 수가 약 4배 많은 이유를 "화학의 복잡성"이 아니라 이 장에서 배운 **구조적** 이유로 설명하시오. (최소 두 가지 이상 근거를 드시오.)
-   > 힌트: 1.2절과 7절 참고 — 구획 수 증가(3개→8개 이상)에 따른 운송 반응 급증, 조직 특이적 아이소자임의 별도 GPR 등록, 복잡한 지질 대사 등을 근거로 들 수 있다.
+## 다음 장
 
-6. **중첩 GPR 트리 평가(2.8절)**: GPR 규칙이 $$\big[(\text{geneA AND geneB}) \text{ OR geneC}\big] \text{ AND } \big[\text{geneD OR geneE}\big]$$일 때, geneB와 geneD를 함께 결손시키면 반응은 ON인가 OFF인가? 안쪽 괄호부터 차례로 접어 계산하시오.
-   > 힌트: 좌측 $$(\text{geneA AND geneB}) = \min(1, 0) = 0$$, 이를 geneC(1)와 OR: $$\max(0,1)=1$$. 우측 $$(\text{geneD OR geneE}) = \max(0,1)=1$$. 마지막으로 좌우를 AND: $$\min(1,1)=1$$ → **ON**.
+[Chapter 4](../chapter-4/README.md)에서는 이 장에서 구분한 $$\mathbf S$$, bounds와 목적함수 벡터를 선형계획 문제로 결합하여 FBA 해를 계산한다. GPR 결손, 배지 변경과 BOF 선택이 각각 어떤 제약 또는 목적함수 변경으로 들어가는지 수학적으로 다룬다.
 
-7. **구획 연결의 조합론(3.6절)**: 어떤 진핵 미생물 GEM이 5개의 구획을 가지고, 모든 구획 간 운송을 세포질을 거치는 허브-스포크 구조로만 구현한다고 하자. 이 경우 필요한 구획-쌍 연결의 최소 개수는 몇 개이며, 만약 완전 연결 구조였다면 몇 개가 필요했겠는가?
-   > 힌트: 허브-스포크는 $$n - 1 = 5 - 1 = 4$$개, 완전 연결은 $$\binom{5}{2} = \frac{5 \times 4}{2} = 10$$개. 구획 수가 늘어날수록 완전 연결과 허브-스포크의 격차가 더 벌어진다.
+## 참고문헌
 
----
-
-## 다음 장 예고
-
-이 장에서 우리는 [Chapter 2](../chapter-2/README.md)의 화학량론 행렬 $$\mathbf{S}$$ 위에 GPR·구획·운송·경계 반응·바이오매스 목적함수라는 네 가지 구조를 입혀, 마침내 **완전한 모델 구조**를 갖췄습니다. 이제 남은 질문은 하나입니다 — 이 모델로 **세포의 성장·플럭스를 실제로 예측**하려면 어떻게 해야 할까요? [Chapter 4. Flux Balance Analysis(FBA)](../chapter-4/README.md)에서는 이 장에서 완성한 구조($$\mathbf{S}$$, bounds, 바이오매스 목적함수)를 **선형 계획법(Linear Programming, LP)** 문제로 바꾸어, `e_coli_core`가 실제로 μ ≈ 0.874 h⁻¹의 속도로 자란다는 것을 직접 계산해 봅니다.
-
----
-
-## 핵심 용어 정리
-
-| 용어(한글) | English | 정의 |
-|:---|:---|:---|
-| 유전자-단백질-반응 연관 | Gene-Protein-Reaction (GPR) | 유전자와 반응의 관계를 AND(복합체)·OR(동위 효소) Boolean 논리로 인코딩한 규칙 |
-| 효소 복합체 | Enzyme Complex | 여러 유전자 산물이 AND로 결합해야 작동하는 효소 |
-| 동위 효소 | Isozyme | 동일 반응을 촉매하는, 서로 다른 유전자가 만드는 여러 효소(OR 관계) |
-| 유전자 필수성 | Gene Essentiality | 특정 유전자 결실 시 성장이 임계치 이하로 떨어지는지 여부 |
-| 합성 치사 | Synthetic Lethality | 개별 결손으로는 생존하지만 두 유전자를 함께 결손시키면 치사에 이르는 현상 |
-| 세포 구획 | Compartment | 막으로 구분된, 독립적인 화학적 환경을 갖는 세포 내 공간 |
-| 운송 반응 | Transport Reaction | 같은 화학종을 한 구획에서 다른 구획으로 옮기는 반응 |
-| 단일수송체 · 공동수송체 · 역수송체 | Uniporter · Symporter · Antiporter | 운송체가 옮기는 분자 수와 방향 조합에 따른 분류(4.1b절) |
-| 아세포위 국소화 | Subcellular Localization | 단백질(효소)이 어느 구획에서 작용하는지를 나타내는 위치 정보 |
-| 교환 반응 | Exchange Reaction (`EX_`) | 세포외 대사물과 환경 사이의 경계 조건을 정의하는 의사-반응 |
-| 요구 반응 | Demand Reaction (`DM_`) | 세포 내부 대사물을 비가역적으로 배출하는 경계 반응 |
-| 싱크 반응 | Sink Reaction (`SK_`) | 세포 내부 대사물을 가역적으로 공급/배출하는 경계 반응 |
-| 바이오매스 목적함수 | Biomass Objective Function (BOF) | 세포 조성비대로 전구체를 소비해 1 gDW를 생성하는 의사-반응 |
-| 성장 관련 유지 에너지 | Growth-Associated Maintenance (GAM) | 성장률에 비례해 소비되는 ATP (BOF 계수에 내장) |
-| 비성장 관련 유지 에너지 | Non-Growth-Associated Maintenance (NGAM) | 성장률 0에서도 필요한 기저 ATP 요구량 |
-
----
-
-## 참고문헌 / 더 읽을거리
-
-- Monk, J. M. et al. (2017). *iML1515, a knowledgebase that computes Escherichia coli traits.* Nature Biotechnology, 35(10), 904–908.
-- Brunk, E. et al. (2018). *Recon3D enables a three-dimensional view of gene variation in human metabolism.* Nature Biotechnology, 36(3), 272–281.
-- Thiele, I. et al. (2013). *A community-driven global reconstruction of human metabolism (Recon 2).* Nature Biotechnology, 31(5), 419–425.
-- Robinson, J. L. et al. (2020). *An atlas of human metabolism.* Science Signaling, 13(624), eaaz1482.
-- Duarte, N. C. et al. (2007). *Global reconstruction of the human metabolic network based on genomic and bibliomic data.* PNAS, 104(6), 1777–1782.
-- Feist, A. M., & Palsson, B. O. (2010). *The biomass objective function.* Current Opinion in Microbiology, 13(3), 344–349.
-- Thiele, I., & Palsson, B. Ø. (2010). *A protocol for generating a high-quality genome-scale metabolic reconstruction.* Nature Protocols, 5(1), 93–121.
-- Palsson, B. Ø. (2015). *Systems Biology: Constraint-based Reconstruction and Analysis.* Cambridge University Press.
-- Ebrahim, A. et al. (2013). *COBRApy: COnstraints-Based Reconstruction and Analysis for Python.* BMC Systems Biology, 7, 74.
-- 본 챕터의 실습 코드 전체: `raw_data/GEM_lecture_notes/gem9_w02_lab.ipynb`
+- [Orth, J. D., Thiele, I. & Palsson, B. Ø. (2010). *What is flux balance analysis?* Nature Biotechnology, 28, 245–248.](https://doi.org/10.1038/nbt.1614)
+- [Thiele, I. & Palsson, B. Ø. (2010). *A protocol for generating a high-quality genome-scale metabolic reconstruction*. Nature Protocols, 5, 93–121.](https://doi.org/10.1038/nprot.2009.203)
+- [Monk, J. M. et al. (2017). *iML1515, a knowledgebase that computes Escherichia coli traits*. Nature Biotechnology, 35, 904–908.](https://doi.org/10.1038/nbt.3956)
+- [Brunk, E. et al. (2018). *Recon3D enables a three-dimensional view of gene variation in human metabolism*. Nature Biotechnology, 36, 272–281.](https://doi.org/10.1038/nbt.4072)
+- [Feist, A. M. & Palsson, B. O. (2010). *The biomass objective function*. Current Opinion in Microbiology, 13, 344–349.](https://doi.org/10.1016/j.mib.2010.03.003)
+- [Lachance, J.-C. et al. (2019). *BOFdat: Generating biomass objective functions for genome-scale metabolic models from experimental data*. PLOS Computational Biology, 15, e1006971.](https://doi.org/10.1371/journal.pcbi.1006971)

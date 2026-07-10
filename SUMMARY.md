@@ -49,7 +49,7 @@
 * [핵심 방법. 유전자 교란, MOMA와 ROOM](supplements/perturbation-analysis.md)
 * [Chapter 5. 모델 구축과 품질 관리](chapter-5/README.md)
   * [1. 재구축의 전체 그림: 초안에서 금 표준까지](chapter-5/01.md)
-  * [2. 유전자 주석과 동원성 검색 (Genome Annotation and Homology Search)](chapter-5/02.md)
+  * [2. 유전자 주석과 상동성 검색 (Genome Annotation and Homology Search)](chapter-5/02.md)
   * [3. 수동 재구축: Thiele & Palsson 96단계 프로토콜](chapter-5/03.md)
   * [4. 자동화 대사 모델 구축](chapter-5/04.md)
   * [5. Gap-Filling 알고리즘](chapter-5/05.md)

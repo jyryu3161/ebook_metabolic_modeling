@@ -1,263 +1,253 @@
-# 실습: COBRApy로 GPR·구획·바이오매스·경계 반응 탐색하기
+# 실습: COBRApy로 모델 구조 검증하기
 
-> 💡 **실습:** 아래 코드는 핵심 개념만 담은 발췌본입니다. 전체 실습(GPR 파싱 클래스, 구획별 반응 카운트 시각화, 자동 재구축 모델 비교 등)은 `raw_data/GEM_lecture_notes/gem9_w02_lab.ipynb`에서 확인할 수 있습니다. 아래 예시는 [Chapter 1](../chapter-1/README.md)에서 처음 불러온 COBRApy 내장 예제 모델 `e_coli_core`(95개 반응·72개 대사물·137개 유전자·2개 구획)를 그대로 다시 사용합니다.
+## 재현 환경
 
-**1) GPR 문자열 조회와 간단한 파싱**
+이 실습의 기대 출력은 다음 환경에서 확인하였다.
+
+- Python 3.10
+- COBRApy 0.30.0
+- `cobra.io.load_model("textbook")`로 불러온 `e_coli_core`
+- optlang GLPK 인터페이스
+
+원격 예제 모델은 갱신될 수 있다. 장기 재현이 필요하면 사용한 SBML 파일, 패키지 잠금 파일과 파일 해시를 함께 보존한다.
 
 ```python
+import ast
+from collections import Counter
+
+import cobra
 from cobra.io import load_model
-import re
+from cobra.manipulation.delete import knock_out_model_genes
 
 model = load_model("textbook")
 
-print(f"Model: {model.id}")
-print(f"Reactions: {len(model.reactions)}, Genes: {len(model.genes)}")
-
-# 2.1~2.2절의 네 가지 GPR 유형을 대표하는 반응을 골라서 조회
-# (gene_reaction_rule은 b-번호 locus tag를, gene_name_reaction_rule은 읽기 쉬운 유전자명을 돌려줍니다)
-for rid in ["PGK", "PGL", "PFK", "PDH", "SUCDi"]:
-    rxn = model.reactions.get_by_id(rid)
-    print(f"  {rxn.id}: {rxn.gene_name_reaction_rule}")
-
-# 기대 출력:
-# Model: e_coli_core
-# Reactions: 95, Genes: 137
-#   PGK: pgk
-#   PGL: pgl
-#   PFK: pfkA or pfkB
-#   PDH: aceF and aceE and lpd
-#   SUCDi: sdhA and sdhC and sdhD and sdhB
+print(cobra.__version__)
+print(model.id)
+print(len(model.reactions), len(model.metabolites), len(model.genes))
+print(model.solver.interface.__name__)
 ```
 
-`PGK`·`PGL`은 단일 유전자, `PFK`의 `pfkA or pfkB`는 2.1절의 OR(동위 효소) 관계, `PDH`의 `aceF and aceE and lpd`와 `SUCDi`의 4-소단위 규칙은 AND(복합체) 관계입니다 — `SUCDi`는 사실 Table 2.1의 $$R_2$$(석신산 탈수소효소, sdhA/B/C/D)와 정확히 같은 반응입니다. 전체 모델에 대해 이 관계들을 분류하면 다음과 같은 통계를 얻습니다.
+기준 출력은 COBRApy 0.30.0, 모델 ID `e_coli_core`, 반응 95개, 대사물 72개, 유전자 137개이다.
+
+## 1. GPR을 구문 트리로 분류하기
+
+GPR 문자열에 단순히 `" and "` 또는 `" or "`가 포함되어 있는지 찾으면 중첩식, 공백, 유전자 ID 표현에 취약하다. COBRApy가 이미 만든 GPR 구문 트리를 순회하면 AND와 OR 연산자를 안전하게 분류할 수 있다.
 
 ```python
-def classify_gpr(gpr_string):
-    """GPR 문자열의 AND/OR 유형을 분류 (단순화된 파서)"""
-    has_and = " and " in gpr_string.lower()
-    has_or = " or " in gpr_string.lower()
-    return has_and, has_or
-
-stats = {"single": 0, "isozyme": 0, "complex": 0, "no_gpr": 0}
-for rxn in model.reactions:
-    rule = rxn.gene_name_reaction_rule
+def classify_gpr(reaction):
+    rule = reaction.gene_reaction_rule.strip()
     if not rule:
-        stats["no_gpr"] += 1
-        continue
-    has_and, has_or = classify_gpr(rule)
+        return "no_gpr"
+
+    nodes = list(ast.walk(reaction.gpr))
+    has_and = any(isinstance(node, ast.And) for node in nodes)
+    has_or = any(isinstance(node, ast.Or) for node in nodes)
+
+    if has_and and has_or:
+        return "mixed"
+    if has_and:
+        return "and_only"
     if has_or:
-        stats["isozyme"] += 1
-    elif has_and:
-        stats["complex"] += 1
-    else:
-        stats["single"] += 1
+        return "or_only"
+    return "single"
 
-print(stats)
-# 기대 출력 (e_coli_core 기준):
-# {'single': 27, 'isozyme': 32, 'complex': 10, 'no_gpr': 26}
+
+counts = Counter(classify_gpr(reaction) for reaction in model.reactions)
+for category in ["no_gpr", "single", "or_only", "and_only", "mixed"]:
+    print(f"{category:>8}: {counts[category]}")
 ```
 
-{% hint style="info" %}
-💡 **팁:** `load_model("textbook")`은 캐시에 모델이 없으면 원격 모델 저장소에서 내려받습니다. 원격 자산은 갱신될 수 있으므로, 위 통계 `{'single': 27, 'isozyme': 32, 'complex': 10, 'no_gpr': 26}`은 이 책을 검산한 COBRApy 0.30.0·`e_coli_core` 스냅숏의 기준값으로 읽으십시오. 엄밀한 재현에는 환경 구축 안내처럼 실제 SBML과 SHA256을 보존해야 합니다. 반면 2.5절 Table 2.3의 iML1515 GPR 분포(대략값, %)는 원 논문(Monk et al., 2017)에 보고된 스냅숏입니다.
-{% endhint %}
+기대 결과는 다음과 같다.
 
-**2) 손 계산을 코드로 재현하기: 유전자 결손 시뮬레이션**
-
-2.3절에서 손으로 계산했던 GPR 판정을, 이번에는 코드로 재현해 봅니다. 실제 결과가 손 계산과 일치하는지 직접 확인해 보세요.
-
-```python
-def simulate_knockout(gpr_rule, knocked_out_genes):
-    """GPR 문자열과 결손 유전자 집합을 받아 반응의 ON/OFF를 판정 (단순 OR-only / AND-only 케이스)"""
-    if not gpr_rule:
-        return True, "GPR 없음 (자발 반응)"
-    if " or " in gpr_rule.lower() and " and " not in gpr_rule.lower():
-        genes = {g.strip() for g in re.split(r"\s+or\s+", gpr_rule, flags=re.I)}
-        remaining = genes - set(knocked_out_genes)
-        return (True, f"동위 효소 {remaining} 생존") if remaining else (False, "모든 동위 효소 결손")
-    if " and " in gpr_rule.lower() and " or " not in gpr_rule.lower():
-        genes = {g.strip() for g in re.split(r"\s+and\s+", gpr_rule, flags=re.I)}
-        missing = genes & set(knocked_out_genes)
-        return (False, f"필수 소단위 {missing} 결손") if missing else (True, "복합체 완전")
-    return None, "중첩 AND/OR — 2.3절처럼 손으로 괄호 단위로 계산 필요"
-
-pfk_rule = model.reactions.get_by_id("PFK").gene_name_reaction_rule
-pdh_rule = model.reactions.get_by_id("PDH").gene_name_reaction_rule
-
-print(simulate_knockout(pfk_rule, ["pfkA"]))
-print(simulate_knockout(pfk_rule, ["pfkA", "pfkB"]))
-print(simulate_knockout(pdh_rule, ["aceE"]))
-
-# 기대 출력:
-# (True, "동위 효소 {'pfkB'} 생존")
-# (False, '모든 동위 효소 결손')
-# (False, "필수 소단위 {'aceE'} 결손")
+```text
+  no_gpr: 26
+   single: 27
+  or_only: 27
+ and_only: 10
+    mixed: 5
 ```
 
-**3) 구획별 반응·대사물 카운트**
+따라서 GPR이 있는 반응은 69개이다. OR을 포함한 반응을 모두 “OR-only”로 세면 mixed 5개가 중복되므로, 범주를 상호 배타적으로 정의해야 한다. 비율의 분모도 명시한다. 예를 들어 OR-only는 전체 반응 기준 $$27/95$$이고, GPR 연관 반응 기준 $$27/69$$이다.
+
+빈 GPR은 “유전자 연관 규칙이 기록되어 있지 않다”는 뜻이다. Exchange와 바이오매스 같은 비효소 반응, 알려지지 않은 효소, 자발 반응, 주석 누락이 모두 이 범주에 들어갈 수 있다. 따라서 빈 GPR을 곧바로 자발 반응으로 해석하지 않는다.
+
+대표 반응의 규칙도 확인한다.
 
 ```python
-for comp_id, comp_name in model.compartments.items():
-    rxn_count = sum(1 for r in model.reactions if comp_id in r.compartments)
-    met_count = sum(1 for m in model.metabolites if m.compartment == comp_id)
-    print(f"{comp_id} ({comp_name}): reactions={rxn_count}, metabolites={met_count}")
-
-# 기대 출력:
-# c (cytosol): reactions=75, metabolites=52
-# e (extracellular): reactions=45, metabolites=20
+for reaction_id in ["PGK", "PFK", "PDH", "SUCDi"]:
+    reaction = model.reactions.get_by_id(reaction_id)
+    print(reaction.id, reaction.gene_reaction_rule,
+          reaction.gene_name_reaction_rule, classify_gpr(reaction))
 ```
 
-대사물 수(52 + 20 = 72)는 정확히 전체 대사물 수와 일치합니다 — 대사물은 반드시 하나의 구획에만 속하기 때문입니다. 그러나 반응 수(75 + 45 = 120)는 전체 반응 수(95)보다 많습니다. 이는 이중 계산이 아니라 **4절에서 다룰 운송·경계 반응이 두 구획에 동시에 걸쳐 있어서** `c in r.compartments`와 `e in r.compartments`를 둘 다 만족하기 때문입니다 — 즉 이 코드 자체가 "구획 간 반응은 한 구획에만 속하지 않는다"는 3.4절의 블록-구조 논리를 그대로 보여주는 셈입니다. `e_coli_core`는 축소 모델이라 구획이 `c`(세포질)와 `e`(세포외) 둘뿐입니다. `p`(주변세포질)를 포함하는 전체 규모의 iML1515나 8개 이상 구획을 가진 Recon3D에서는 동일한 코드가 훨씬 더 많은 행을 출력합니다.
+`PFK`는 `pfkA or pfkB`, `PDH`와 `SUCDi`는 효소 소단위 사이의 AND 관계를 보여준다.
 
-같은 숫자를 텍스트 막대그래프로 바로 확인할 수도 있습니다.
+## 2. GPR을 안전하게 평가하기
+
+`reaction.gpr.eval()`은 결손 유전자 **ID 집합**을 받아 규칙의 참·거짓을 계산한다. 여기서 참은 유전자 기능 가용성에 따른 구조적 판정이며, 발현량이나 효소 활성의 크기를 뜻하지 않는다.
 
 ```python
-counts = {"c (cytosol)": 52, "e (extracellular)": 20}
-max_count = max(counts.values())
-for label, n in counts.items():
-    bar = "█" * int(40 * n / max_count)
-    print(f"{label:>20}: {bar} ({n})")
+gene_id_by_name = {gene.name: gene.id for gene in model.genes}
+pfk = model.reactions.get_by_id("PFK")
 
-# 기대 출력:
-#          c (cytosol): ████████████████████████████████████████ (52)
-#   e (extracellular): ███████████████                          (20)
+pfk_a = gene_id_by_name["pfkA"]
+pfk_b = gene_id_by_name["pfkB"]
+
+print(pfk.gpr.eval({pfk_a}))
+print(pfk.gpr.eval({pfk_a, pfk_b}))
 ```
 
-이 막대그래프는 `e_coli_core`의 대사물 중 약 72%(52/72)가 세포질에, 나머지 28%가 세포외 구획에 있음을 시각적으로 보여줍니다.
+기대 결과는 각각 `True`와 `False`이다. `pfkA`만 결손되면 `pfkB`가 규칙을 만족하지만 두 유전자가 모두 결손되면 PFK가 비활성화된다.
 
-**4) 바이오매스 반응과 NGAM(ATPM) 조회**
-
-```python
-biomass_rxn = model.reactions.get_by_id("Biomass_Ecoli_core")
-print(f"목적함수 반응: {biomass_rxn.id}")
-print(f"전구체(반응물+생성물) 대사물 종류 수: {len(biomass_rxn.metabolites)}")
-print(f"ATP 계수(GAM): {biomass_rxn.metabolites[model.metabolites.get_by_id('atp_c')]}")
-
-atpm_rxn = model.reactions.get_by_id("ATPM")
-print(f"ATPM 하한(NGAM, mmol/gDW/h): {atpm_rxn.lower_bound}")
-
-solution = model.optimize()
-print(f"최적 성장률 mu: {solution.objective_value:.4f} h-1")
-
-# 기대 출력:
-# 목적함수 반응: Biomass_Ecoli_core
-# 전구체(반응물+생성물) 대사물 종류 수: 23
-# ATP 계수(GAM): -59.81
-# ATPM 하한(NGAM, mmol/gDW/h): 8.39
-# 최적 성장률 mu: 0.8739 h-1
-```
-
-이 결과는 6.3절의 danger 콜아웃에서 설명한 대로, `e_coli_core`의 실제 NGAM(8.39)이 문헌에서 흔히 인용되는 3.15와 다르다는 것을 직접 보여줍니다. 이 성장률(μ ≈ 0.874 h⁻¹)을 어떻게 계산하는지는 [Chapter 4](../chapter-4/README.md)에서 본격적으로 다룹니다.
-
-**5) 경계 반응(exchange/demand/sink) 조회와 운송 반응 식별**
+실제 모델의 반응 bounds까지 바꾸려면 COBRApy의 유전자 결손 함수를 사용한다. 변경은 컨텍스트 안에서 수행하여 원본 모델을 복원한다.
 
 ```python
-print(f"Exchange 반응 수: {len(model.exchanges)}")   # 20
-print(f"Demand 반응 수:   {len(model.demands)}")      # 0 (e_coli_core에는 없음)
-print(f"Sink 반응 수:     {len(model.sinks)}")        # 0
+original_bounds = pfk.bounds
 
-# 운송 반응: 서로 다른 두 구획에 걸친 대사물을 가진 반응
-transport = [r for r in model.reactions
-             if len({m.compartment for m in r.metabolites}) > 1
-             and len(r.metabolites) > 1]
-print(f"운송 반응 수: {len(transport)}")
-
-# 기대 출력:
-# Exchange 반응 수: 20
-# Demand 반응 수:   0
-# Sink 반응 수:     0
-# 운송 반응 수: 25
-```
-
-95개 반응 중 20개가 exchange, 25개가 운송, 나머지 50개가 세포질 내부 반응으로 분류됩니다(20 + 25 + 50 = 95, 이번에는 겹침 없이 정확히 나뉩니다 — 앞의 3)번 코드와 달리 여기서는 각 반응을 "경계／운송／내부" 중 **하나의 범주로만** 배정했기 때문입니다). 이는 3~5절에서 다룬 "내부 반응 vs 운송 vs 경계 반응"이라는 삼분류가 실제 모델 파일에서 그대로 코드로 확인된다는 것을 보여줍니다.
-
-**6) 2.8절의 GPR 트리 평가 알고리즘을 코드로 구현하기**
-
-앞의 1)~2)번 코드는 "AND만" 또는 "OR만" 있는 단순한 GPR만 처리했습니다. 이번에는 2.8절에서 손으로 계산했던 **중첩된 AND/OR**까지 처리할 수 있는 일반적인 재귀 평가기를 직접 구현해 봅니다. 이 코드는 외부 라이브러리 없이 순수 Python 문자열 파싱만으로 2.1절의 $$\min$$/$$\max$$ 규칙을 그대로 구현합니다.
-
-```python
-import re
-
-
-def tokenize(rule):
-    """공백을 기준으로 괄호·and·or·유전자명을 토큰으로 분리"""
-    return re.findall(r"\(|\)|and|or|[A-Za-z0-9_]+", rule, flags=re.I)
-
-
-def parse_and_eval(tokens, knocked_out):
-    """재귀 하향 파서: 가장 안쪽 괄호부터 2.1절의 min/max 규칙으로 접어 나간다"""
-    values, ops = [], []
-
-    def apply_top():
-        b, a = values.pop(), values.pop()
-        op = ops.pop()
-        values.append(min(a, b) if op == "and" else max(a, b))
-
-    while tokens:
-        tok = tokens.pop(0)
-        if tok == "(":
-            values.append(parse_and_eval(tokens, knocked_out))
-        elif tok == ")":
-            break
-        elif tok.lower() in ("and", "or"):
-            ops.append(tok.lower())
-        else:
-            values.append(0 if tok in knocked_out else 1)
-        if len(values) == 2 and ops:
-            apply_top()
-    return values[0] if values else 1
-
-
-def evaluate_gpr(rule, knocked_out_genes):
-    if not rule:
-        return True
-    tokens = tokenize(rule)
-    return bool(parse_and_eval(tokens, set(knocked_out_genes)))
-
-
-# 2.8절의 3단 중첩 예제를 그대로 코드로 검산
-nested_rule = "((geneA and geneB) or geneC) and (geneD or geneE)"
-print(evaluate_gpr(nested_rule, ["geneA", "geneC"]))   # False (2.8절 손 계산과 일치)
-print(evaluate_gpr(nested_rule, ["geneA"]))              # True  (geneC가 살아있어 좌측 항이 유지됨)
-
-# 2.3절의 진리표 시나리오 ④도 재검산
-r233 = "(geneA and geneB) or geneC"
-print(evaluate_gpr(r233, ["geneA", "geneC"]))            # False (Table 2.2의 시나리오 ④)
-print(evaluate_gpr(r233, ["geneA"]))                      # True  (Table 2.2의 시나리오 ②)
-
-# 기대 출력:
-# False
-# True
-# False
-# True
-```
-
-{% hint style="info" %}
-💡 **팁:** 위 `evaluate_gpr` 함수는 교육 목적의 최소 구현이라 괄호 짝이 어긋나거나 잘못된 토큰이 섞인 GPR 문자열에 대해서는 오류를 내지 않고 조용히 틀린 값을 돌려줄 수 있습니다. 실무에서는 이런 손수 짠 파서 대신 COBRApy가 내부적으로 제공하는 GPR 파서(`cobra.core.gene.GPR` 클래스, 최신 버전 기준)를 사용하는 것이 안전합니다 — 원리를 이해하는 용도로는 위 코드만으로 충분합니다.
-{% endhint %}
-
-**7) 5.2절의 Demand 반응을 직접 추가해 보기**
-
-5.2절에서 배운 Demand 반응이 실제로 무엇을 하는지 확인하기 위해, `e_coli_core`에는 원래 없는 Demand 반응을 하나 추가하고 최대 생산 가능량을 테스트해 봅니다.
-
-```python
-# ATP를 최종 산물처럼 배출하는 가상의 demand 반응을 추가
-atp_demand = model.add_boundary(
-    model.metabolites.get_by_id("atp_c"), type="demand"
-)
-print(f"추가된 반응: {atp_demand.id}, bounds={atp_demand.bounds}")
-
-# 이 demand 반응을 목적함수로 잠시 바꿔 "ATP 최대 생산 능력"을 테스트
 with model:
-    model.objective = atp_demand
-    max_atp = model.optimize().objective_value
-    print(f"ATP 최대 배출 가능량: {max_atp:.2f} mmol/gDW/h")
-# with 블록을 벗어나면 목적함수는 자동으로 원래(바이오매스)로 복원됩니다
+    disabled = knock_out_model_genes(model, [pfk_a, pfk_b])
+    print("PFK" in {reaction.id for reaction in disabled})
+    print(model.reactions.get_by_id("PFK").bounds)
 
-# 기대 출력(예):
-# 추가된 반응: DM_atp_c, bounds=(0, 1000.0)
-# ATP 최대 배출 가능량: 175.00 mmol/gDW/h
+assert model.reactions.get_by_id("PFK").bounds == original_bounds
 ```
 
-`model.add_boundary(..., type="demand")`는 5.2절 Table 5.2에서 설명한 접두사 규칙에 따라 자동으로 `DM_` 접두사가 붙은 반응을 만들고, 기본 bounds를 $$(0, 1000)$$으로 설정합니다 — 정확히 "비가역(배출만)"이라는 Demand의 정의와 일치합니다. `with model:` 구문은 COBRApy의 컨텍스트 매니저로, 블록 안에서의 모델 변경(목적함수 교체 등)이 블록을 벗어나는 순간 자동으로 되돌아가게 해 줍니다 — 이 덕분에 원본 모델을 훼손하지 않고 "만약 ~라면?"을 안전하게 테스트할 수 있습니다.
+두 유전자 결손 조건에서는 `PFK`가 비활성 반응 목록에 포함되고 bounds가 $$(0,0)$$이 된다. 문자열을 직접 분할해 만든 파서는 연산자 우선순위, 괄호, 유전자 ID를 잘못 처리할 수 있으므로 사용하지 않는다.
 
----
+## 3. 구획과 반응 범주 확인하기
+
+대사물은 하나의 구획 라벨을 갖지만, 운송 반응은 여러 구획의 대사물을 포함한다. 따라서 구획별 반응 수의 합은 전체 반응 수보다 클 수 있다.
+
+```python
+for compartment_id, compartment_name in model.compartments.items():
+    metabolite_count = sum(
+        metabolite.compartment == compartment_id
+        for metabolite in model.metabolites
+    )
+    reaction_count = sum(
+        compartment_id in reaction.compartments
+        for reaction in model.reactions
+    )
+    print(compartment_id, compartment_name,
+          metabolite_count, reaction_count)
+```
+
+`e_coli_core`에는 `c`와 `e` 두 라벨이 있으며, 대사물 수는 각각 52와 20이다. 각 구획에 걸친 반응은 각각 75와 45개로 세어지며 운송 반응이 양쪽에 중복 집계된다.
+
+경계 반응, 다중 구획 반응, 그 밖의 반응을 서로 겹치지 않게 분류할 수 있다.
+
+```python
+boundary_ids = {reaction.id for reaction in model.boundary}
+transport_ids = {
+    reaction.id
+    for reaction in model.reactions
+    if reaction.id not in boundary_ids
+    and len(reaction.compartments) > 1
+}
+other_ids = {
+    reaction.id for reaction in model.reactions
+    if reaction.id not in boundary_ids | transport_ids
+}
+
+print(len(boundary_ids), len(transport_ids), len(other_ids))
+print(len(model.exchanges), len(model.demands), len(model.sinks))
+```
+
+기대 결과는 `20 25 50`과 `20 0 0`이다. 마지막 50개는 경계도 다중 구획 운송도 아닌 반응이다. 이 집합에는 일반적인 세포질 대사 반응뿐 아니라 바이오매스와 ATP 유지처럼 단일 구획에 놓인 의사 반응도 포함되므로 모두를 “대사 반응”이라고 부르지 않는다.
+
+이 분류는 서로 다른 구획의 대사물을 포함하는 반응을 운송 반응으로 보는 구조적 기준이다. 모델의 방향성 또는 운송 기작을 판정하려면 반응식과 주석을 추가로 확인한다.
+
+## 4. 바이오매스 반응과 유지 에너지 확인하기
+
+```python
+biomass = model.reactions.get_by_id("Biomass_Ecoli_core")
+atpm = model.reactions.get_by_id("ATPM")
+
+print(biomass.id)
+print(len(biomass.metabolites))
+print(sorted({met.compartment for met in biomass.metabolites}))
+print(biomass.objective_coefficient)
+
+for metabolite_id in ["atp_c", "h2o_c", "adp_c", "pi_c", "h_c"]:
+    metabolite = model.metabolites.get_by_id(metabolite_id)
+    print(metabolite_id, biomass.metabolites.get(metabolite, 0.0))
+
+print("ATPM bounds:", atpm.bounds)
+solution = model.optimize()
+print(solution.status, round(solution.objective_value, 4))
+```
+
+이 스냅샷에서 BOF는 23개 대사물을 포함하고 세포질 대사물만 사용하며 목적계수는 1이다. ATP와 물의 계수는 각각 $$-59.81$$이고 ADP, 인산, 양성자의 계수는 각각 $$+59.81$$이다. 이 묶음은 BOF에 포함된 **ATP 가수분해 항(GAM 관례)**으로 읽을 수 있다. 일반 모델에서는 ATP가 조성 전구체로도 쓰일 수 있으므로 ATP 계수 하나만으로 GAM을 판정하지 않는다. `ATPM` 하한은 8.39이며, 기본 배지에서 최적 목적값은 약 $$0.8739\ \mathrm{h^{-1}}$$이다.
+
+## 5. 배지 전환을 동일 모델에서 비교하기
+
+각 조건은 컨텍스트 안에서 bounds만 바꾼다. 아래의 탄소원 결핍 조건은 탄소 원자를 포함하는 모든 exchange 대사물의 흡수를 보수적으로 닫는다.
+
+```python
+def growth_rate(current_model):
+    solution = current_model.optimize()
+    value = solution.objective_value if solution.status == "optimal" else None
+    return solution.status, value
+
+
+print("aerobic", growth_rate(model))
+
+with model:
+    model.reactions.get_by_id("EX_o2_e").lower_bound = 0.0
+    print("anaerobic", growth_rate(model))
+
+with model:
+    for exchange in model.exchanges:
+        boundary_metabolite = next(iter(exchange.metabolites))
+        if boundary_metabolite.elements.get("C", 0) > 0:
+            exchange.lower_bound = 0.0
+    print("no carbon uptake, NGAM on", growth_rate(model))
+
+    model.reactions.get_by_id("ATPM").lower_bound = 0.0
+    print("no carbon uptake, NGAM off", growth_rate(model))
+```
+
+기준 모델의 호기·무산소 목적값은 각각 약 0.8739와 0.2117이다. 모든 탄소 함유 exchange의 흡수를 닫고 NGAM 하한 8.39를 유지하면 모델은 `infeasible`이다. 탄소 공급 없이 기저 ATP 소비까지 만족할 수 없기 때문이다. 같은 조건에서 `ATPM` 하한을 0으로 완화하면 최적해가 존재하고 성장률은 0이다. 이 대조는 “성장하지 않는다”와 “모든 제약을 만족하는 정상상태 자체가 없다”를 구분한다. 다른 모델에서는 CO$$_2$$ 고정 경로, 열려 있는 sink 또는 다른 탄소원 때문에 결과가 달라질 수 있다.
+
+## 6. Demand 반응을 누출 없이 시험하기
+
+새 반응을 컨텍스트 밖에서 추가하면 목적함수만 복원되고 반응은 모델에 남는다. 반응 생성부터 목적함수 변경까지 모두 컨텍스트 안에서 수행한다.
+
+```python
+reaction_ids_before = {reaction.id for reaction in model.reactions}
+
+with model:
+    atp_demand = model.add_boundary(
+        model.metabolites.get_by_id("atp_c"),
+        type="demand",
+    )
+    model.objective = atp_demand
+    demand_solution = model.optimize()
+    print(atp_demand.id, atp_demand.bounds)
+    print(demand_solution.status, demand_solution.objective_value)
+
+reaction_ids_after = {reaction.id for reaction in model.reactions}
+assert reaction_ids_after == reaction_ids_before
+assert "DM_atp_c" not in reaction_ids_after
+```
+
+이 계산은 ATP 농도나 축적량이 아니라, 주어진 정상상태 제약에서 ATP를 demand로 제거할 수 있는 최대 속도를 구한다. 컨텍스트를 벗어난 뒤 반응 ID 집합이 원래와 같다는 assertion이 모델 변경의 누출을 검사한다.
+
+## 7. 전체 검산
+
+```python
+assert counts == Counter({
+    "no_gpr": 26,
+    "single": 27,
+    "or_only": 27,
+    "and_only": 10,
+    "mixed": 5,
+})
+assert len(model.reactions) == 95
+assert len(model.metabolites) == 72
+assert len(model.genes) == 137
+assert abs(model.reactions.get_by_id("ATPM").lower_bound - 8.39) < 1e-12
+assert abs(model.optimize().objective_value - 0.8739) < 1e-4
+```
+
+패키지 또는 예제 모델 버전이 달라 assertion이 실패하면 기대값을 즉시 덮어쓰지 말고, 모델 파일과 solver, 기본 배지, 목적함수 및 bounds의 차이를 먼저 기록한다.

@@ -6,7 +6,7 @@
 
 [Chapter 1](../chapter-1/README.md)부터 [Chapter 9](../chapter-9/README.md)까지 우리는 대사모델링의 개념을 층층이 쌓아 왔다. 대사 네트워크가 무엇인지([Chapter 1](../chapter-1/README.md)), 그것을 화학량론 행렬 $$\mathbf{S}$$로 어떻게 표현하는지([Chapter 2](../chapter-2/README.md)), 그 행렬에 GPR·구획·바이오매스로 생물학적 정체성을 부여하는 법([Chapter 3](../chapter-3/README.md)), 그렇게 완성된 모델로 세포의 행동을 예측하는 FBA([Chapter 4](../chapter-4/README.md)), 모델 자체를 만들고 검증하는 절차([Chapter 5](../chapter-5/README.md)), omics 데이터 통합([Chapter 6](../chapter-6/README.md)), 질병·표적 발굴([Chapter 7](../chapter-7/README.md)), 균주 설계([Chapter 8](../chapter-8/README.md)), 그리고 이 모든 것 위에 얹히는 머신러닝([Chapter 9](../chapter-9/README.md))까지, 아홉 개 장에 걸쳐 이론과 응용을 서술했다.
 
-그런데 이론을 읽고 "이해했다"고 느끼는 것과, 직접 코드를 실행해서 **같은 숫자가 재현되는지 눈으로 확인하는 것** 사이에는 큰 차이가 있다. 예를 들어 [Chapter 4](../chapter-4/README.md)에서 "e_coli_core의 최대 성장률은 약 0.87 h⁻¹이다"라는 문장을 읽는 것과, 직접 `model.optimize()`를 실행해 `0.873921507`이라는 숫자가 화면에 뜨는 것을 보는 것은 학습 효과가 다르다. 후자에서만 solver 버전, bound 설정, 목적함수 방향 같은 "숨어 있던 선택들"이 눈에 보이기 시작한다.
+계산 결과는 solver, 모델 버전, flux bound, 목적함수 방향에 의존한다. 예를 들어 [Chapter 4](../chapter-4/README.md)의 기본 `e_coli_core` 조건에서 `model.optimize()`는 약 `0.873921507 h^-1`의 성장률을 반환하지만, 이 값은 실행 환경과 조건을 함께 기록해야 재현·비교할 수 있다.
 
 이 장은 새로운 이론을 소개하지 않는다. 대신 앞선 아홉 개 장에서 각각 다른 절에 흩어져 있던 계산 — FBA, pFBA, FVA, 유전자 결손, MOMA, ROOM, MILP, gap-filling, production envelope, SBML — 을 **하나의 노트북 흐름**으로 이어 붙인다. 각 절은 독립적으로도 읽을 수 있지만, §1부터 §13까지 순서대로 실행하면 `model`과 `results`라는 두 변수가 계속 자라나면서 장 전체가 하나의 재현 가능한 실험 기록이 된다. 다음은 그 흐름을 요약한 다이어그램이다.
 
@@ -26,6 +26,8 @@ flowchart TD
     L --> M["§13 JSON provenance"]
     M --> N["§14 미니 프로젝트"]
 ```
+
+*그림 10.1. 제10장의 재현 가능한 노트북 흐름. 버전·solver·모델을 기록한 뒤 COBRApy 객체와 경계조건을 확인하고, FBA 계열 분석·섭동·MILP·gap-filling·production envelope를 순서대로 실행하며, 마지막에는 SBML 왕복·해시와 JSON provenance로 계산 상태를 보존합니다. 화살표는 셀의 데이터 의존성을 뜻합니다. 출처: 저자 자체 제작; 이 저장소의 튜토리얼 구조를 요약한 도식이며 외부 그림을 재사용하지 않았습니다.*
 
 이 장의 목적은 API 이름을 외우는 것이 아니다. 각 계산에서 다음 네 질문에 답하는 습관을 만드는 것이 목적이다. 이 네 질문은 이 장 안에서만 유효한 규칙이 아니라, [Chapter 4](../chapter-4/README.md)의 FBA든 [Chapter 8](../chapter-8/README.md)의 균주 설계든 어떤 제약 기반 계산에도 적용되는 일반적인 습관이다.
 

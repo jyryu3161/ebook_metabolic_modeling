@@ -10,6 +10,8 @@ flowchart LR
     B --> C["3) production envelope로<br/>growth-coupled 판정 (§7)"]
 ```
 
+*그림 8.8. 제8장 실습 파이프라인. `e_coli_core` 단일 유전자 결손 스크리닝으로 후보를 고른 뒤 같은 결손을 FBA·MOMA·ROOM의 서로 다른 상태 가정으로 비교하고, 마지막으로 production-envelope 하한에서 성장 결합 여부를 판정합니다. 출처: 저자 자체 제작; 계산 구현은 아래 COBRApy 0.30.0 실습 코드이며 외부 그림을 재사용하지 않았습니다.*
+
 전체 실행 가능한 예제와 시각화는 실습 노트북 `gem9_w04_lab.ipynb`에 있습니다. 아래 코드는 그 핵심 흐름을 압축한 것으로, 그대로 복사해 실행할 수 있습니다.
 
 ## 파이프라인 코드
@@ -67,7 +69,7 @@ print(max_growth_row[[biomass_id, "flux_minimum", "flux_maximum"]])
 - FBA는 같은 mutant feasible space에서 성장을 직접 최대화하므로 MOMA·ROOM 성장률보다 작을 수는 없습니다. 그러나 **MOMA와 ROOM 사이의 성장률 순서는 보장되지 않습니다.**
 - `moma()`·`room()`의 `objective_value`는 **성장률이 아니라** 각각 "거리"와 "바뀐 반응 수"입니다. 성장률은 반드시 바이오매스 flux(`sol.fluxes[biomass_id]`)에서 읽어야 합니다.
 - 위 코드는 실행 시간을 위해 COBRApy의 zero-tolerance linear ROOM 변형을 사용했습니다. 정확한 ROOM MILP는 `linear=False`와 tolerance를 명시하며 GLPK에서 오래 걸릴 수 있습니다.
-- 3단계에서 최대 생장점의 `flux_minimum`이 0이므로, 이 야생형 모델은 아세테이트 생산에 growth-coupled되어 있지 않습니다(§7.1 그림 8.5와 일치).
+- 3단계에서 최대 생장점의 `flux_minimum`이 0이므로, 이 야생형 모델은 아세테이트 생산에 growth-coupled되어 있지 않습니다(§7.1 그림 8.7과 일치).
 
 {% hint style="info" %}
 💡 **팁:** genome-scale 모델(예: iML1515)로 확장할 때는 후보 유전자를 먼저 좁히고(§2.4의 조합 폭발 문제 참고), MILP solver·시간 제한·optimality gap을 명시하십시오. Gurobi/CPLEX 같은 상용 솔버는 GLPK보다 MILP를 훨씬 빠르게 풉니다.

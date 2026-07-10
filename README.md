@@ -1,22 +1,22 @@
 # 게놈 규모 대사 모델링 (Genome-scale Metabolic Modeling)
 
-> 미생물부터 인체 세포까지, 대사 네트워크를 수학으로 읽고 예측하는 법
+> 화학량론적 재구축에서 제약 기반 분석과 실험 검증까지
 
-이 책은 **게놈 규모 대사 모델(Genome-scale Metabolic Model, GEM)** 을 처음 접하는 학부생·대학원생·연구자를 위한 한국어 교재입니다. 대사와 대사 네트워크의 기초에서 출발하여, 이를 행렬로 표현하고, 제약 기반 최적화([FBA](chapter-4/README.md))로 세포의 대사 흐름을 예측하며, 모델을 구축·검증하고, 오믹스 데이터를 통합해 질병·세포공장·인공지능 응용으로 확장하는 전 과정을 다룹니다.
+이 책은 **게놈 규모 대사 모델(genome-scale metabolic model, GEM)**을 다루는 학부 고학년·대학원 입문 수준의 한국어 교재이다. 생화학 반응을 화학량론 행렬로 표현하고, 제약 기반 분석으로 가능한 플럭스 상태를 계산하며, 재구축과 품질관리, 오믹스 맥락화, 질병·세포공장·미생물군집·AI 응용으로 확장하는 과정을 다룬다. 모델의 출력은 명시된 배지·경계조건·목적함수에 따른 조건부 예측이며, 실험 관찰과 구분하여 해석한다.
 
 ## 이 책의 특징
 
-* **개념 + 수식 + 코드의 3중 서술** — 각 개념을 직관적 비유와 수학적 정형화로 설명한 뒤, 검산한 [COBRApy](https://opencobra.github.io/cobrapy/) 실행 예제 또는 구현 원리를 보여 주는 명시적 의사코드로 확인합니다.
-* **실습 중심** — 주요 개념마다 `💡 실습` 블록으로 재현 가능한 예제와 해석 기준을 제공합니다.
-* **최적화를 눈으로 확인** — LP 가능 영역, QP MOMA 투영, ROOM의 MILP 허용구간, FVA와 production envelope를 재현 가능한 그림으로 연결하고, Jupyter에서 Plotly·widget 예제를 직접 조작합니다.
-* **상호 연결된 개념** — 핵심 용어는 처음 정의된 챕터로 링크되어 있으며, 권말 [핵심 용어집](glossary.md)에서 한눈에 찾아볼 수 있습니다.
-* **심화 보충 자료** — SBML 저장·교환, 오믹스 데이터 통계, 유전자 교란(MOMA/ROOM) 등 심화 주제는 별도 보충 페이지로 연결했습니다. 강의 PPT와의 대응은 [PPT–전자책 대응표](lecture-coverage-map.md)에서 확인할 수 있습니다.
-* **원 논문의 결론과 한계를 함께 읽기** — FBA, FVA, pFBA, MOMA, ROOM, OptKnock, tINIT 등은 [대표 논문 가이드](landmark-papers.md)에서 “질문–방법–검증–결론–한계” 형식으로 비교합니다.
+* **정의–가정–수식–해석의 일관된 전개** — 대사물·반응·플럭스의 단위와 모델 경계를 먼저 정의하고, 각 방법의 가정과 적용 범위를 명시한다.
+* **재현 가능한 계산** — [COBRApy](https://opencobra.github.io/cobrapy/) 예제에 모델·solver·배지·목적함수와 검산 기준을 기록하고, 모식도와 실제 계산 결과를 구분한다.
+* **수학적 기하와 생물학적 해석의 연결** — LP 가능 영역, MOMA 투영, ROOM의 허용구간, FVA와 production envelope를 도식과 코드로 교차 검토한다.
+* **불확실성과 대안해의 명시** — 하나의 최적 플럭스를 유일한 세포 상태로 해석하지 않고 FVA, sampling, 민감도 및 외부 검증을 함께 다룬다.
+* **일차 문헌 중심의 근거** — FBA, pFBA, MOMA, ROOM, OptKnock, tINIT 등은 [대표 논문 가이드](landmark-papers.md)에서 질문·방법·검증·결론·한계로 비교하며, 주요 도식의 출처와 재사용 조건은 [그림 출처 대장](FIGURE_SOURCES.md)에 기록한다.
+* **표준 형식과 품질관리** — SBML/FBC 저장·교환, MEMOTE, 오믹스 통계와 교란 분석을 보충 자료와 통합 실습에서 검증한다.
 
 ## 대상 독자와 선수 지식
 
-* 시스템생물학·대사공학·생물정보학에 관심 있는 학부 고학년/대학원생
-* 선형대수 기초(행렬·벡터)와 파이썬 기초에 대한 친숙함이 있으면 좋습니다. 필요한 대사·최적화 배경은 각 챕터 본문에서 처음부터 함께 설명합니다.
+* 시스템생물학·대사공학·생물정보학을 공부하는 학부 고학년과 대학원 입문 학습자
+* 행렬·벡터, 몰과 화학량론, 함수·부등식 및 Python 기초를 선수 지식으로 권장한다. 선형계획법과 생화학의 세부 전제는 해당 장에서 정의한다.
 
 ## 책의 구성
 
@@ -36,14 +36,14 @@
 
 ## 실습 환경
 
-본문의 기준 수치는 Python 3.10+와 [COBRApy](https://opencobra.github.io/cobrapy/) 0.30.0에서 검산했습니다. 최소 설치:
+실행 예제의 기준 환경은 Python 3.10+와 [COBRApy](https://opencobra.github.io/cobrapy/) 0.30.0이다. 최소 설치는 다음과 같다.
 
 ```bash
 python -m pip install "cobra==0.30.0"
 python -m pip check
 ```
 
-설치를 마친 뒤에는 [Chapter 10](chapter-10/README.md)을 순서대로 실행해 환경과 개념을 함께 검증하십시오. Jupyter·시각화·머신러닝 패키지를 포함한 전체 환경 구성, 커널 등록, 모델 checksum, LP/QP/MILP solver 선택도 Chapter 10에서 다룹니다. SBML 파일의 구조와 round-trip 검증은 [SBML 보충](supplements/sbml-practical.md), RNA-seq 정규화와 다중검정은 [통계 보충](supplements/omics-statistics.md)을 참고하십시오.
+설치 후 [Chapter 10](chapter-10/README.md)의 preflight에서 Python·COBRApy·solver·모델 checksum을 먼저 확인한다. Jupyter·시각화·머신러닝 패키지, LP/QP/MILP solver 선택과 결과 provenance도 같은 장에서 다룬다. SBML 구조와 round-trip 검증은 [SBML 보충](supplements/sbml-practical.md), RNA-seq 정규화와 다중검정은 [통계 보충](supplements/omics-statistics.md)을 참고한다.
 
 ---
 
