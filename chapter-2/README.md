@@ -14,6 +14,18 @@ $$
 
 로 기술할 수 있다. 이 장은 반응식에서 $$\mathbf S$$를 구성하고, 행렬·이분 그래프·flux vector가 같은 네트워크를 어떻게 서로 보완하여 표현하는지 다룬다.
 
+## 표기와 읽기 원칙
+
+이 책은 한국어 용어를 먼저 쓰고, 처음 등장할 때 영어 원어와 약어를 함께 표기한다. 이후에는 같은 장 안에서 한 표기를 일관되게 사용한다.
+
+- **플럭스**(flux; 대사 통량), **반응**(reaction), **대사물**(metabolite)은 각각 단위 시간당 반응 진행률, 화학량론적 변환, 구획을 포함한 화학종을 뜻한다.
+- **경계조건**(bounds), **목적함수**(objective function), **솔버**(solver)는 생물학적 사실이 아니라 모델에 부여한 계산 조건이다.
+- 조건·가정·절차는 번호 목록으로, 결과의 범위와 예외는 `해석상의 주의` 상자로 구분한다.
+
+{% hint style="warning" %}
+본문의 “예측”은 명시된 모델·배지·경계조건·목적함수 아래의 계산 결과다. 실험 관찰이나 인과적 효과와 혼용하지 않는다.
+{% endhint %}
+
 ## 범위
 
 이 장은 화학량론, 반응 방향성, flux bounds, matrix rank 및 null space를 다룬다. GPR, 세포 구획의 생물학적 의미, transport, boundary reaction 및 biomass formulation은 [Chapter 3](../chapter-3/README.md)에서 다룬다. FBA의 선형계획 정식화와 flux variability analysis는 [Chapter 4](../chapter-4/README.md)에서 다룬다.

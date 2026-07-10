@@ -2,6 +2,18 @@
 
 > 지금까지 배운 FBA·pFBA·FVA·유전자 결손·MOMA·ROOM·gap-filling을 하나의 재현 가능한 노트북 흐름으로 연결합니다. 모든 기준값은 **COBRApy 0.30.0 + GLPK + `textbook`(`e_coli_core`) 모델**에서 검산했습니다. 이 장을 위에서 아래로 실행하면 모델을 불러오는 데서 시작해 결과와 환경 정보를 JSON으로 남기는 데까지 한 번에 도달합니다.
 
+## 표기와 읽기 원칙
+
+이 책은 한국어 용어를 먼저 쓰고, 처음 등장할 때 영어 원어와 약어를 함께 표기한다. 이후에는 같은 장 안에서 한 표기를 일관되게 사용한다.
+
+- **플럭스**(flux; 대사 통량), **반응**(reaction), **대사물**(metabolite)은 각각 단위 시간당 반응 진행률, 화학량론적 변환, 구획을 포함한 화학종을 뜻한다.
+- **경계조건**(bounds), **목적함수**(objective function), **솔버**(solver)는 생물학적 사실이 아니라 모델에 부여한 계산 조건이다.
+- 조건·가정·절차는 번호 목록으로, 결과의 범위와 예외는 `해석상의 주의` 상자로 구분한다.
+
+{% hint style="warning" %}
+본문의 “예측”은 명시된 모델·배지·경계조건·목적함수 아래의 계산 결과다. 실험 관찰이나 인과적 효과와 혼용하지 않는다.
+{% endhint %}
+
 ## 이 장을 시작하며
 
 [Chapter 1](../chapter-1/README.md)부터 [Chapter 9](../chapter-9/README.md)까지 우리는 대사모델링의 개념을 층층이 쌓아 왔다. 대사 네트워크가 무엇인지([Chapter 1](../chapter-1/README.md)), 그것을 화학량론 행렬 $$\mathbf{S}$$로 어떻게 표현하는지([Chapter 2](../chapter-2/README.md)), 그 행렬에 GPR·구획·바이오매스로 생물학적 정체성을 부여하는 법([Chapter 3](../chapter-3/README.md)), 그렇게 완성된 모델로 세포의 행동을 예측하는 FBA([Chapter 4](../chapter-4/README.md)), 모델 자체를 만들고 검증하는 절차([Chapter 5](../chapter-5/README.md)), omics 데이터 통합([Chapter 6](../chapter-6/README.md)), 질병·표적 발굴([Chapter 7](../chapter-7/README.md)), 균주 설계([Chapter 8](../chapter-8/README.md)), 그리고 이 모든 것 위에 얹히는 머신러닝([Chapter 9](../chapter-9/README.md))까지, 아홉 개 장에 걸쳐 이론과 응용을 서술했다.

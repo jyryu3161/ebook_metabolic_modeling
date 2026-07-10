@@ -23,7 +23,7 @@
 | 필수 유전자/반응 | Essential gene/reaction | 정의한 배지·목적함수·생존 임계값에서 제거 시 요구 기능을 유지하지 못하는 유전자 또는 반응 | [Ch7](chapter-7/README.md), [Ch8](chapter-8/README.md) |
 | 거짓발견률 | False Discovery Rate (FDR) | 유의하다고 선택한 항목 중 거짓 양성의 기대 비율; 보통 BH 절차로 제어 | [통계 보충](supplements/omics-statistics.md) |
 | Flux Balance Analysis | FBA | 정상상태·제약 하에서 목적함수를 최대화하는 플럭스 분포를 선형계획법으로 구하는 방법 | [Ch4](chapter-4/README.md) |
-| 대사 통량 | Flux | 단위 생체량·시간당 반응 진행률; 농도와 다르며 보통 `mmol gDW⁻¹ h⁻¹`로 표현 | 준비 A, [Ch2](chapter-2/README.md) |
+| 플럭스(대사 통량) | Flux | 단위 생체량·시간당 반응 진행률; 농도와 다르며 보통 `mmol gDW⁻¹ h⁻¹`로 표현 | 준비 A, [Ch2](chapter-2/README.md) |
 | 플럭스 원추 | Flux cone | $$Sv=0$$ 과 비가역성 제약이 정의하는 볼록 원추 형태의 해 공간 | [Ch4](chapter-4/README.md) |
 | FSEOF | Flux Scanning based on Enforced Objective Flux | 산물 flux를 단계적으로 강제할 때 함께 증가하는 반응을 찾아 유전자 증폭 후보를 고르는 방법; 감소 flux를 억제·결손 후보로 해석하는 것은 후속 확장이다 | [Ch8](chapter-8/README.md) |
 | Flux Variability Analysis | FVA | 목적값을 지정 비율 이상 유지하며 각 반응을 별도로 최소·최대화해 허용 범위를 계산하는 방법 | [Ch4](chapter-4/README.md) |
