@@ -16,11 +16,11 @@
 
 ## 이 장을 시작하며
 
-[Chapter 1](../chapter-1/README.md)부터 [Chapter 9](../chapter-9/README.md)까지 우리는 대사모델링의 개념을 층층이 쌓아 왔다. 대사 네트워크가 무엇인지([Chapter 1](../chapter-1/README.md)), 그것을 화학량론 행렬 $$\mathbf{S}$$로 어떻게 표현하는지([Chapter 2](../chapter-2/README.md)), 그 행렬에 GPR·구획·바이오매스로 생물학적 정체성을 부여하는 법([Chapter 3](../chapter-3/README.md)), 그렇게 완성된 모델로 세포의 행동을 예측하는 FBA([Chapter 4](../chapter-4/README.md)), 모델 자체를 만들고 검증하는 절차([Chapter 5](../chapter-5/README.md)), omics 데이터 통합([Chapter 6](../chapter-6/README.md)), 질병·표적 발굴([Chapter 7](../chapter-7/README.md)), 균주 설계([Chapter 8](../chapter-8/README.md)), 그리고 이 모든 것 위에 얹히는 머신러닝([Chapter 9](../chapter-9/README.md))까지, 아홉 개 장에 걸쳐 이론과 응용을 서술했다.
+이 장은 앞선 장의 분석을 하나의 재현 가능한 실행 흐름으로 묶는다. 화학량론 행렬과 GPR, FBA·pFBA·FVA, 유전자 결손, MOMA·ROOM, 혼합정수선형계획법(MILP), 간극 채우기(gap-filling), 생산 포락선(production envelope), SBML 입출력을 순서대로 실행한다.
 
-계산 결과는 solver, 모델 버전, flux bound, 목적함수 방향에 의존한다. 예를 들어 [Chapter 4](../chapter-4/README.md)의 기본 `e_coli_core` 조건에서 `model.optimize()`는 약 `0.873921507 h^-1`의 성장률을 반환하지만, 이 값은 실행 환경과 조건을 함께 기록해야 재현·비교할 수 있다.
+계산값은 모델 버전, 배지, 경계조건, 목적함수, 솔버(solver)와 허용오차에 따라 달라진다. 예를 들어 기본 `e_coli_core` 조건에서 `model.optimize()`가 약 `0.873921507 h^-1`의 성장률을 반환하더라도, 이 숫자는 해당 실행 조건과 함께 기록해야 비교할 수 있다.
 
-이 장은 새로운 이론을 소개하지 않는다. 대신 앞선 아홉 개 장에서 각각 다른 절에 흩어져 있던 계산 — FBA, pFBA, FVA, 유전자 결손, MOMA, ROOM, MILP, gap-filling, production envelope, SBML — 을 **하나의 노트북 흐름**으로 이어 붙인다. 각 절은 독립적으로도 읽을 수 있지만, §1부터 §13까지 순서대로 실행하면 `model`과 `results`라는 두 변수가 계속 자라나면서 장 전체가 하나의 재현 가능한 실험 기록이 된다. 다음은 그 흐름을 요약한 다이어그램이다.
+각 절은 독립적으로 읽을 수 있다. 다만 §1부터 §13까지 순서대로 실행하면 `model`과 `results` 객체에 분석 상태가 누적되므로, 하나의 계산 기록으로도 사용할 수 있다. 아래 그림은 데이터 의존 관계를 요약한다.
 
 ```mermaid
 flowchart TD
