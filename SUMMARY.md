@@ -123,6 +123,7 @@
   * [13. 실행 결과와 provenance를 JSON으로 남기기](chapter-10/14.md)
   * [14. 미니 프로젝트: 한 조건을 완결된 분석으로 만들기](chapter-10/15.md)
 * [대학 교재 보강: 모델의 증거·검증·불확실성](undefined/undefined.md)
+* [전 챕터 워크북: 토이 모델·유도·해석](undefined/undefined-1.md)
 
 ## 부록
 
