@@ -28,7 +28,7 @@ $$E$$는 데이터베이스 크기와 scoring system에 의존한다.
 ### 유전자 필수성 판정
 
 $$
-r_i=\frac{\mu_{\Delta i}}{\mu_{WT}},qquad
+r_i=\frac{\mu_{\Delta i}}{\mu_{WT}},\qquad
 \widehat y_i=\mathbb 1(r_i<\theta)
 $$
 
@@ -41,8 +41,8 @@ $$
 $$
 
 $$
-\mathbf S\mathbf v=0,qquad
-\ell_ry_r\le v_r\le u_ry_r,qquad
+\mathbf S\mathbf v=0,\qquad
+\ell_ry_r\le v_r\le u_ry_r,\qquad
 \mathbf A_{task}\mathbf v\ge\mathbf b_{task}
 $$
 

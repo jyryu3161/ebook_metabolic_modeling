@@ -127,6 +127,7 @@
 
 ## 부록
 
+* [대학 교재 보강: 모델의 증거, 검증, 불확실성](textbook-completeness-supplement.md)
 * [대표 논문으로 읽는 GEM 방법론](landmark-papers.md)
 * [강의 PPT–전자책 대응표](lecture-coverage-map.md)
 * [핵심 용어집 (Glossary)](glossary.md)
