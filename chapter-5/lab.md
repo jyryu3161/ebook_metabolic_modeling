@@ -2,6 +2,31 @@
 
 > 💡 **실습:** 아래 스니펫들은 이 장의 핵심 개념(질량/전하 균형 점검, gap-filling, MEMOTE 품질 평가)을 최소 코드로 보여줍니다. 전체 실행 가능한 예제와 데이터 준비 과정은 `raw_data/GEM_lecture_notes/gem9_w02_lab.ipynb`(재구축·gap-filling·MEMOTE)와 `gem9_w06_lab.ipynb`(인체 GEM·tINIT)를 참고하십시오. 실습 환경은 Python 3.10+, COBRApy 0.29+ 기준입니다. 1장에서 불러온 `e_coli_core`는 반응 95개짜리 교육용 축소 모델이므로, 이 장의 실습에서는 완전한 게놈 규모로 큐레이션된 iML1515(유전자 1,516·반응 2,712·대사물 1,877, 3개 구획)를 대상으로 재구축·QC 절차를 시연합니다 — 같은 대장균이지만 "교육용 축소판"과 "실전 재구축 대상"의 규모 차이를 직접 느껴보십시오.
 
+## 실습 0. 계산기로 손 계산 검산하기 — E-value 공식
+
+본격적인 COBRApy 실습에 앞서, §2.2의 E-value 손 계산을 그대로 코드로 옮겨 검산해봅시다. 이렇게 손 계산과 코드가 같은 결과를 내는지 직접 확인하는 습관은, 이후 복잡한 MILP 결과를 "블랙박스로만" 믿지 않고 검증하는 태도로 이어집니다.
+
+```python
+import math
+
+def evalue(K, m, n, S, lam):
+    """단순화된 E-value 공식(§2.2)을 그대로 구현."""
+    return K * m * n * math.exp(-lam * S)
+
+K, m, n, lam = 0.1, 300, 1e7, 0.3
+
+for S in (60, 100, 150):
+    E = evalue(K, m, n, S, lam)
+    print(f"S={S:>3}: E = {E:.3e}")
+
+# 기대 출력:
+# S= 60: E = 4.569e+00
+# S=100: E = 2.807e-05
+# S=150: E = 8.588e-12
+```
+
+세 값 모두 §2.2 본문에서 손으로 계산한 근사치(각각 약 4.5, 약 $$2.8\times10^{-5}$$, 약 $$8.7\times10^{-12}$$)와 자릿수 수준에서 일치합니다 — 손 계산은 중간 반올림을 여러 번 거쳤으므로 정밀한 코드 결과와 소수점 이하 몇 자리는 다를 수 있지만, 핵심 결론("점수가 조금 오르면 E-value가 몇 자릿수씩 떨어진다")은 동일하게 확인됩니다. `evalue` 함수의 `S`만 바꿔가며 실행해보면, 점수가 조금만 올라가도 E-value가 왜 그렇게 급격히 떨어지는지(지수함수의 효과) 직접 체감할 수 있습니다.
+
 ## 실습 1. 질량·전하 균형 직접 점검하기
 
 COBRApy는 각 `Reaction` 객체의 `check_mass_balance()` 메서드로 반응별 원소·전하 불균형을 확인합니다. 아래는 iML1515 전체 모델에서 내부 반응을 점검하는 예입니다.
@@ -157,5 +182,64 @@ memote new
 ```
 
 `memote new`는 현재 프로젝트 안에서 가볍게 실행하는 초기화 명령이 아니라, 질문에 답해 별도의 버전 관리 모델 저장소를 만드는 명령입니다. 기존 저장소에서는 먼저 snapshot/run으로 평가하고, 그 결과를 바탕으로 CI 구성을 설계하십시오. 총점에는 고정된 25/25/35/15 가중치나 보편적 합격선이 없으므로, HTML 리포트에 표시된 실제 weight·실패 테스트·버전 정보를 함께 기록합니다.
+
+## 실습 6. §1.1 벤치마크 다시 만들어보기 — 유전자 필수성 예측
+
+§1.1과 §6.3에서 손으로 계산했던 필수성 판정식과 confusion matrix를 COBRApy로 직접 재현해봅시다. `e_coli_core`는 유전자 137개뿐이라 전수 결손 계산이 몇 초 안에 끝나므로, 이 실습에는 iML1515 대신 `e_coli_core`를 사용합니다.
+
+```python
+import cobra
+from cobra.flux_analysis import single_gene_deletion
+
+model = cobra.io.load_model("e_coli_core")
+wt_growth = model.slim_optimize()
+
+theta = 0.05
+threshold = theta * wt_growth
+
+result = single_gene_deletion(model)          # 모든 유전자를 하나씩 결손시키며 성장률 계산
+result["ratio"] = result["growth"] / wt_growth
+predicted_essential = result[result["growth"] < threshold]
+
+print(f"야생형 성장률: {wt_growth:.3f} /h")
+print(f"필수성 임계값(theta=0.05 x WT): {threshold:.4f} /h")
+print(f"예측된 essential 유전자 수: {len(predicted_essential)} / {len(model.genes)}")
+# 기대 출력: 야생형 성장률은 약 0.874 /h로 Chapter 4에서 계산한 값과 일치합니다.
+# 예측 essential 유전자 수는 솔버·COBRApy 버전에 따라 소폭 달라질 수 있으므로
+# 정확한 개수 대신 "0보다 크고 137보다 훨씬 작다"는 자릿수만 확인해도 충분합니다.
+```
+
+이렇게 얻은 예측 결과를 §1.1·§6.3의 confusion matrix 공식(Sensitivity, Specificity, Precision, F1)에 대입하려면, 비교 대상이 될 **실제 실험 필수성 데이터**(예: Keio collection 같은 단일 유전자 결손 라이브러리)가 별도로 필요합니다. 이 저장소에는 그런 실험 데이터가 포함되어 있지 않으므로, 아래는 "실제 데이터가 주어졌을 때 지표를 계산하는 방법"만 보여주는 뼈대 코드입니다.
+
+```python
+def confusion_matrix_metrics(predicted_essential_ids, true_essential_ids, all_gene_ids):
+    """§1.1/§6.3의 공식을 그대로 코드로 옮긴 것."""
+    predicted, true_set, all_set = (
+        set(predicted_essential_ids), set(true_essential_ids), set(all_gene_ids))
+
+    tp = len(predicted & true_set)
+    fn = len(true_set - predicted)
+    fp = len(predicted - true_set)
+    tn = len(all_set - predicted - true_set)
+
+    sensitivity = tp / (tp + fn) if (tp + fn) else float("nan")
+    specificity = tn / (tn + fp) if (tn + fp) else float("nan")
+    precision = tp / (tp + fp) if (tp + fp) else float("nan")
+    f1 = (2 * precision * sensitivity / (precision + sensitivity)
+          if (precision + sensitivity) else float("nan"))
+    return {"TP": tp, "FN": fn, "FP": fp, "TN": tn,
+            "sensitivity": sensitivity, "specificity": specificity,
+            "precision": precision, "F1": f1}
+
+# 사용 예(true_essential_ids는 사용자가 실제 실험 데이터에서 가져와야 함):
+# metrics = confusion_matrix_metrics(
+#     predicted_essential_ids=predicted_essential.index,
+#     true_essential_ids=true_essential_ids,   # 실제 데이터로 채울 것
+#     all_gene_ids=[g.id for g in model.genes],
+# )
+# print(metrics)
+```
+
+이 뼈대 함수는 §6.3에서 손으로 계산했던 iML1515 confusion matrix 예시(TP=270, FN=26, FP=30, TN=1190)를 그대로 입력하면 Sensitivity≈0.91, Specificity≈0.98과 같은 결과를 재현하는지 검산하는 용도로도 쓸 수 있습니다 — 코드와 손 계산이 일치하는지 서로 검증하는 습관을 들이십시오.
 
 ---

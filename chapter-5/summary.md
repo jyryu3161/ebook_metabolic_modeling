@@ -19,6 +19,10 @@
 | Human1 / Human2 | HMR2·iHsa·Recon3D를 통합한 2020년 인체 GEM / LLM 보조 선별·전문가 검토·자동 테스트로 갱신한 2026년 Human-GEM v2. |
 | Metabolic Task Enforcement | 추출 모델이 지정한 대사 기능의 전체 입력-출력 flux 경로를 수행하도록 task-essential 반응 보호와 작업별 gap-filling을 적용하는 것. |
 | tINIT / ftINIT | task enforcement를 결합한 INIT 계열 조직 특이 모델 추출법 / 2단계 최적화와 모드 선택으로 10배 넘게 고속화한 버전. |
+| Jaccard 유사도 | 두 반응 집합의 교집합 크기를 합집합 크기로 나눈 값. 서로 다른 재구축 도구의 결과가 얼마나 겹치는지 정량화한다(§4.1). |
+| Affine gap penalty | BLASTP alignment에서 갭을 열 때와 늘릴 때 서로 다른 벌점(gap open/extend)을 매기는 방식(§2.2). |
+| Carving | CarveMe의 top-down 알고리즘. 보편 반응 집합에서 게놈 증거가 없는 반응을 제거해 초안 모델을 만든다(§4.1). |
+| AUROC | 분류기가 실제 양성에 실제 음성보다 높은 점수를 매길 확률(0.5=무작위, 1.0=완벽). Sensitivity·Specificity와 같은 confusion matrix 계열 지표(§7.2). |
 
 ---
 
@@ -28,7 +32,7 @@
 - 반응 할당의 출발점은 **BLASTP 기반 동원성 검색**입니다 — E-value·identity·coverage와 BBH로 신뢰도를 계층화하고, KEGG/MetaCyc/UniProt/BiGG/SEED 등 데이터베이스의 선택이 최종 모델을 크게 좌우합니다.
 - **Thiele & Palsson 96단계 프로토콜**은 Stage 1(Steps 1-5) 초안 → Stage 2(6-37) 수동 정제와 0-4점 confidence → Stage 3(38-42) 계산 모델 변환 → Stage 4(43-96) 평가·디버깅의 표준 워크플로우입니다.
 - **CarveMe(top-down)·ModelSEED(bottom-up)·gapseq(경로 기반)·AuReMe/RAVEN/Merlin**은 서로 다른 철학과 트레이드오프(속도 vs. 정확도 vs. 진핵생물 지원)를 가지며, 하나의 "완벽한" 도구는 없습니다.
-- **Gap-filling**은 MILP로 정식화되는 조합 최적화 문제로, 전통적 방법(SMILEY, GapFind/GapFill, growMatch, FastGapFill)과 딥러닝 기반 후보 순위화(CHESHIRE, CLOSEgaps, DNNGIOR, GHCN-SE)가 공존합니다. 이 가운데 DNNGIOR는 초그래프가 아니라 반응 공존·계통 정보를 사용하며, 이들 방법 모두 추가한 반응에 GPR 근거가 없을 수 있다는 한계가 있습니다.
+- **Gap-filling**은 MILP로 정식화되는 조합 최적화 문제로, 전통적 방법(SMILEY, GapFind/GapFill, growMatch, FastGapFill)과 딥러닝 기반 후보 순위화(CHESHIRE, CLOSEgaps, DNNGIOR, GHCN-SE)가 공존합니다. 이 가운데 DNNGIOR는 초그래프가 아니라 반응 공존·계통 정보를 사용하며, 이들 방법 모두 추가한 반응에 GPR 근거가 없을 수 있다는 한계가 있습니다. 반응 개수 대신 유전자 증거 기반 **가중치**를 목적함수에 넣으면($$\min\sum w_r y_r$$), MILP가 "개수는 많아도 증거가 튼튼한 조합"을 선호하도록 유도할 수 있습니다.
 - **MEMOTE**는 구조·biomass·일관성·주석을 반복 검사하지만, 고정된 4개 가중치나 보편적 합격선은 없습니다. 같은 버전·설정의 회귀 검사와 목적별 표현형 검증을 함께 써야 합니다.
 - 인체 GEM은 **Recon과 HMR의 분기·상호 흡수·병합**으로 발전했습니다. Recon2M은 transcript/protein isoform을 연결한 응용 가지이고, HMR2·iHsa·Recon3D가 Human1에 통합된 뒤 Human-GEM v1.x가 Human2로 갱신되었습니다.
 - **tINIT**은 task-essential 반응을 보호하고 추출 후 실패한 작업을 순차적으로 보정합니다. task는 반응 하나가 아니라 전체 실행 가능 경로이며, ftINIT은 2단계 최적화로 10배 넘게 빨라졌습니다. GIMME/iMAT과의 비교는 [Omics 통합](../chapter-6/README.md)에서 이어집니다.
@@ -52,6 +56,12 @@
 
 5. **tINIT task enforcement.** "아미노산 X를 합성한다"는 task에 관련 반응 중 하나만 포함하면 충분하지 않은 이유를 설명하고, tINIT이 추출 전후에 기능을 어떻게 보존하는지 서술하십시오.
    > *힌트: task는 기질 공급부터 산물 배출까지 이어지는 전체 flux 경로입니다. 범용 모델에서 task 가능성과 essential 반응을 확인해 보호하고, 추출 후 task를 다시 실행하여 실패한 기능을 증거 가중 gap-filling으로 보정합니다.*
+
+6. **가중치가 있는 gap-filling.** §5.1의 장난감 예제에 유전자 증거 기반 가중치($$w_{U_1}=w_{U_2}=1$$, $$w_{U_3}=5$$)를 적용하면 왜 답이 $$\{U_3\}$$에서 $$\{U_1,U_2\}$$로 바뀌는지, 두 조합의 가중 비용을 직접 계산해 설명하십시오. §10.2의 tINIT 장난감 예제에서 task-essential 조합을 고를 때도 같은 논리가 쓰이는 부분을 찾아보십시오.
+   > *힌트: $$\text{cost}(\{U_3\})=5\times1=5$$, $$\text{cost}(\{U_1,U_2\})=1+1=2$$이므로 $$2<5$$가 되어 후자가 선택됩니다. §10.2에서도 tINIT은 개별 반응의 부호가 아니라 task를 만족시키는 "조합 전체의 총점"을 비교해 $$\{R_1,R_2\}$$(총점 +1)를 $$\{R_3\}$$(총점 -3)와 $$\{R_1,R_4\}$$(총점 -1)보다 우선합니다 — 두 경우 모두 "개별 항목"이 아니라 "조합"을 최적화 단위로 삼는다는 점이 핵심입니다.*
+
+7. **가중 MEMOTE 총점.** §6.1의 예시 표에서 Basic 0.90·Biomass 0.70·Consistency 0.95·Annotation 0.40에 가중치 0.25/0.20/0.35/0.20을 적용하면 총점이 약 78%였습니다. 만약 어떤 리포트가 Consistency에 0.50, 나머지 세 축에 각각 0.1667을 준다면 총점은 어떻게 달라집니까? 이 계산이 "총점 하나만 비교하지 말라"는 원칙과 어떻게 연결됩니까?
+   > *힌트: $$0.90\times0.1667+0.70\times0.1667+0.95\times0.50+0.40\times0.1667 \approx 0.150+0.117+0.475+0.067=0.809\approx81\%$$로, 같은 개별 점수인데도 가중치를 Consistency에 집중하면 총점이 78%에서 81%로 오릅니다. 즉 "모델이 개선되었다"가 아니라 "가중치 설정이 바뀌었다"는 뜻일 수 있으므로, 항상 리포트의 실제 weight를 함께 기록해야 합니다.*
 
 ---
 

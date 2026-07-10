@@ -108,6 +108,22 @@ for comp_id, comp_name in model.compartments.items():
 
 대사물 수(52 + 20 = 72)는 정확히 전체 대사물 수와 일치합니다 — 대사물은 반드시 하나의 구획에만 속하기 때문입니다. 그러나 반응 수(75 + 45 = 120)는 전체 반응 수(95)보다 많습니다. 이는 이중 계산이 아니라 **4절에서 다룰 운송·경계 반응이 두 구획에 동시에 걸쳐 있어서** `c in r.compartments`와 `e in r.compartments`를 둘 다 만족하기 때문입니다 — 즉 이 코드 자체가 "구획 간 반응은 한 구획에만 속하지 않는다"는 3.4절의 블록-구조 논리를 그대로 보여주는 셈입니다. `e_coli_core`는 축소 모델이라 구획이 `c`(세포질)와 `e`(세포외) 둘뿐입니다. `p`(주변세포질)를 포함하는 전체 규모의 iML1515나 8개 이상 구획을 가진 Recon3D에서는 동일한 코드가 훨씬 더 많은 행을 출력합니다.
 
+같은 숫자를 텍스트 막대그래프로 바로 확인할 수도 있습니다.
+
+```python
+counts = {"c (cytosol)": 52, "e (extracellular)": 20}
+max_count = max(counts.values())
+for label, n in counts.items():
+    bar = "█" * int(40 * n / max_count)
+    print(f"{label:>20}: {bar} ({n})")
+
+# 기대 출력:
+#          c (cytosol): ████████████████████████████████████████ (52)
+#   e (extracellular): ███████████████                          (20)
+```
+
+이 막대그래프는 `e_coli_core`의 대사물 중 약 72%(52/72)가 세포질에, 나머지 28%가 세포외 구획에 있음을 시각적으로 보여줍니다.
+
 **4) 바이오매스 반응과 NGAM(ATPM) 조회**
 
 ```python
@@ -153,5 +169,95 @@ print(f"운송 반응 수: {len(transport)}")
 ```
 
 95개 반응 중 20개가 exchange, 25개가 운송, 나머지 50개가 세포질 내부 반응으로 분류됩니다(20 + 25 + 50 = 95, 이번에는 겹침 없이 정확히 나뉩니다 — 앞의 3)번 코드와 달리 여기서는 각 반응을 "경계／운송／내부" 중 **하나의 범주로만** 배정했기 때문입니다). 이는 3~5절에서 다룬 "내부 반응 vs 운송 vs 경계 반응"이라는 삼분류가 실제 모델 파일에서 그대로 코드로 확인된다는 것을 보여줍니다.
+
+**6) 2.8절의 GPR 트리 평가 알고리즘을 코드로 구현하기**
+
+앞의 1)~2)번 코드는 "AND만" 또는 "OR만" 있는 단순한 GPR만 처리했습니다. 이번에는 2.8절에서 손으로 계산했던 **중첩된 AND/OR**까지 처리할 수 있는 일반적인 재귀 평가기를 직접 구현해 봅니다. 이 코드는 외부 라이브러리 없이 순수 Python 문자열 파싱만으로 2.1절의 $$\min$$/$$\max$$ 규칙을 그대로 구현합니다.
+
+```python
+import re
+
+
+def tokenize(rule):
+    """공백을 기준으로 괄호·and·or·유전자명을 토큰으로 분리"""
+    return re.findall(r"\(|\)|and|or|[A-Za-z0-9_]+", rule, flags=re.I)
+
+
+def parse_and_eval(tokens, knocked_out):
+    """재귀 하향 파서: 가장 안쪽 괄호부터 2.1절의 min/max 규칙으로 접어 나간다"""
+    values, ops = [], []
+
+    def apply_top():
+        b, a = values.pop(), values.pop()
+        op = ops.pop()
+        values.append(min(a, b) if op == "and" else max(a, b))
+
+    while tokens:
+        tok = tokens.pop(0)
+        if tok == "(":
+            values.append(parse_and_eval(tokens, knocked_out))
+        elif tok == ")":
+            break
+        elif tok.lower() in ("and", "or"):
+            ops.append(tok.lower())
+        else:
+            values.append(0 if tok in knocked_out else 1)
+        if len(values) == 2 and ops:
+            apply_top()
+    return values[0] if values else 1
+
+
+def evaluate_gpr(rule, knocked_out_genes):
+    if not rule:
+        return True
+    tokens = tokenize(rule)
+    return bool(parse_and_eval(tokens, set(knocked_out_genes)))
+
+
+# 2.8절의 3단 중첩 예제를 그대로 코드로 검산
+nested_rule = "((geneA and geneB) or geneC) and (geneD or geneE)"
+print(evaluate_gpr(nested_rule, ["geneA", "geneC"]))   # False (2.8절 손 계산과 일치)
+print(evaluate_gpr(nested_rule, ["geneA"]))              # True  (geneC가 살아있어 좌측 항이 유지됨)
+
+# 2.3절의 진리표 시나리오 ④도 재검산
+r233 = "(geneA and geneB) or geneC"
+print(evaluate_gpr(r233, ["geneA", "geneC"]))            # False (Table 2.2의 시나리오 ④)
+print(evaluate_gpr(r233, ["geneA"]))                      # True  (Table 2.2의 시나리오 ②)
+
+# 기대 출력:
+# False
+# True
+# False
+# True
+```
+
+{% hint style="info" %}
+💡 **팁:** 위 `evaluate_gpr` 함수는 교육 목적의 최소 구현이라 괄호 짝이 어긋나거나 잘못된 토큰이 섞인 GPR 문자열에 대해서는 오류를 내지 않고 조용히 틀린 값을 돌려줄 수 있습니다. 실무에서는 이런 손수 짠 파서 대신 COBRApy가 내부적으로 제공하는 GPR 파서(`cobra.core.gene.GPR` 클래스, 최신 버전 기준)를 사용하는 것이 안전합니다 — 원리를 이해하는 용도로는 위 코드만으로 충분합니다.
+{% endhint %}
+
+**7) 5.2절의 Demand 반응을 직접 추가해 보기**
+
+5.2절에서 배운 Demand 반응이 실제로 무엇을 하는지 확인하기 위해, `e_coli_core`에는 원래 없는 Demand 반응을 하나 추가하고 최대 생산 가능량을 테스트해 봅니다.
+
+```python
+# ATP를 최종 산물처럼 배출하는 가상의 demand 반응을 추가
+atp_demand = model.add_boundary(
+    model.metabolites.get_by_id("atp_c"), type="demand"
+)
+print(f"추가된 반응: {atp_demand.id}, bounds={atp_demand.bounds}")
+
+# 이 demand 반응을 목적함수로 잠시 바꿔 "ATP 최대 생산 능력"을 테스트
+with model:
+    model.objective = atp_demand
+    max_atp = model.optimize().objective_value
+    print(f"ATP 최대 배출 가능량: {max_atp:.2f} mmol/gDW/h")
+# with 블록을 벗어나면 목적함수는 자동으로 원래(바이오매스)로 복원됩니다
+
+# 기대 출력(예):
+# 추가된 반응: DM_atp_c, bounds=(0, 1000.0)
+# ATP 최대 배출 가능량: 175.00 mmol/gDW/h
+```
+
+`model.add_boundary(..., type="demand")`는 5.2절 Table 5.2에서 설명한 접두사 규칙에 따라 자동으로 `DM_` 접두사가 붙은 반응을 만들고, 기본 bounds를 $$(0, 1000)$$으로 설정합니다 — 정확히 "비가역(배출만)"이라는 Demand의 정의와 일치합니다. `with model:` 구문은 COBRApy의 컨텍스트 매니저로, 블록 안에서의 모델 변경(목적함수 교체 등)이 블록을 벗어나는 순간 자동으로 되돌아가게 해 줍니다 — 이 덕분에 원본 모델을 훼손하지 않고 "만약 ~라면?"을 안전하게 테스트할 수 있습니다.
 
 ---
