@@ -43,7 +43,7 @@ python -m pip install "cobra==0.30.0"
 python -m pip check
 ```
 
-설치 후 [Chapter 10](chapter-10/README.md)의 preflight에서 Python·COBRApy·solver·모델 checksum을 먼저 확인한다. Jupyter·시각화·머신러닝 패키지, LP/QP/MILP solver 선택과 결과 provenance도 같은 장에서 다룬다. SBML 구조와 round-trip 검증은 [SBML 보충](supplements/sbml-practical.md), RNA-seq 정규화와 다중검정은 [통계 보충](supplements/omics-statistics.md)을 참고한다.
+운영체제별(Linux·macOS) 상세 설치, 솔버 선택, 그리고 Gurobi 학술 라이선스 취득 절차는 [설치 가이드](installation.md)에 정리했다. 설치 후 [Chapter 10](chapter-10/README.md)의 preflight에서 Python·COBRApy·solver·모델 checksum을 먼저 확인한다. Jupyter·시각화·머신러닝 패키지, LP/QP/MILP solver 선택과 결과 provenance도 같은 장에서 다룬다. SBML 구조와 round-trip 검증은 [SBML 보충](supplements/sbml-practical.md), RNA-seq 정규화와 다중검정은 [통계 보충](supplements/omics-statistics.md)을 참고한다.
 
 ---
 
