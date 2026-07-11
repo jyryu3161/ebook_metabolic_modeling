@@ -1,6 +1,6 @@
 # Chapter 3. 게놈 규모 대사 모델의 구조
 
-세포 안에서는 수많은 대사 반응이 동시에 일어난다. [화학량론 행렬](../chapter-2/README.md) $$\mathbf S$$는 이 반응에서 대사산물이 소비·생성되는 비율을 숫자로 적어 둔 표다. 그러나 $$\mathbf S$$만으로는 알 수 없는 것이 많다. 어떤 유전자가 반응을 가능하게 하는지, 반응이 어느 세포 구획에서 일어나는지, 세포가 환경과 어떤 물질을 주고받는지, 분석에서 어떤 기능을 최적화할지는 $$\mathbf S$$에 담겨 있지 않다. GEM은 이러한 정보를 [GPR](../glossary.md), [compartment](../glossary.md), transport·boundary reaction, [flux bound](../chapter-2/README.md) 및 [objective](../chapter-4/README.md) 또는 [metabolic task](../glossary.md)로 결합한다.
+세포 안에서는 수많은 대사 반응이 동시에 일어난다. [화학량론 행렬](../chapter-2/README.md) $$\mathbf S$$는 이 반응에서 대사산물이 소비·생성되는 비율을 숫자로 적어 둔 표다. 그러나 $$\mathbf S$$만으로는 알 수 없는 것이 많다. 어떤 유전자가 반응을 가능하게 하는지, 반응이 어느 세포 구획에서 일어나는지, 세포가 환경과 어떤 물질을 주고받는지, 분석에서 어떤 기능을 최적화할지는 $$\mathbf S$$에 담겨 있지 않다. GEM은 화학량론 행렬에 다음 정보를 더한 모델이다. **GPR(유전자-단백질-반응 연관)**은 어떤 유전자 산물이 반응 수행에 필요한지를, **구획**은 반응이 일어나는 모델 속 위치를, **수송·경계 반응**은 구획 사이와 세포 밖의 물질 이동을 나타낸다. **플럭스 경계조건**, **목적함수**, **대사 작업**은 이 모델을 어떤 조건에서 계산할지 정한다.
 
 이 장은 모델 파일의 구조와 그 생물학적 의미를 구분해 설명한다. GPR은 효소가 얼마나 활성인지를 직접 나타내지 않는다. 대신 유전자를 쓸 수 있는지와 반응이 가능한지의 Boolean 관계만 나타낸다. Compartment label은 같은 화합물이라도 화학적으로 구별되는 metabolite species로 나눈다. [Boundary reaction](../glossary.md)은 모델의 system boundary를 정의한다. [biomass reaction](../glossary.md)은 세포의 ‘목적’ 그 자체가 아니라, 성장 분석에 사용하는 조성 기반 pseudo-reaction이다.
 

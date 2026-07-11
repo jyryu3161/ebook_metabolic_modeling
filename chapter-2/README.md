@@ -1,6 +1,6 @@
 # Chapter 2. 생화학 반응과 대사 네트워크의 수학적 표현
 
-세포 안에서는 수많은 생화학 반응이 동시에 일어난다. 이 반응들을 컴퓨터로 계산하려면 먼저 수식으로 옮겨야 한다. [제약 기반 대사 모델](../glossary.md)은 이 작업을 [화학량론 행렬](../glossary.md) $$\mathbf S$$ 하나로 해낸다. 이 행렬은 하나의 큰 표라고 보면 된다. 각 열은 하나의 반응이고, 각 행은 하나의 compartment-specific metabolite(구획까지 구분한 대사물)이다. 이렇게 표현하면 농도 변화는
+세포 안에서는 수많은 생화학 반응이 동시에 일어난다. 이 반응들을 컴퓨터로 계산하려면 먼저 수식으로 옮겨야 한다. [제약 기반 대사 모델](../glossary.md)은 이 작업을 [화학량론 행렬](../glossary.md) $$\mathbf S$$ 하나로 해낸다. 이 행렬은 하나의 큰 표라고 보면 된다. 각 열은 하나의 반응이고, 각 행은 **구획까지 구분한 대사물**이다. 예를 들어 세포질 포도당과 세포외 포도당은 같은 물질이라도 서로 다른 행에 기록한다. 이렇게 표현하면 농도 변화는
 
 $$
 \frac{d\mathbf x}{dt}=\mathbf S\mathbf v
@@ -28,7 +28,7 @@ $$
 
 ## 범위
 
-이 장은 화학량론, 반응 방향성, flux bounds, [matrix rank](../glossary.md) 및 [null space](../glossary.md)를 다룬다. [GPR](../chapter-3/README.md), 세포 구획의 생물학적 의미, transport, boundary reaction 및 biomass formulation은 [Chapter 3](../chapter-3/README.md)에서 다룬다. [FBA](../chapter-4/README.md)의 선형계획 정식화와 flux variability analysis는 [Chapter 4](../chapter-4/README.md)에서 다룬다.
+이 장에서는 화학량론, 반응 방향성, 플럭스 경계조건, [행렬의 계수(rank)](../glossary.md), [영공간(null space)](../glossary.md)을 다룬다. 영공간은 $$\mathbf S\mathbf v=0$$을 만족하는 플럭스 조합의 집합이다. [GPR](../chapter-3/README.md), 세포 구획의 생물학적 의미, transport, boundary reaction 및 biomass formulation은 [Chapter 3](../chapter-3/README.md)에서 다룬다. [FBA](../chapter-4/README.md)의 선형계획 정식화와 flux variability analysis는 [Chapter 4](../chapter-4/README.md)에서 다룬다.
 
 ## 표현의 흐름
 
