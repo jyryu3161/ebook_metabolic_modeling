@@ -1,6 +1,6 @@
 # 실습: COBRApy를 이용한 재구축 품질 검사
 
-이 실습은 E-value 식의 수치 검산, 반응 균형, 위상학적 dead end, MILP gap-filling, CarveMe 출력 비교, MEMOTE 실행 및 단일 유전자 결손 평가를 다룬다. 검증 환경은 Python 3.10 이상과 COBRApy 0.30.0이다. iML1515의 구조 통계는 이 release에서 genes 1,516, reactions 2,712, metabolites 1,877이다. 소프트웨어와 모델 release가 바뀌면 결과를 다시 기록한다.
+이 실습은 E-value 식의 수치 검산, 반응 균형, 위상학적 dead end, [MILP](../glossary.md) [gap-filling](../glossary.md), CarveMe 출력 비교, [MEMOTE](../glossary.md) 실행 및 단일 유전자 결손 평가를 다룬다. 검증 환경은 Python 3.10 이상과 COBRApy 0.30.0이다. iML1515의 구조 통계는 이 release에서 genes 1,516, reactions 2,712, metabolites 1,877이다. 소프트웨어와 모델 release가 바뀌면 결과를 다시 기록한다.
 
 ## 실습 0. E-value 식의 수치 검산
 
@@ -121,7 +121,7 @@ with draft:
     print("Gap-filling 후:", draft.slim_optimize())  # 10.0
 ```
 
-`gapfill`은 지정한 조건에서 최소 biomass flux를 회복시키는 후보 집합을 반환한다. `iterations`를 늘려 얻는 여러 해는 대안 후보이며 서로 독립적인 증거가 아니다. 추가 반응은 서열·문헌 근거와 새로운 cycle을 검토하고, GPR을 확인할 수 없으면 gap-filled hypothesis로 표시한다.
+`gapfill`은 지정한 조건에서 최소 biomass flux를 회복시키는 후보 집합을 반환한다. `iterations`를 늘려 얻는 여러 해는 대안 후보이며 서로 독립적인 증거가 아니다. 추가 반응은 서열·문헌 근거와 새로운 cycle을 검토하고, [GPR](../chapter-3/README.md)을 확인할 수 없으면 gap-filled hypothesis로 표시한다.
 
 ## 실습 4. CarveMe 자동 재구축과 수동 모델 비교
 

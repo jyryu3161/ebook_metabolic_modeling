@@ -1,6 +1,6 @@
 # 실습: RNA-seq 발현 데이터를 GEM에 통합하기
 
-> **실습 범위:** 아래 코드는 COBRApy 0.30.0의 `textbook` 모델(`e_coli_core`: 반응 95개, 대사물 72개, 유전자 137개)에 합성 발현값을 통합합니다. 결과는 알고리즘 검산용이며 실제 조직의 생물학적 결론으로 해석하지 않습니다.
+> **실습 범위:** 아래 코드는 [COBRApy](https://opencobra.github.io/cobrapy/) 0.30.0의 `textbook` 모델([`e_coli_core`](http://bigg.ucsd.edu/models/e_coli_core): 반응 95개, 대사물 72개, 유전자 137개)에 합성 발현값을 통합합니다. 결과는 알고리즘 검산용이며 실제 조직의 생물학적 결론으로 해석하지 않습니다.
 
 이 실습은 1절의 7단계 통합 파이프라인 중 3~7단계를 손으로 따라가 봅니다 — raw counts를 TPM으로 정규화하고(4.1절), 여러 임계값 방법을 비교하고(2.3절), 실제 GPR로 RAS를 계산하고(2.1~2.2절), 그 RAS를 GIMME(3.2절)와 E-Flux(3.4절) 제약으로 번역해 `e_coli_core`에 직접 실행합니다. 마지막 7단계에서는 맥락 특이적 제약이 유전자 필수성 예측에 미치는 영향을 확인합니다.
 
@@ -228,7 +228,7 @@ GIMME는 원래 최적 성장률의 90% 이상을 허용 가능한 영역으로 
 
 ## 6단계: iMAT은 왜 개념 코드로만 소개하는가
 
-iMAT의 MILP는 $$y_j$$–$$v_j$$ big-M 연결 제약을 반응마다 정확한 하한·상한으로 조정해야 하며(3.3절의 흔한 함정, 3.3.1절의 숫자 예제 참고), 잘못 설정하면 손쉽게 infeasible에 빠집니다. 아래는 구조를 보여주는 개념 코드이며, 실제 연구에서는 이를 직접 처음부터 구현하기보다 **Troppo**(`troppo.methods.reconstruction`) 프레임워크의 검증된 GIMME/iMAT/FastCORE/tINIT 구현체나 COBRA Toolbox/RAVEN(MATLAB)의 대응 함수를 사용하는 것이 권장됩니다.
+iMAT의 [MILP](../glossary.md)는 $$y_j$$–$$v_j$$ big-M 연결 제약을 반응마다 정확한 하한·상한으로 조정해야 하며(3.3절의 흔한 함정, 3.3.1절의 숫자 예제 참고), 잘못 설정하면 손쉽게 infeasible에 빠집니다. 아래는 구조를 보여주는 개념 코드이며, 실제 연구에서는 이를 직접 처음부터 구현하기보다 **[Troppo](https://github.com/BioSystemsUM/troppo)**(`troppo.methods.reconstruction`) 프레임워크의 검증된 GIMME/iMAT/FastCORE/tINIT 구현체나 [COBRA Toolbox](https://opencobra.github.io/cobratoolbox/)/[RAVEN](https://github.com/SysBioChalmers/RAVEN)(MATLAB)의 대응 함수를 사용하는 것이 권장됩니다.
 
 ```python
 # 개념 코드 (실행 목적이 아닌 구조 설명용) — 실제로는 Troppo 등의 패키지 사용을 권장

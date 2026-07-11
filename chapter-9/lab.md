@@ -11,7 +11,7 @@ flowchart LR
     S3 --> S4["4단계<br/>K-Means 클러스터링<br/>(§2.3)"]
 ```
 
-*그림 9.9. 제9장 교육용 실행 파이프라인. `e_coli_core` 반응 그래프에서 degree·betweenness·wild-type flux 특징을 만들고, 모델 계산으로 만든 필수성 레이블을 Random Forest로 분류한 뒤 ROC·MCC를 평가하며, 별도의 배양 조건별 flux 행렬은 PCA와 K-Means로 탐색합니다. 이 네 단계는 동일한 외부 benchmark의 성능 보고가 아니라 API와 평가 절차를 연결한 소표본 실습입니다. 출처: 저자 자체 제작; 계산 구현은 아래 COBRApy·NetworkX·scikit-learn 코드이며 외부 그림을 재사용하지 않았습니다.*
+*그림 9.9. 제9장 교육용 실행 파이프라인. `e_coli_core` 반응 그래프에서 degree·betweenness·wild-type flux 특징을 만들고, 모델 계산으로 만든 필수성 레이블을 Random Forest로 분류한 뒤 ROC·MCC를 평가하며, 별도의 배양 조건별 flux 행렬은 PCA와 K-Means로 탐색합니다. 이 네 단계는 동일한 외부 benchmark의 성능 보고가 아니라 API와 평가 절차를 연결한 소표본 실습입니다. 출처: 저자 자체 제작; 계산 구현은 아래 [COBRApy](https://opencobra.github.io/cobrapy/)·[NetworkX](https://networkx.org/)·[scikit-learn](https://scikit-learn.org/) 코드이며 외부 그림을 재사용하지 않았습니다.*
 
 ## 1단계 — 모델 로드와 그래프 특징 추출
 

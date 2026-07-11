@@ -1,6 +1,6 @@
 # Chapter 7. 질병 모델링과 약물 표적 발굴
 
-질병 맥락의 genome-scale metabolic model(GEM)은 유전자 변이, 오믹스 자료와 환경 조건을 대사 네트워크의 제약으로 연결하여 조건부 취약성을 시험하는 계산 모형이다. 이 장은 암 대사 재프로그래밍, 맥락 특이적 인간 GEM, 유전자 필수성·합성 치사, metabolic transformation algorithm(MTA)을 다룬다.
+질병 맥락의 [genome-scale metabolic model(GEM)](../glossary.md)은 유전자 변이, 오믹스 자료와 환경 조건을 대사 네트워크의 제약으로 연결하여 조건부 취약성을 시험하는 계산 모형이다. 이 장은 암 대사 재프로그래밍, 맥락 특이적 인간 GEM, [유전자 필수성](../glossary.md)·[합성 치사](../glossary.md), [metabolic transformation algorithm(MTA)](../glossary.md)을 다룬다.
 
 계산 결과는 치료 효과나 안전성의 증명이 아니다. 예측은 사용한 기저 모델, 배지, 목적함수, 오믹스 통합법과 결손 임계값에 조건부이며, 독립 데이터와 실험으로 검증해야 한다.
 
@@ -22,14 +22,14 @@
 |:---|:---|:---|:---|
 | 질병 맥락 정의 | 유전자형, 전사체·단백질체, 배지와 생리 조건 | 질병·대조 조건 | 표본 이질성, batch와 세포 조성 |
 | 모델 구성 | 기저 인간 GEM과 맥락 특이화 알고리즘 | 조건별 반응·bounds | 알고리즘·임계값 의존성 |
-| 취약성 분석 | GPR 기반 단일·다중 결손 | 상대 성장·대사 작업 변화 | 목적함수, 대체 최적해, 배지 |
+| 취약성 분석 | [GPR](../chapter-3/README.md) 기반 단일·다중 결손 | 상대 성장·대사 작업 변화 | 목적함수, 대체 최적해, 배지 |
 | 선택성 평가 | 암 모델과 정상 조직 모델의 동일 개입 비교 | 조건별 효과 차이 | 정상 조직 범위와 모델 비대칭 |
 | 상태 변환 분석 | source 기준 flux와 source-target 발현 방향 | MTA/rMTA 표적 순위 | 발현-flux 대응, 기준 flux 비유일성 |
-| 검증 | DepMap, 세포·동물 실험, 약리 자료 | 지지·기각된 가설 | 데이터 누출, 용량·시간·표적 외 효과 |
+| 검증 | [DepMap](https://depmap.org/portal/), 세포·동물 실험, 약리 자료 | 지지·기각된 가설 | 데이터 누출, 용량·시간·표적 외 효과 |
 
 *Table 0.1. Chapter 7의 질병 대사 모델링 흐름. 모든 단계에서 조건과 불확실성을 함께 기록한다.*
 
-유전자 결손 뒤 플럭스 예측에 사용하는 FBA, MOMA와 ROOM의 차이는 [유전자 교란 보충 자료](../supplements/perturbation-analysis.md)에서 다룬다. 발현 자료를 이용한 맥락 특이적 모델 구축은 [Chapter 6](../chapter-6/README.md)을 전제로 한다.
+유전자 결손 뒤 플럭스 예측에 사용하는 [FBA](../chapter-4/README.md), [MOMA와 ROOM](../chapter-8/README.md)의 차이는 [유전자 교란 보충 자료](../supplements/perturbation-analysis.md)에서 자세히 다룬다. 발현 자료를 이용한 맥락 특이적 모델 구축은 [Chapter 6](../chapter-6/README.md)을 전제로 한다.
 
 ## 대화형 도해: 핵심 가정과 결과 해석
 
@@ -40,6 +40,8 @@
 {% embed url="https://jyryu3161.github.io/ebook_metabolic_modeling/interactive/index.html?chapter=7" %}
 
 [새 창에서 대화형 도해 열기](https://jyryu3161.github.io/ebook_metabolic_modeling/interactive/index.html?chapter=7)
+
+대화형 조작은 GitBook 지면이 아니라 위 링크(또는 Jupyter)에서 작동한다.
 
 ## 이 장을 읽는 방법
 
@@ -58,7 +60,7 @@
 
 이 장을 마치면 다음을 수행할 수 있다.
 
-1. Warburg 효과를 산소 존재하의 젖산 생성 증가로 정의하고, 이를 미토콘드리아 비활성화와 구분한다.
+1. [Warburg 효과](../glossary.md)를 산소 존재하의 젖산 생성 증가로 정의하고, 이를 미토콘드리아 비활성화와 구분한다.
 2. 암·정상 맥락 특이적 GEM을 공정하게 비교하기 위한 공통 기저 모델, 배지, 목적함수와 검증 조건을 설계한다.
 3. GPR 기반 유전자 결손의 상대 성장률과 대사 작업 변화를 계산하고 조건부 필수성을 판정한다.
 4. 합성 치사의 표현형 정의와 Bliss 독립성 편차를 구분하고 이중 결손 결과를 해석한다.

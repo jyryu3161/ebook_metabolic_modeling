@@ -3,7 +3,7 @@
 > 이 장은 유전자 결손이 flux 가능 영역에 미치는 영향을 FBA·MOMA·ROOM으로 예측하고, 그 예측을 균주 설계와 커뮤니티 모델링에 연결한다. `e_coli_core`에서 단일·이중 결손, MOMA/ROOM, production envelope를 실행하며 방법별 가정과 해석 범위를 비교한다.
 
 {% hint style="info" %}
-이 장은 [Chapter 4](../chapter-4/README.md)의 FBA/FVA와 [Chapter 3](../chapter-3/README.md)의 GPR 규칙을 이미 안다고 가정합니다. 기억이 가물가물하다면 두 장을 먼저 훑고 오는 것을 권합니다 — 특히 화학량론 행렬 $$\mathbf{S}$$, 정상상태 조건 $$\mathbf{S}\mathbf{v}=\mathbf{0}$$, 그리고 GPR의 Boolean 평가는 이 장 §1~2에서 곧바로 재사용됩니다.
+이 장은 [Chapter 4](../chapter-4/README.md)의 FBA/FVA와 [Chapter 3](../chapter-3/README.md)의 GPR 규칙을 이미 안다고 가정합니다. 기억이 가물가물하다면 두 장을 먼저 훑고 오는 것을 권합니다 — 특히 [화학량론 행렬](../glossary.md) $$\mathbf{S}$$, 정상상태 조건 $$\mathbf{S}\mathbf{v}=\mathbf{0}$$, 그리고 GPR의 Boolean 평가는 이 장 §1~2에서 곧바로 재사용됩니다.
 {% endhint %}
 
 ## 표기와 읽기 원칙
@@ -52,6 +52,12 @@ flowchart LR
 
 [새 창에서 대화형 도해 열기](https://jyryu3161.github.io/ebook_metabolic_modeling/interactive/index.html?chapter=8)
 
+대화형 조작(슬라이더로 결손·tolerance를 바꾸는 등)은 이 GitBook 지면이 아니라 위 링크 또는 Jupyter 노트북에서만 작동한다. 아래는 §7에서 실제로 계산하는 production envelope의 정적 스냅샷이다.
+
+![COBRApy 이콜라이 코어 모델의 생장률별 아세테이트 분비 가능 범위와 최대 생장점의 0인 하한](../.gitbook/assets/acetate-production-envelope.png)
+
+_그림. `e_coli_core`의 아세테이트 production envelope(§7.1 그림 8.7과 동일 자산). 최대 생장점에서 하한이 0이므로 이 야생형 조건은 growth-coupled가 아니다 — 이 장 §6의 균주 설계 알고리듬들이 이 하한을 양수로 밀어 올리는 것을 목표로 한다._
+
 ## 이 장을 읽는 방법
 
 섭동 분석은 야생형에서 가능한 플럭스 집합이 유전자 결손 뒤 어떻게 제한되는지 비교하는 방법이다. 생산 설계에서는 성장, 수율, 생산성의 trade-off를 한 값으로 축약하지 않는다.
@@ -72,9 +78,9 @@ flowchart LR
 **이론적 목표**
 1. Perturbation(섭동) 분석의 대수적 기초 — null space, feasible space, 세 가지 제약(화학량론적·열역학적·perturbation-specific) — 을 설명할 수 있다.
 2. **GPR (Gene-Protein-Reaction)** 규칙의 Boolean 평가를 통해 유전자 결손이 반응 비활성화로 이어지는 메커니즘을 손으로 추론하고, 단일/이중 결손 결과를 essential/growth-reduced/non-essential로 분류할 수 있다.
-3. MOMA의 이차계획법(QP) 정형화와 ROOM의 혼합정수선형계획법(MILP) 정형화를 수식으로 설명하고 두 방법을 비교할 수 있다.
-4. OptKnock, OptForce, OptGene, FSEOF 등 균주 설계 알고리듬의 수학적 정형화와 적용 맥락의 차이를 설명할 수 있다.
-5. Production envelope와 phenotype phase plane이 생산-생장 트레이드오프를 어떻게 시각화하는지 꼭짓점을 손으로 읽으며 설명할 수 있다.
+3. MOMA의 [이차계획법(QP)](../glossary.md) 정형화와 ROOM의 [혼합정수선형계획법(MILP)](../glossary.md) 정형화를 수식으로 설명하고 두 방법을 비교할 수 있다.
+4. [OptKnock](../landmark-papers.md), [OptForce](../landmark-papers.md), [OptGene](../landmark-papers.md), [FSEOF](../landmark-papers.md) 등 균주 설계 알고리듬의 수학적 정형화와 적용 맥락의 차이를 설명할 수 있다.
+5. [Production envelope](../glossary.md)와 [phenotype phase plane](../glossary.md)이 생산-생장 트레이드오프를 어떻게 시각화하는지 꼭짓점을 손으로 읽으며 설명할 수 있다.
 6. 커뮤니티 대사 모델링의 개념(cross-feeding, competition, mutualism)과 대표 프레임워크(MICOM, SteadyCom, OptCom, COMETS)의 차이를 설명할 수 있다.
 
 **실습적 목표**

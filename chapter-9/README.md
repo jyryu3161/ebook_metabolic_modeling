@@ -18,7 +18,7 @@
 
 ## 범위와 선행 지식
 
-[Chapter 8](../chapter-8/README.md)에서 우리는 유전자 결손(gene knockout)·MOMA·ROOM으로 돌연변이의 행동을 예측하고, OptKnock 같은 알고리듬으로 균주를 설계했다. 이 모든 방법은 하나의 공통된 뼈대 위에 서 있다 — [Chapter 2](../chapter-2/README.md)의 화학량론 행렬 $$\mathbf{S}$$, [Chapter 4](../chapter-4/README.md)의 선형 계획법(Linear Programming, LP), 그리고 "세포는 무언가를 최적화한다"는 가정이다.
+[Chapter 8](../chapter-8/README.md)에서 우리는 유전자 결손(gene knockout)·[MOMA](../landmark-papers.md)·[ROOM](../landmark-papers.md)으로 돌연변이의 행동을 예측하고, [OptKnock](../landmark-papers.md) 같은 알고리듬으로 균주를 설계했다. 이 모든 방법은 하나의 공통된 뼈대 위에 서 있다 — [Chapter 2](../chapter-2/README.md)의 [화학량론 행렬](../glossary.md) $$\mathbf{S}$$, [Chapter 4](../chapter-4/README.md)의 선형 계획법(Linear Programming, LP), 그리고 "세포는 무언가를 최적화한다"는 가정이다.
 
 게놈 규모 모델에서는 이중 결손 전수 탐색의 계산 비용, 목적함수의 불확실성, 재구축·gap-filling의 증거 통합이 주요 병목이다. [Chapter 5](../chapter-5/README.md)에서 보았듯 모델의 화학량론 행렬 $$\mathbf{S}$$ 자체도 새로운 근거에 따라 검토·수정되어야 한다.
 
@@ -54,6 +54,8 @@
 
 [새 창에서 대화형 도해 열기](https://jyryu3161.github.io/ebook_metabolic_modeling/interactive/index.html?chapter=9)
 
+대화형 조작(슬라이더·버튼)은 이 GitBook 지면이 아니라 위 임베드나 새 창 링크(또는 `lab.md`의 Jupyter 노트북)에서만 실제로 작동한다. 이 페이지의 표·그림은 그 결과를 설명하는 정적 요약이다.
+
 ## 이 장을 읽는 방법
 
 AI와 GEM을 결합할 때에는 “정확도”보다 먼저 **무엇을 예측했고, 어떤 자료로 검증했으며, 어떤 제약을 지켰는가**를 확인한다.
@@ -71,7 +73,7 @@ AI와 GEM을 결합할 때에는 “정확도”보다 먼저 **무엇을 예측
 
 이 장을 마치면 다음을 할 수 있다.
 
-- 지도학습·비지도학습·딥러닝의 3대 패러다임이 대사모델링(특히 유전자 필수성 예측)에 어떻게 적용되는지 설명할 수 있다.
+- 지도학습·비지도학습·딥러닝의 3대 패러다임이 대사모델링(특히 [유전자 필수성](../glossary.md) 예측)에 어떻게 적용되는지 설명할 수 있다.
 - 로지스틱 회귀·선형 회귀의 모델식과 손실함수를 쓰고, 경사하강법 갱신식이 파라미터를 어떻게 갱신하는지 숫자로 계산할 수 있다.
 - 대사 네트워크에서 위상적·플럭스·생화학적 특징을 코드로 추출하고, Random Forest 분류기를 학습·평가할 수 있다.
 - 혼동 행렬로부터 정밀도·재현율·MCC·ROC-AUC를 직접 계산하고, 클래스 불균형 상황에서 왜 정확도(Accuracy)만으로는 부족한지 숫자로 논증할 수 있다.

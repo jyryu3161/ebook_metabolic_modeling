@@ -12,7 +12,7 @@ flowchart LR
 
 *그림 8.8. 제8장 실습 파이프라인. `e_coli_core` 단일 유전자 결손 스크리닝으로 후보를 고른 뒤 같은 결손을 FBA·MOMA·ROOM의 서로 다른 상태 가정으로 비교하고, 마지막으로 production-envelope 하한에서 성장 결합 여부를 판정합니다. 출처: 저자 자체 제작; 계산 구현은 아래 COBRApy 0.30.0 실습 코드이며 외부 그림을 재사용하지 않았습니다.*
 
-전체 실행 가능한 예제와 시각화는 실습 노트북 `gem9_w04_lab.ipynb`에 있습니다. 아래 코드는 그 핵심 흐름을 압축한 것으로, 그대로 복사해 실행할 수 있습니다.
+전체 실행 가능한 예제와 시각화는 실습 노트북 `gem9_w04_lab.ipynb`에 있습니다. 아래 코드는 그 핵심 흐름을 압축한 것으로, [COBRApy](https://opencobra.github.io/cobrapy/) 환경에 그대로 복사해 실행할 수 있습니다.
 
 ## 파이프라인 코드
 
@@ -72,7 +72,7 @@ print(max_growth_row[[biomass_id, "flux_minimum", "flux_maximum"]])
 - 3단계에서 최대 생장점의 `flux_minimum`이 0이므로, 이 야생형 모델은 아세테이트 생산에 growth-coupled되어 있지 않습니다(§7.1 그림 8.7과 일치).
 
 {% hint style="info" %}
-💡 **팁:** genome-scale 모델(예: iML1515)로 확장할 때는 후보 유전자를 먼저 좁히고(§2.4의 조합 폭발 문제 참고), MILP solver·시간 제한·optimality gap을 명시하십시오. Gurobi/CPLEX 같은 상용 솔버는 GLPK보다 MILP를 훨씬 빠르게 풉니다.
+💡 **팁:** genome-scale 모델(예: iML1515)로 확장할 때는 후보 유전자를 먼저 좁히고(§2.4의 조합 폭발 문제 참고), MILP solver·시간 제한·optimality gap을 명시하십시오. [Gurobi](https://www.gurobi.com/)/[CPLEX](https://www.ibm.com/products/ilog-cplex-optimization-studio) 같은 상용 솔버는 [GLPK](https://www.gnu.org/software/glpk/)보다 MILP를 훨씬 빠르게 풉니다.
 {% endhint %}
 
 ## 스스로 해보기

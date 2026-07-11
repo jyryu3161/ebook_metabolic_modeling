@@ -1,6 +1,6 @@
 # 실습: COBRApy로 반응·대사산물·화학량론 행렬 검사하기
 
-이 실습은 COBRApy `textbook` 모델에서 reaction·metabolite 객체와 $$\mathbf S$$를 조회하고, rank와 null-space dimension을 검산한다. 전체 notebook은 `raw_data/GEM_lecture_notes/gem9_w02_lab.ipynb`와 `gem9_w03_lab.ipynb`에 있다.
+이 실습은 [COBRApy](https://opencobra.github.io/cobrapy/) `textbook` 모델에서 reaction·metabolite 객체와 $$\mathbf S$$를 조회하고, rank와 null-space dimension을 검산한다. 전체 notebook은 `raw_data/GEM_lecture_notes/gem9_w02_lab.ipynb`와 `gem9_w03_lab.ipynb`에 있다.
 
 COBRApy `textbook` 모델을 사용해 reaction·metabolite·gene 수와 PGI reaction의 화학량론을 조회한다.
 
@@ -39,7 +39,7 @@ for met, coef in rxn.metabolites.items():
 
 `rxn.lower_bound`가 음수라는 것은 `<=>` 표기 그대로 가역 반응이라는 뜻이며(1.2절), `rxn.metabolites`는 이 반응이 $$\mathbf{S}$$ 행렬에 기여하는 한 개의 열(column)을 그대로 보여줍니다(2.2절).
 
-다음으로, 모델 전체의 화학량론 행렬 $$\mathbf{S}$$를 numpy 배열로 직접 꺼내 크기와 희소성(sparsity)을 확인합니다.
+다음으로, 모델 전체의 [화학량론 행렬](../glossary.md) $$\mathbf{S}$$를 numpy 배열로 직접 꺼내 크기와 희소성(sparsity)을 확인합니다.
 
 ```python
 from cobra.util.array import create_stoichiometric_matrix
@@ -141,6 +141,6 @@ print("왼쪽 영공간 기저 벡터 개수 (m - r):", lns.shape[1])
 # 왼쪽 영공간 기저 벡터 개수 (m - r): 5
 ```
 
-`ns.shape[1]`과 `lns.shape[1]`은 rank에서 계산한 $$n-r$$과 $$m-r$$에 각각 일치해야 한다. Numerical null-space basis는 유일하지 않으며, basis vector 하나를 독립적인 생물학적 pathway나 보존 pool로 해석해서는 안 된다.
+`ns.shape[1]`과 `lns.shape[1]`은 rank에서 계산한 $$n-r$$과 $$m-r$$에 각각 일치해야 한다. Numerical [null-space](../glossary.md) basis는 유일하지 않으며, basis vector 하나를 독립적인 생물학적 pathway나 보존 pool로 해석해서는 안 된다.
 
 ---

@@ -1,10 +1,10 @@
 # Chapter 3. 게놈 규모 대사 모델의 구조
 
-화학량론 행렬 $$\mathbf S$$는 반응에서 대사산물이 소비·생성되는 비율을 표현한다. 그러나 $$\mathbf S$$만으로는 어떤 유전자가 반응을 가능하게 하는지, 반응이 어느 세포 구획에서 일어나는지, 환경과 어떤 물질을 교환하는지 또는 분석에서 어떤 기능을 최적화할지 알 수 없다. GEM은 이러한 정보를 GPR, compartment, transport·boundary reaction, flux bound 및 objective 또는 metabolic task로 결합한다.
+[화학량론 행렬](../chapter-2/README.md) $$\mathbf S$$는 반응에서 대사산물이 소비·생성되는 비율을 표현한다. 그러나 $$\mathbf S$$만으로는 어떤 유전자가 반응을 가능하게 하는지, 반응이 어느 세포 구획에서 일어나는지, 환경과 어떤 물질을 교환하는지 또는 분석에서 어떤 기능을 최적화할지 알 수 없다. GEM은 이러한 정보를 [GPR](../glossary.md), [compartment](../glossary.md), transport·boundary reaction, [flux bound](../chapter-2/README.md) 및 [objective](../chapter-4/README.md) 또는 [metabolic task](../glossary.md)로 결합한다.
 
-이 장은 모델 파일의 구조와 생물학적 의미를 구분해 설명한다. GPR은 효소 활성의 양을 직접 나타내지 않고 유전자 가용성과 반응 가능성의 Boolean 관계를 나타낸다. Compartment label은 화학적으로 구별된 metabolite species를 만든다. Boundary reaction은 system boundary를 정의하며, biomass reaction은 세포의 ‘목적’ 자체가 아니라 성장 분석에 사용하는 조성 기반 pseudo-reaction이다.
+이 장은 모델 파일의 구조와 생물학적 의미를 구분해 설명한다. GPR은 효소 활성의 양을 직접 나타내지 않고 유전자 가용성과 반응 가능성의 Boolean 관계를 나타낸다. Compartment label은 화학적으로 구별된 metabolite species를 만든다. [Boundary reaction](../glossary.md)은 system boundary를 정의하며, [biomass reaction](../glossary.md)은 세포의 ‘목적’ 자체가 아니라 성장 분석에 사용하는 조성 기반 pseudo-reaction이다.
 
-SBML Level 3 FBC와 COBRApy round-trip 저장은 [SBML 실무 보충](../supplements/sbml-practical.md)에서 다룬다.
+SBML Level 3 FBC와 [COBRApy](https://opencobra.github.io/cobrapy/) round-trip 저장은 [SBML 실무 보충](../supplements/sbml-practical.md)에서 다룬다.
 
 ## 표기와 읽기 원칙
 
@@ -67,13 +67,15 @@ flowchart TB
 
 [새 창에서 대화형 도해 열기](https://jyryu3161.github.io/ebook_metabolic_modeling/interactive/index.html?chapter=3)
 
+대화형 조작은 GitBook 지면이 아니라 위 링크(또는 Jupyter)에서 작동한다.
+
 ## 이 장을 읽는 방법
 
 게놈 규모 대사모델(GEM)은 행렬만으로 완성되지 않는다. 이 장에서는 반응에 **생물학적 정체성**을 부여하는 다섯 요소를 분리해서 읽는다.
 
 1. GPR은 유전자 산물과 반응의 가능한 연결을 나타낸다.
-2. 구획과 수송 반응은 같은 대사물의 위치와 이동을 표현한다.
-3. 교환·요구·싱크 반응은 모델과 환경의 경계를 정의한다.
+2. 구획과 [수송 반응](../glossary.md)은 같은 대사물의 위치와 이동을 표현한다.
+3. [교환](../glossary.md)·[요구](../glossary.md)·[싱크](../glossary.md) 반응은 모델과 환경의 경계를 정의한다.
 4. 바이오매스 반응과 목적함수는 계산이 무엇을 선호할지 정한다.
 
 {% hint style="warning" %}

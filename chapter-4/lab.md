@@ -1,6 +1,6 @@
 # 💡 실습: COBRApy로 FBA · FVA · pFBA 수행하기
 
-> 아래 스니펫들은 핵심 흐름만 보여줍니다. 전체 실행 가능한 예제(모델 불러오기부터 그림자 가격 시각화, 혐기 조건 비교, 연습 문제까지)는 `gem9_w03_lab.ipynb` 노트북을 참고하세요. 이 실습은 [Chapter 1](../chapter-1/README.md)~[Chapter 3](../chapter-3/README.md)에서 계속 사용해 온 `e_coli_core`를 그대로 이어서 사용합니다.
+> 아래 스니펫들은 핵심 흐름만 보여줍니다. 전체 실행 가능한 예제(모델 불러오기부터 [그림자 가격](../glossary.md) 시각화, 혐기 조건 비교, 연습 문제까지)는 `gem9_w03_lab.ipynb` 노트북을 참고하세요. 이 실습은 [Chapter 1](../chapter-1/README.md)~[Chapter 3](../chapter-3/README.md)에서 계속 사용해 온 [`e_coli_core`](http://bigg.ucsd.edu/models/e_coli_core)를 그대로 이어서 사용합니다.
 
 **1) 기본 FBA 실행**
 
@@ -55,7 +55,7 @@ print(solution.shadow_prices[largest_duals.index])
 # 부호만으로 제한 영양소를 판정하지 말고 §5.2처럼 exchange bound 민감도를 확인한다.
 ```
 
-**6) 3~5절에서 손으로 푼 토이 LP를 `scipy.optimize.linprog`로 검증**
+**6) 3~5절에서 손으로 푼 토이 LP를 [`scipy.optimize.linprog`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linprog.html)로 검증**
 
 이 장 전체에서 반복해서 손으로 풀었던 3.1절의 장난감 LP($$\max\ 0.5v_1+0.8v_2$$)를 코드로도 풀어, 3.3절의 답 $$(2,8)$$·4.4절의 심플렉스 경로·5.6절의 쌍대값이 모두 일관됨을 확인합니다. `linprog`는 기본적으로 **최소화** 문제를 풀므로 목적 함수의 부호를 뒤집어 넣습니다.
 

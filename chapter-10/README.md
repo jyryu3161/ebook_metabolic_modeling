@@ -1,6 +1,6 @@
 # Chapter 10. COBRApy 완전 실행 튜토리얼
 
-> 지금까지 배운 FBA·pFBA·FVA·유전자 결손·MOMA·ROOM·gap-filling을 하나의 재현 가능한 노트북 흐름으로 연결합니다. 모든 기준값은 **COBRApy 0.30.0 + GLPK + `textbook`(`e_coli_core`) 모델**에서 검산했습니다. 이 장을 위에서 아래로 실행하면 모델을 불러오는 데서 시작해 결과와 환경 정보를 JSON으로 남기는 데까지 한 번에 도달합니다.
+> 지금까지 배운 [FBA](../chapter-4/README.md)·pFBA·FVA·유전자 결손·[MOMA·ROOM](../chapter-8/README.md)·[gap-filling](../chapter-5/README.md)을 하나의 재현 가능한 노트북 흐름으로 연결합니다. 모든 기준값은 **[COBRApy](https://opencobra.github.io/cobrapy/) 0.30.0 + [GLPK](https://www.gnu.org/software/glpk/) + `textbook`([BiGG](http://bigg.ucsd.edu/) `e_coli_core`) 모델**에서 검산했습니다. 이 장을 위에서 아래로 실행하면 모델을 불러오는 데서 시작해 결과와 환경 정보를 JSON으로 남기는 데까지 한 번에 도달합니다.
 
 ## 표기와 읽기 원칙
 
@@ -61,6 +61,14 @@ flowchart TD
 {% embed url="https://jyryu3161.github.io/ebook_metabolic_modeling/interactive/index.html?chapter=10" %}
 
 [새 창에서 대화형 도해 열기](https://jyryu3161.github.io/ebook_metabolic_modeling/interactive/index.html?chapter=10)
+
+대화형 조작(슬라이더·드롭다운)은 GitBook 지면이 아니라 위 링크나 Jupyter 노트북(§11 ipywidgets, §8·§10의 Plotly)에서만 실제로 동작한다. 이 페이지에서는 값을 바꿔도 그림이 갱신되지 않는다.
+
+이 장이 반복 계산하는 [FVA](../chapter-4/README.md)와 [pFBA](../chapter-4/README.md) 범위가 실제로 어떤 모양인지, 정적 그림으로 먼저 감을 잡을 수 있다.
+
+![COBRApy textbook 모델에서 최대 성장률 90퍼센트 이상을 유지할 때 선택 반응들의 FVA 최소·최대 구간과 하나의 pFBA 해](../.gitbook/assets/fva-intervals.png)
+
+_참고 그림. `e_coli_core`에서 계산한 pFBA 해와 몇몇 반응의 FVA 최소–최대 구간. 이 장의 [§5](06.md)에서 `PGI`·`PFK`·`TPI`에 대해 같은 종류의 계산을 직접 실행하며 재현한다. 출처: 저자 계산; 조건과 생성 스크립트는 그림 4.6(Chapter 4)과 동일 파일을 재사용([FIGURE_SOURCES.md](../FIGURE_SOURCES.md) 참고). 개념 근거: FVA([Mahadevan & Schilling, 2003](https://doi.org/10.1016/j.ymben.2003.09.002)), pFBA([Lewis et al., 2010](https://doi.org/10.1038/msb.2010.47))._
 
 ## 이 장을 읽는 방법
 

@@ -5,9 +5,9 @@
 이 실습의 기대 출력은 다음 환경에서 확인하였다.
 
 - Python 3.10
-- COBRApy 0.30.0
+- [COBRApy](https://opencobra.github.io/cobrapy/) 0.30.0
 - `cobra.io.load_model("textbook")`로 불러온 `e_coli_core`
-- optlang GLPK 인터페이스
+- optlang [GLPK](https://www.gnu.org/software/glpk/) 인터페이스
 
 원격 예제 모델은 갱신될 수 있다. 장기 재현이 필요하면 사용한 SBML 파일, 패키지 잠금 파일과 파일 해시를 함께 보존한다.
 
@@ -31,7 +31,7 @@ print(model.solver.interface.__name__)
 
 ## 1. GPR을 구문 트리로 분류하기
 
-GPR 문자열에 단순히 `" and "` 또는 `" or "`가 포함되어 있는지 찾으면 중첩식, 공백, 유전자 ID 표현에 취약하다. COBRApy가 이미 만든 GPR 구문 트리를 순회하면 AND와 OR 연산자를 안전하게 분류할 수 있다.
+[GPR](02.md) 문자열에 단순히 `" and "` 또는 `" or "`가 포함되어 있는지 찾으면 중첩식, 공백, 유전자 ID 표현에 취약하다. COBRApy가 이미 만든 GPR 구문 트리를 순회하면 AND와 OR 연산자를 안전하게 분류할 수 있다.
 
 ```python
 def classify_gpr(reaction):
@@ -116,7 +116,7 @@ assert model.reactions.get_by_id("PFK").bounds == original_bounds
 
 ## 3. 구획과 반응 범주 확인하기
 
-대사물은 하나의 구획 라벨을 갖지만, 운송 반응은 여러 구획의 대사물을 포함한다. 따라서 구획별 반응 수의 합은 전체 반응 수보다 클 수 있다.
+대사물은 하나의 [구획](03.md) 라벨을 갖지만, 운송 반응은 여러 구획의 대사물을 포함한다. 따라서 구획별 반응 수의 합은 전체 반응 수보다 클 수 있다.
 
 ```python
 for compartment_id, compartment_name in model.compartments.items():
@@ -177,7 +177,7 @@ solution = model.optimize()
 print(solution.status, round(solution.objective_value, 4))
 ```
 
-이 스냅샷에서 BOF는 23개 대사물을 포함하고 세포질 대사물만 사용하며 목적계수는 1이다. ATP와 물의 계수는 각각 $$-59.81$$이고 ADP, 인산, 양성자의 계수는 각각 $$+59.81$$이다. 이 묶음은 BOF에 포함된 **ATP 가수분해 항(GAM 관례)**으로 읽을 수 있다. 일반 모델에서는 ATP가 조성 전구체로도 쓰일 수 있으므로 ATP 계수 하나만으로 GAM을 판정하지 않는다. `ATPM` 하한은 8.39이며, 기본 배지에서 최적 목적값은 약 $$0.8739\ \mathrm{h^{-1}}$$이다.
+이 스냅샷에서 [BOF](06.md)는 23개 대사물을 포함하고 세포질 대사물만 사용하며 목적계수는 1이다. ATP와 물의 계수는 각각 $$-59.81$$이고 ADP, 인산, 양성자의 계수는 각각 $$+59.81$$이다. 이 묶음은 BOF에 포함된 **ATP 가수분해 항(GAM 관례)**으로 읽을 수 있다. 일반 모델에서는 ATP가 조성 전구체로도 쓰일 수 있으므로 ATP 계수 하나만으로 GAM을 판정하지 않는다. `ATPM` 하한은 8.39이며, 기본 배지에서 최적 목적값은 약 $$0.8739\ \mathrm{h^{-1}}$$이다.
 
 ## 5. 배지 전환을 동일 모델에서 비교하기
 

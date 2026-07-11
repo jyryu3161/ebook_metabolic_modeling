@@ -41,6 +41,8 @@
 
 ## 핵심 용어 정리
 
+아래 표는 이 장에서 새로 도입한 용어를 정리한다. 여러 챕터에 걸쳐 반복되는 핵심 용어(MOMA·ROOM·OptKnock·OptForce·FSEOF·production envelope·PhPP·null space·synthetic lethality 등)는 [핵심 용어집](../glossary.md)에도 통합되어 있으니, 다른 장을 읽다가 정의가 가물가물하면 그쪽을 먼저 확인해도 좋다.
+
 | 용어 (한글 / English) | 정의 | 관련 챕터 |
 |:---|:---|:---|
 | 섭동 / Perturbation | 유전적·환경적·화학적 변화에 의해 feasible space와 flux distribution이 재배치되는 과정 | 본 장 §1 |

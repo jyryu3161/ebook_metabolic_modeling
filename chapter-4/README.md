@@ -1,6 +1,6 @@
 # Chapter 4. Flux Balance Analysis (FBA)
 
-> [Chapter 2](../chapter-2/README.md)~[Chapter 3](../chapter-3/README.md)에서 만든 모델(화학량론 행렬 $$\mathbf{S}$$, 플럭스 범위, 바이오매스 목적함수)에는 사실 무한히 많은 플럭스 해가 존재합니다. 이 장에서는 그중 목적 함수를 최적화하는 해를 선형 계획법(Linear Programming, LP)으로 찾는 방법 — **Flux Balance Analysis(FBA, 플럭스 균형 분석)** — 을 손 계산과 코드로 직접 익힙니다. 최적 목적값은 하나여도 그 값을 만드는 플럭스 분포는 여러 개일 수 있습니다.
+> [Chapter 2](../chapter-2/README.md)~[Chapter 3](../chapter-3/README.md)에서 만든 모델([화학량론 행렬](../glossary.md) $$\mathbf{S}$$, 플럭스 범위, 바이오매스 목적함수)에는 사실 무한히 많은 플럭스 해가 존재합니다. 이 장에서는 그중 목적 함수를 최적화하는 해를 [선형 계획법](../glossary.md)(Linear Programming, LP)으로 찾는 방법 — **[Flux Balance Analysis(FBA, 플럭스 균형 분석)](../landmark-papers.md)** — 을 손 계산과 코드로 직접 익힙니다. 최적 목적값은 하나여도 그 값을 만드는 플럭스 분포는 여러 개일 수 있습니다.
 
 ---
 
@@ -39,6 +39,10 @@
 
 [새 창에서 대화형 도해 열기](https://jyryu3161.github.io/ebook_metabolic_modeling/interactive/index.html?chapter=4)
 
+대화형 조작은 GitBook 지면이 아니라 위 링크(또는 Jupyter)에서 작동한다. 아래는 이 장 3절에서 손으로 다시 유도할 장난감 LP의 가능 영역을 미리 보여주는 정적 그림이다.
+
+![장난감 LP의 가능 오각형과 선형 목적함수 등고선, 유일 최적점 및 대안 최적해가 놓이는 최적 변](../.gitbook/assets/lp-feasible-region.png)
+
 ## 이 장을 읽는 방법
 
 플럭스 균형 분석(Flux Balance Analysis, FBA)은 세 가지를 함께 읽어야 한다. **물질수지**, **플럭스 경계**, **목적함수**다. 어느 하나라도 바뀌면 답도 달라질 수 있다.
@@ -58,11 +62,11 @@
 1. FBA의 세 가지 기본 가정(의사정상상태, 플럭스 제약, 최적화 원리)을 설명하고, 이들이 결합되어 선형 계획법(LP) 문제가 되는 과정을 서술할 수 있다.
 2. FBA를 $$\max \mathbf{c}^\mathsf{T}\mathbf{v}$$ subject to $$\mathbf{S}\mathbf{v}=\mathbf{0}$$, $$\mathbf{v}^{lb} \le \mathbf{v} \le \mathbf{v}^{ub}$$ 형태로 정확히 작성할 수 있다.
 3. 작은 장난감 네트워크에서 가능 영역을 손으로 그리고, 비어 있지 않은 bounded polytope에서는 적어도 하나의 최적 꼭짓점이 존재한다는 사실을 검증할 수 있다.
-4. 플럭스 원추(Flux Cone)와 플럭스 폴리토프(Flux Polytope)의 기하학적 의미를 설명할 수 있다.
-5. 경사하강법과 LP의 문제 구조를 구분하고, 심플렉스법(Simplex Method)과 내점법(Interior-Point Method)의 원리·차이를 비교하며, COBRApy에서 솔버를 설정할 수 있다.
-6. 쌍대 문제(Dual Problem)로부터 그림자 가격(Shadow Price)과 환원비용(Reduced Cost)을 손으로 계산·해석하고, 강건성 분석·표현형 상 평면(PhPP)과 연결할 수 있다.
-7. COBRApy로 `e_coli_core`에 FBA를 실행하고, 목적함수와 배지 조건(호기/혐기)을 바꿔가며 결과를 해석할 수 있다.
-8. pFBA와 FVA를 실행하여 대안 최적해(Alternate Optima)를 진단하고, 반응을 유연함/목표 유지에 필요함/차단됨으로 구분할 수 있다.
+4. [플럭스 원추](../glossary.md)(Flux Cone)와 플럭스 폴리토프(Flux Polytope)의 기하학적 의미를 설명할 수 있다.
+5. 경사하강법과 LP의 문제 구조를 구분하고, 심플렉스법(Simplex Method)과 내점법(Interior-Point Method)의 원리·차이를 비교하며, [COBRApy](https://opencobra.github.io/cobrapy/)에서 솔버를 설정할 수 있다.
+6. 쌍대 문제(Dual Problem)로부터 [그림자 가격](../glossary.md)(Shadow Price)과 환원비용(Reduced Cost)을 손으로 계산·해석하고, 강건성 분석·표현형 상 평면(PhPP)과 연결할 수 있다.
+7. COBRApy로 [`e_coli_core`](http://bigg.ucsd.edu/models/e_coli_core)에 FBA를 실행하고, 목적함수와 배지 조건(호기/혐기)을 바꿔가며 결과를 해석할 수 있다.
+8. [pFBA](../glossary.md)와 [FVA](../glossary.md)를 실행하여 [대안 최적해](../glossary.md)(Alternate Optima)를 진단하고, 반응을 유연함/목표 유지에 필요함/차단됨으로 구분할 수 있다.
 9. FBA의 구조적 한계(열역학, 동역학, 조절, overflow 대사 등)를 인지하고, 대안 기법이 어느 장으로 이어지는지 설명할 수 있다.
 
 ---

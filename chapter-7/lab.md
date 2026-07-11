@@ -2,9 +2,9 @@
 
 ## 재현 환경과 범위
 
-이 실습은 Python 3.10, COBRApy 0.30.0, `textbook` 모델과 optlang GLPK 인터페이스에서 검증하였다. `textbook`은 *E. coli* 교육 모델이므로 결과는 암 표적 예측이 아니다. 인간 암 모델에 적용하기 전에 Chapter 6의 맥락 특이화, 정상 조직 대조와 외부 검증이 필요하다.
+이 실습은 Python 3.10, [COBRApy](https://opencobra.github.io/cobrapy/) 0.30.0, [`textbook`](http://bigg.ucsd.edu/models/e_coli_core) 모델과 optlang [GLPK](https://www.gnu.org/software/glpk/) 인터페이스에서 검증하였다. `textbook`은 *E. coli* 교육 모델이므로 결과는 암 표적 예측이 아니다. 인간 암 모델에 적용하기 전에 [Chapter 6](../chapter-6/README.md)의 맥락 특이화, 정상 조직 대조와 외부 검증이 필요하다.
 
-외부 암 모델·DepMap 파일이나 별도 노트북을 가정하지 않는다. MTA의 MIQP optimizer도 재구현하지 않으며, 마지막 절에서는 이미 얻은 flux에 원 TS를 적용하는 사후 계산만 검증한다.
+외부 암 모델·[DepMap](https://depmap.org/portal/) 파일이나 별도 노트북을 가정하지 않는다. [MTA](../glossary.md)의 MIQP optimizer도 재구현하지 않으며, 마지막 절에서는 이미 얻은 flux에 원 TS를 적용하는 사후 계산만 검증한다.
 
 ```python
 import cobra
