@@ -1,8 +1,8 @@
 # Chapter 6. 오믹스 데이터와 맥락 특이적 대사 모델
 
-범용 [게놈 규모 대사 모델](../glossary.md)(Genome-Scale Metabolic Model, GEM)은 한 생물 또는 여러 인체 조직에서 알려진 대사 능력의 합집합을 나타낸다. 특정 세포가 어느 반응에 실제로 flux를 갖는지는 전사체만으로 직접 관찰되지 않으며, 화학량론·배지·조절·효소량과 목적 가설에도 의존한다. **[맥락 특이적 모델](../glossary.md)(context-specific model)**은 오믹스 증거와 기능 제약을 이용해 범용 GEM의 실행가능 공간을 줄이거나 서브네트워크를 추출한 계산 모델이다. 따라서 실제 활성 네트워크의 직접 측정값이 아니라 검증해야 하는 가설이다.
+세포 안에서는 수많은 대사 반응이 일어날 수 있다. 그러나 특정 세포가 특정 시점에 실제로 쓰는 반응은 그중 일부다. 범용 [게놈 규모 대사 모델](../glossary.md)(Genome-Scale Metabolic Model, GEM)은 이렇게 '일어날 수 있는' 반응을 모두 모은 목록, 즉 한 생물 또는 여러 인체 조직에서 알려진 대사 능력의 합집합이다. 특정 세포가 어느 반응에 실제로 flux를 갖는지는 전사체만으로 직접 관찰되지 않는다. 화학량론·배지·조절·효소량과 목적 가설에도 의존하기 때문이다. **[맥락 특이적 모델](../glossary.md)(context-specific model)**은 이 범용 GEM을 특정 조직·조건에 맞게 좁힌 계산 모델이다. 오믹스 증거와 기능 제약을 이용해 실행가능 공간을 줄이거나 서브네트워크를 추출한다. 따라서 실제 활성 네트워크를 직접 측정한 값이 아니라, 검증해야 하는 가설이다.
 
-이 장은 유전자 수준의 전사체·단백질체·대사체 증거를 반응 수준의 점수와 제약으로 변환하는 절차를 다룬다. GIMME, iMAT, E-Flux, tINIT와 FASTCORE 계열의 목적함수와 가정을 비교하고, RNA-seq 정규화와 `e_coli_core` 실습을 통해 결과가 임계값과 경계조건에 얼마나 의존하는지 검토한다. 모델 재구축과 품질관리는 [Chapter 5](../chapter-5/README.md), FBA/FVA는 [Chapter 4](../chapter-4/README.md), 질병 모델의 표적 예측은 [Chapter 7](../chapter-7/README.md)에서 다룬다.
+이 장은 유전자 수준에서 얻은 전사체·단백질체·대사체 증거를 반응 수준의 점수와 제약으로 바꾸는 절차를 다룬다. GIMME, iMAT, E-Flux, tINIT와 FASTCORE 계열의 목적함수와 가정을 비교한다. 또한 RNA-seq 정규화와 `e_coli_core` 실습을 통해, 결과가 임계값과 경계조건에 얼마나 크게 좌우되는지 살펴본다. 모델 재구축과 품질관리는 [Chapter 5](../chapter-5/README.md), FBA/FVA는 [Chapter 4](../chapter-4/README.md), 질병 모델의 표적 예측은 [Chapter 7](../chapter-7/README.md)에서 다룬다.
 
 {% hint style="info" %}
 count 분포, 정규화, t-test, 다중검정과 FDR이 낯설다면 [오믹스 데이터 분석과 기초 통계](../supplements/omics-statistics.md)를 먼저 읽어 두는 것이 좋다. 통계적 유의성과 생물학적 효과 크기를 구분한 뒤 모델 통합으로 넘어간다.

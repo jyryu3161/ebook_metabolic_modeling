@@ -1,18 +1,18 @@
 # Chapter 2. 생화학 반응과 대사 네트워크의 수학적 표현
 
-[제약 기반 대사 모델](../glossary.md)은 반응식을 [화학량론 행렬](../glossary.md) $$\mathbf S$$로 표현한다. 행렬의 각 열은 하나의 반응, 각 행은 하나의 compartment-specific metabolite를 나타낸다. 이 표현을 사용하면 농도 변화는
+세포 안에서는 수많은 생화학 반응이 동시에 일어난다. 이 반응들을 컴퓨터로 계산하려면 먼저 수식으로 옮겨야 한다. [제약 기반 대사 모델](../glossary.md)은 이 작업을 [화학량론 행렬](../glossary.md) $$\mathbf S$$ 하나로 해낸다. 이 행렬은 하나의 큰 표라고 보면 된다. 각 열은 하나의 반응이고, 각 행은 하나의 compartment-specific metabolite(구획까지 구분한 대사물)이다. 이렇게 표현하면 농도 변화는
 
 $$
 \frac{d\mathbf x}{dt}=\mathbf S\mathbf v
 $$
 
-로, 내부 대사산물의 [pseudo-steady-state](../glossary.md) 조건은
+로 쓸 수 있다. 또 내부 대사산물이 [pseudo-steady-state](../glossary.md)(의사 정상상태)에 있다는 조건은
 
 $$
 \mathbf S\mathbf v=\mathbf 0
 $$
 
-로 기술할 수 있다. 이 장은 반응식에서 $$\mathbf S$$를 구성하고, 행렬·이분 그래프·flux vector가 같은 네트워크를 어떻게 서로 보완하여 표현하는지 다룬다.
+로 나타낼 수 있다. 이 장에서는 반응식으로부터 $$\mathbf S$$를 만드는 과정을 다룬다. 이어서 행렬·이분 그래프·flux vector 세 표현이 같은 네트워크를 어떻게 서로 보완하며 나타내는지 살펴본다.
 
 ## 표기와 읽기 원칙
 

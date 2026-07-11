@@ -20,7 +20,7 @@
 
 [Chapter 8](../chapter-8/README.md)에서 우리는 유전자 결손(gene knockout)·[MOMA](../landmark-papers.md)·[ROOM](../landmark-papers.md)으로 돌연변이의 행동을 예측하고, [OptKnock](../landmark-papers.md) 같은 알고리듬으로 균주를 설계했다. 이 모든 방법은 하나의 공통된 뼈대 위에 서 있다 — [Chapter 2](../chapter-2/README.md)의 [화학량론 행렬](../glossary.md) $$\mathbf{S}$$, [Chapter 4](../chapter-4/README.md)의 선형 계획법(Linear Programming, LP), 그리고 "세포는 무언가를 최적화한다"는 가정이다.
 
-게놈 규모 모델에서는 이중 결손 전수 탐색의 계산 비용, 목적함수의 불확실성, 재구축·gap-filling의 증거 통합이 주요 병목이다. [Chapter 5](../chapter-5/README.md)에서 보았듯 모델의 화학량론 행렬 $$\mathbf{S}$$ 자체도 새로운 근거에 따라 검토·수정되어야 한다.
+게놈 규모 모델에서는 세 가지가 주요 병목이 된다 — 이중 결손을 전수 탐색하는 계산 비용, 목적함수의 불확실성, 그리고 재구축·gap-filling에서 흩어진 증거를 하나로 통합하는 일이다. [Chapter 5](../chapter-5/README.md)에서 보았듯 모델의 화학량론 행렬 $$\mathbf{S}$$ 자체도 새로운 근거에 따라 검토·수정되어야 한다.
 
 이 장에서는 Ch1~8의 제약 기반 방법들이 쌓아 올린 모델·데이터 위에 **머신러닝이 어떻게 결합되는지**를 본다. 이론·응용 서술을 마무리하는 장으로서, 개별 기법을 소개하는 데서 그치지 않고 마지막에는 아홉 개 장을 관통해 온 "대사모델링이란 무엇이었는가"를 함께 되짚어 본다. 이어지는 [Chapter 10](../chapter-10/README.md)은 이 개념들을 하나의 실행 흐름으로 다시 검산하는 통합 실습이다.
 
