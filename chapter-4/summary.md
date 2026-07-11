@@ -37,7 +37,7 @@
 
 ## 다음 장 예고
 
-이 장은 이미 구성된 모델($$\mathbf{S}$$, bounds, 목적함수)을 이용해 FBA, FVA와 pFBA를 수행하는 방법을 다뤘습니다. 다음 [Chapter 5. 모델 구축과 품질 관리](../chapter-5/README.md)에서는 게놈 서열과 생화학 근거로 반응 목록을 조립하고, gap-filling과 품질 검증을 거쳐 계산 모델을 구축하는 과정을 다룹니다.
+이 장은 이미 구성된 모델($$\mathbf{S}$$, bounds, 목적함수)을 이용해 FBA, FVA와 pFBA를 수행하는 방법을 다뤘다. 다음 [Chapter 5. 모델 구축과 품질 관리](../chapter-5/README.md)에서는 게놈 서열과 생화학 근거로 반응 목록을 조립하고, gap-filling과 품질 검증을 거쳐 계산 모델을 구축하는 과정을 다룬다.
 
 ---
 
@@ -72,7 +72,7 @@
 
 ## 참고문헌 / 더 읽을거리
 
-> 각 논문이 어떤 질문·근거·한계를 가졌는지 다섯 질문으로 정리한 서술은 [필독 논문 가이드](../landmark-papers.md)를 참고하십시오.
+> 각 논문이 어떤 질문·근거·한계를 가졌는지 다섯 질문으로 정리한 서술은 [필독 논문 가이드](../landmark-papers.md)에 있다.
 
 1. Savinell, J. M., & Palsson, B. O. (1992). Network analysis of intermediary metabolism using linear optimization. I. Development of mathematical formalism. *Journal of Theoretical Biology*, 154(4), 421–454. [doi:10.1016/S0022-5193(05)80161-4](https://doi.org/10.1016/S0022-5193(05)80161-4).
 2. Varma, A., & Palsson, B. O. (1994). Stoichiometric flux balance models quantitatively predict growth and metabolic by-product secretion in wild-type *Escherichia coli* W3110. *Applied and Environmental Microbiology*, 60(10), 3724–3731. [doi:10.1128/AEM.60.10.3724-3731.1994](https://doi.org/10.1128/AEM.60.10.3724-3731.1994).

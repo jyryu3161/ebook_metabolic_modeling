@@ -15,6 +15,7 @@
 | 연속 배양 | Chemostat | 배지 유입과 배양액 유출을 같은 속도로 유지해 정상상태 성장률을 희석률로 제어하는 배양법 | [Ch1](chapter-1/README.md), [Ch8](chapter-8/README.md) |
 | 맥락 특이 모델 | Context-specific model | 특정 조직·조건의 오믹스 증거를 반영한 모델; 반응을 제거해 추출할 수도 있고, 범용 네트워크를 유지한 채 bounds·가중치로 활성을 제한할 수도 있다 | [Ch6](chapter-6/README.md) |
 | 구획 | Compartment | 세포질·미토콘드리아 등 반응이 일어나는 세포 내 공간 구분 | [Ch3](chapter-3/README.md) |
+| 막다른 대사물 | Dead-end metabolite | 네트워크에서 생성만 되거나 소비만 되어 정상상태 질량수지를 만족할 수 없는 대사물. 흔히 누락 반응(gap)의 신호이며 관련 반응을 차단 반응(blocked reaction)으로 만든다 | [Ch2](chapter-2/README.md), [Ch5](chapter-5/README.md) |
 | 요구 반응 | Demand reaction | 내부 대사산물을 비가역적으로 제거해 생산 가능 flux를 시험하는 경계 반응; 축적량 자체는 아님 | [Ch3](chapter-3/README.md) |
 | 차등 발현 유전자 | Differentially Expressed Gene (DEG) | 조건 간 count 분포를 통계적으로 비교해 효과 크기와 보정 p-value 기준을 만족한 유전자 | [통계 보충](supplements/omics-statistics.md) |
 | 동적 FBA | Dynamic FBA (dFBA) | 짧은 시간 구간마다 FBA를 풀고 외부 농도·생체량을 적분해 갱신하는 준동역학 접근 | [Ch4](chapter-4/README.md) |
@@ -34,6 +35,7 @@
 | 용어 | 영문 | 정의 | 관련 챕터 |
 |------|------|------|-----------|
 | Gap-filling | Gap-filling | 초안 모델의 대사 경로 단절을 메우기 위해 반응을 추가하는 과정 | [Ch5](chapter-5/README.md) |
+| 근본·하위 간극 | Root / downstream gap | root gap은 특정 대사물의 생성 또는 소비 반응이 아예 없어 생기는 간극이고, downstream gap은 상류 root gap 때문에 파생되어 root를 채우면 함께 해소되는 간극이다 | [Ch5](chapter-5/README.md) |
 | 유전자-단백질-반응 | Gene-Protein-Reaction (GPR) | 유전자→효소→반응의 논리(AND/OR) 관계 규칙 | [Ch3](chapter-3/README.md) |
 | 게놈 규모 대사 모델 | Genome-scale Metabolic Model (GEM) | 한 생물의 게놈에서 도출한 전체 대사 반응 네트워크 모델 | [Ch1](chapter-1/README.md) |
 | GeTPRA | Gene–Transcript–Protein–Reaction Association | 유전자에서 transcript isoform과 단백질을 거쳐 반응으로 연결한 확장 관계 | [Ch5](chapter-5/README.md) |
@@ -52,6 +54,7 @@
 | 영공간 | Null space | $$S\mathbf v=0$$을 만족하는 벡터의 집합; 정상상태 플럭스 자유도의 선형대수적 기반 | [Ch2](chapter-2/README.md), [Ch4](chapter-4/README.md) |
 | 온코대사물 | Oncometabolite | 2-HG 등 암 대사 이상으로 축적되어 발암을 촉진하는 대사물 | [Ch7](chapter-7/README.md) |
 | OptKnock | OptKnock | 안쪽의 세포 성장 최적화와 바깥쪽의 목적물 생산 최적화를 결합한 이중수준 문제로, 생산과 성장을 결합하는 결손 조합을 찾는 방법 | [Ch8](chapter-8/README.md) |
+| 고아 반응 | Orphan reaction | 생화학적으로 성립하지만 촉매 유전자가 밝혀지지 않아 GPR이 비어 있는 실제 반응. 비효소적 자발 반응(관례상 s0001 배정)이나 누락 반응(gap)과 구분한다 | [Ch5](chapter-5/README.md) |
 | OptForce | OptForce | 야생형과 목표 생산 상태의 flux 범위를 비교해 반드시 변해야 하는 반응(MUST set)을 찾고, 이를 강제할 조작 조합(FORCE set)을 설계하는 방법 | [Ch8](chapter-8/README.md) |
 
 ## P–Z
@@ -73,6 +76,7 @@
 | 싱크 반응 | Sink reaction | 내부 대사산물을 가역적으로 공급·제거하는 경계 반응; 근거 없는 사용은 gap을 숨길 수 있음 | [Ch3](chapter-3/README.md) |
 | 화학량론적 일관성 | Stoichiometric consistency | 내부 대사산물에 양의 질량을 부여해 모든 내부 반응이 보존되도록 할 수 있는 네트워크 성질 | [Ch5](chapter-5/README.md) |
 | 화학량론 행렬 | Stoichiometric matrix (S) | 반응별 대사물 계수를 담아 네트워크를 표현하는 (대사물×반응) 행렬 | [Ch2](chapter-2/README.md) |
+| 화학량론적 균형 순환 | Stoichiometrically balanced cycle (SBC); Type III pathway | 모든 교환 반응을 닫은 닫힌계에서도 flux를 나르는 내부 반응 순환. 열역학·조절 제약 부족으로 생긴 재구축 인공산물로, 외부 공급 없이 ATP·redox를 재생할 수 있다. 에너지를 소비하는 futile cycle과 구별한다 | [Ch4](chapter-4/README.md), [Ch5](chapter-5/README.md) |
 | 의사-정상상태 | Pseudo-steady state | intracellular pool의 시간 변화가 관찰 시간척도에서 작다고 두어 $$S\mathbf v=0$$을 적용하는 가정 | [Ch2](chapter-2/README.md) |
 | 합성생물학 | Synthetic biology | 표준화된 생물학적 부품과 설계–제작–시험–학습 주기로 원하는 기능을 구현하는 공학 분야 | [Ch8](chapter-8/README.md) |
 | 합성 치사 | Synthetic lethality | 단독으로는 무해하나 함께 제거하면 치사가 되는 유전자 쌍 | [Ch7](chapter-7/README.md) |
