@@ -153,7 +153,7 @@ Dead-end 대사물 수: <정수>
 from cobra import Model, Reaction, Metabolite
 from cobra.flux_analysis import gapfill
 
-# Draft: A는 공급되지만 biomass 전구체 B를 만드는 반응이 없다.
+# Draft: A는 공급되지만 biomass 전구체 B를 만드는 반응이 없음
 draft = Model("draft_gap")
 a = Metabolite("a_c", compartment="c")
 b = Metabolite("b_c", compartment="c")
@@ -170,7 +170,7 @@ draft.add_reactions([source_a, biomass])
 draft.objective = biomass
 print("Gap-filling 전:", draft.slim_optimize())  # 0.0
 
-# Universal DB에는 누락 후보 A -> B만 둔다.
+# Universal DB에는 누락 후보 A -> B만 배치
 universal = Model("universal")
 r_ab = Reaction("R_AB")
 r_ab.bounds = (0, 1000)
@@ -311,7 +311,7 @@ result["ratio"] = result["growth"] / wt_growth
 predicted_essential = result[result["growth"] < threshold]
 
 # COBRApy의 단일 결손 결과는 유전자 ID를 index가 아니라 `ids` 열의
-# 한 원소짜리 frozenset으로 저장한다.
+# 한 원소짜리 frozenset으로 저장
 def extract_single_gene_id(ids):
     if len(ids) != 1:
         raise ValueError(f"단일 유전자 결손이 아닌 결과: {ids}")
