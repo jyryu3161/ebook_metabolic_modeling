@@ -73,7 +73,7 @@ Genes: 137
 rxn = model.reactions.get_by_id("PGI")
 print(rxn.name)
 print(rxn.reaction)                       # 화학량론식 문자열
-print(rxn.lower_bound, rxn.upper_bound)   # 통량 하한/상한
+print(rxn.lower_bound, rxn.upper_bound)   # 플럭스 하한/상한
 for met, coef in rxn.metabolites.items():
     print(f"  {met.id}: {coef:+.0f}")     # 대사물별 화학량론 계수
 
@@ -196,7 +196,7 @@ S_closed = np.array([
     [ 0,  1,  1],
 ])
 
-v = np.array([1, 1, 1])          # 4.1절에서 사용한 임의의 통량
+v = np.array([1, 1, 1])          # 4.1절에서 사용한 임의의 플럭스
 dxdt = S_closed @ v
 print("dx/dt =", dxdt)
 
@@ -298,7 +298,7 @@ print("왼쪽 영공간 기저 벡터 개수 (m - r):", lns.shape[1])
 ## 스스로 해보기
 
 1. 단계 2에서 `"PGI"` 대신 다른 반응 ID(예: `"PFK"`, `"PYK"`)를 넣어 화학량론 열과 bound를 조회해 봅니다. 이어서 교환 반응 `"EX_glc__D_e"`를 조회하면 열에 계수가 몇 개 나타나는지 확인하고, 그 이유를 [2.5절](02.md)과 연결해 생각해 봅니다.
-2. 단계 5의 닫힌 네트워크에서 통량을 `v = np.array([2, 2, 2])`로 바꾸면 `dx/dt`가 어떻게 변할지 먼저 예측한 뒤, 실행해 예측과 비교해 봅니다.
+2. 단계 5의 닫힌 네트워크에서 플럭스를 `v = np.array([2, 2, 2])`로 바꾸면 `dx/dt`가 어떻게 변할지 먼저 예측한 뒤, 실행해 예측과 비교해 봅니다.
 3. 단계 6의 `v_open`에서 한 성분만 1만큼 바꾸면 `S_open @ v_open`이 더 이상 `[0 0 0]`이 아님을 확인하고, 정상상태를 회복하려면 어떤 성분들을 함께 조정해야 하는지 물질수지 식으로 따져 봅니다.
 
 다음 단계로는 여기서 확인한 $$\mathbf S$$와 정상상태 제약 위에서 목적함수를 최적화하는 [FBA](../chapter-4/README.md)를 [Chapter 4](../chapter-4/README.md)에서 다룹니다. 영공간·왼쪽 영공간의 개념적 배경은 [4.5절](04.md)과 [4.6절](04.md)에서 더 볼 수 있습니다.

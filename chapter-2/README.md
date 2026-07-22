@@ -6,7 +6,7 @@ $$
 \frac{d\mathbf x}{dt}=\mathbf S\mathbf v
 $$
 
-로 쓸 수 있다. 또 내부 대사물이 [pseudo-steady-state](../glossary.md)(의사-정상상태)에 있다는 조건은
+로 쓸 수 있다. 또 내부 대사물이 [의사-정상상태](../glossary.md)(pseudo-steady-state)에 있다는 조건은
 
 $$
 \mathbf S\mathbf v=\mathbf 0
