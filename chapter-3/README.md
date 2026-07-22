@@ -1,8 +1,8 @@
 # Chapter 3. 게놈 규모 대사 모델의 구조
 
-세포 안에서는 수많은 대사 반응이 동시에 일어난다. [화학량론 행렬](../chapter-2/README.md) $$\mathbf S$$는 이 반응에서 대사산물이 소비·생성되는 비율을 숫자로 적어 둔 표다. 그러나 $$\mathbf S$$만으로는 알 수 없는 것이 많다. 어떤 유전자가 반응을 가능하게 하는지, 반응이 어느 세포 구획에서 일어나는지, 세포가 환경과 어떤 물질을 주고받는지, 분석에서 어떤 기능을 최적화할지는 $$\mathbf S$$에 담겨 있지 않다. GEM은 화학량론 행렬에 다음 정보를 더한 모델이다. **GPR(유전자-단백질-반응 연관)**은 어떤 유전자 산물이 반응 수행에 필요한지를, **구획**은 반응이 일어나는 모델 속 위치를, **수송·경계 반응**은 구획 사이와 세포 밖의 물질 이동을 나타낸다. **플럭스 경계조건**, **목적함수**, **대사 작업**은 이 모델을 어떤 조건에서 계산할지 정한다.
+세포 안에서는 수많은 대사 반응이 동시에 일어난다. [화학량론 행렬](../chapter-2/README.md) $$\mathbf S$$는 이 반응에서 대사물이 소비·생성되는 비율을 숫자로 적어 둔 표다. 그러나 $$\mathbf S$$만으로는 알 수 없는 것이 많다. 어떤 유전자가 반응을 가능하게 하는지, 반응이 어느 세포 구획에서 일어나는지, 세포가 환경과 어떤 물질을 주고받는지, 분석에서 어떤 기능을 최적화할지는 $$\mathbf S$$에 담겨 있지 않다. 게놈 규모 대사 모델(genome-scale metabolic model, GEM)은 화학량론 행렬에 다음 정보를 더한 모델이다. **유전자-단백질-반응 연관(gene-protein-reaction association, GPR)**은 어떤 유전자 산물이 반응 수행에 필요한지를, **구획**(compartment)은 반응이 일어나는 모델 속 위치를, **운송·경계 반응**은 구획 사이와 세포 밖의 물질 이동을 나타낸다. **플럭스 경계조건**, **목적함수**, **대사 작업**(metabolic task)은 이 모델을 어떤 조건에서 계산할지 정한다.
 
-이 장은 모델 파일의 구조와 그 생물학적 의미를 구분해 설명한다. GPR은 효소가 얼마나 활성인지를 직접 나타내지 않는다. 대신 유전자를 쓸 수 있는지와 반응이 가능한지의 Boolean 관계만 나타낸다. Compartment label은 같은 화합물이라도 화학적으로 구별되는 metabolite species로 나눈다. [Boundary reaction](../glossary.md)은 모델의 system boundary를 정의한다. [biomass reaction](../glossary.md)은 세포의 ‘목적’ 그 자체가 아니라, 성장 분석에 사용하는 조성 기반 pseudo-reaction이다.
+이 장은 모델 파일의 구조와 그 생물학적 의미를 구분해 설명한다. GPR은 효소가 얼마나 활성인지를 직접 나타내지 않는다. 대신 유전자를 쓸 수 있는지와 반응이 가능한지의 Boolean 관계만 나타낸다. 구획 라벨은 같은 화합물이라도 화학적으로 구별되는 구획별 대사물 종(metabolite species)으로 나눈다. [경계 반응](../glossary.md)은 모델의 시스템 경계(system boundary)를 정의한다. [바이오매스 반응](../glossary.md)은 세포의 ‘목적’ 그 자체가 아니라, 성장 분석에 사용하는 조성 기반 의사반응이다.
 
 SBML Level 3 FBC와 [COBRApy](https://opencobra.github.io/cobrapy/) round-trip 저장은 [SBML 실무 보충](../supplements/sbml-practical.md)에서 다룬다.
 
@@ -34,7 +34,7 @@ flowchart TB
     M --> F["Chapter 4: FBA와 최적화"]
 ```
 
-*그림 3.1. 화학량론 행렬에 결합되는 GEM의 구조 요소. 반응 bounds·GPR·목적함수·주석은 행렬 밖의 모델 속성이고, 구획·운송·경계·바이오매스 반응은 행렬의 행·열에도 나타난다. Biomass 반응이 사용하는 구획은 모델 formulation에 따라 다르며, 여러 구획의 전구체를 반드시 직접 소비하는 것은 아니다. 저자 작성.*
+*그림 3.1. 화학량론 행렬에 결합되는 GEM의 구조 요소. 반응 bounds·GPR·목적함수·주석은 행렬 밖의 모델 속성이고, 구획·운송·경계·바이오매스 반응은 행렬의 행·열에도 나타난다. Biomass 반응이 사용하는 구획은 모델 formulation에 따라 다르며, 여러 구획의 전구체를 반드시 직접 소비하는 것은 아니다. 저자 작성 Mermaid 모식도이며 실제 모델 계산 결과가 아니다. 개념 근거: 재구축 구성 요소는 [Thiele and Palsson (2010)](https://doi.org/10.1038/nprot.2009.203), 행렬과 모델 속성의 자료 구조상 구분은 [Ebrahim et al. (2013)](https://doi.org/10.1186/1752-0509-7-74)을 따랐다.*
 
 ## 장 구성
 
@@ -42,9 +42,9 @@ flowchart TB
 |:---|:---|:---|
 | §1 | GEM의 범위와 규모 | 모델명·release·집계 기준 |
 | §2 | GPR | complex AND, isoenzyme OR, mixed rule |
-| §3 | Compartment | 동일 화합물과 구획별 species |
-| §4 | Transport | uniport·symport·antiport와 수동·능동 수송 |
-| §5 | Boundary reaction | exchange·demand·sink 및 system boundary |
+| §3 | 구획 | 동일 화합물과 구획별 species |
+| §4 | 운송 반응 | uniport·symport·antiport와 수동·능동 수송 |
+| §5 | 경계 반응 | exchange·demand·sink 및 system boundary |
 | §6 | Biomass와 maintenance | BOF, GAM, NGAM 및 단위 |
 | §7 | 구조 통합 | 검증 가능한 모델 anatomy |
 | Lab | COBRApy 구조 검사 | AST 기반 GPR, 구획, boundary, BOF |
@@ -71,10 +71,10 @@ flowchart TB
 
 ## 이 장을 읽는 방법
 
-게놈 규모 대사모델(GEM)은 행렬만으로 완성되지 않는다. 이 장에서는 반응에 **생물학적 정체성**을 부여하는 다섯 요소를 분리해서 읽는다.
+GEM은 행렬만으로 완성되지 않는다. 이 장에서는 반응에 **생물학적 정체성**을 부여하는 다섯 요소를 분리해서 읽는다.
 
 1. GPR은 유전자 산물과 반응의 가능한 연결을 나타낸다.
-2. 구획과 [수송 반응](../glossary.md)은 같은 대사물의 위치와 이동을 표현한다.
+2. 구획과 [운송 반응](../glossary.md)은 같은 대사물의 위치와 이동을 표현한다.
 3. [교환](../glossary.md)·[요구](../glossary.md)·[싱크](../glossary.md) 반응은 모델과 환경의 경계를 정의한다.
 4. 바이오매스 반응과 목적함수는 계산이 무엇을 선호할지 정한다.
 
