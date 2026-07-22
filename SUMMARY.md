@@ -124,16 +124,14 @@
   * [13. 실행 결과와 provenance를 JSON으로 남기기](chapter-10/14.md)
   * [14. 미니 프로젝트: 한 조건을 완결된 분석으로 만들기](chapter-10/15.md)
 
-* [Chapter 11. 실습 워크벤치: 설치부터 맥락특이적 재구축까지](chapter-11/README.md)
+* [Chapter 11. 실습 워크벤치: 설치부터 군집 모델링까지](chapter-11/README.md)
   * [1. 환경·솔버·Gurobi 라이선스](chapter-11/01.md)
   * [2. COBRApy 기초와 FBA](chapter-11/02.md)
   * [3. pFBA와 FVA](chapter-11/03.md)
   * [4. 유전자·반응 결손과 MOMA](chapter-11/04.md)
   * [5. CarveMe: 유전체에서 초안 GEM](chapter-11/05.md)
-  * [6. mmplatform: tINIT 맥락특이적 재구축](chapter-11/06.md)
-  * [7. TRACE-GEM: 근거기반 gap-filling](chapter-11/07.md)
-  * [8. CMM: LAD·E-Flux2 발현 통합](chapter-11/08.md)
-  * [9. CMIG: 커뮤니티 모델링](chapter-11/09.md)
+  * [6. CMM: LAD·E-Flux2 발현 통합](chapter-11/06.md)
+  * [7. CMIG: 커뮤니티 모델링](chapter-11/07.md)
 
 ## 부록
 
