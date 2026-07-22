@@ -1,4 +1,4 @@
-# 실습: COBRApy로 반응·대사산물·화학량론 행렬 검사하기
+# 실습: COBRApy로 반응·대사물·화학량론 행렬 검사하기
 
 이 실습은 [COBRApy](https://opencobra.github.io/cobrapy/) `textbook` 모델에서 reaction·metabolite 객체와 화학량론 행렬 $$\mathbf S$$를 조회하고, [rank](../glossary.md)와 [영공간](../glossary.md)(null space)의 차원을 검산합니다. 전체 notebook은 `raw_data/GEM_lecture_notes/gem9_w02_lab.ipynb`와 `gem9_w03_lab.ipynb`에 있습니다.
 
