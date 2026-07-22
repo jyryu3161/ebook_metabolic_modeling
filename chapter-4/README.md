@@ -1,6 +1,6 @@
 # Chapter 4. Flux Balance Analysis (FBA)
 
-> [Chapter 2](../chapter-2/README.md)~[Chapter 3](../chapter-3/README.md)에서 만든 모델([화학량론 행렬](../glossary.md) $$\mathbf{S}$$, 플럭스 범위, 바이오매스 목적함수)에는 사실 무한히 많은 플럭스 해가 존재한다. 이 장에서는 그중 목적 함수를 최적화하는 해를 [선형 계획법](../glossary.md)(Linear Programming, LP)으로 찾는 방법 — **[Flux Balance Analysis(FBA, 플럭스 균형 분석)](../landmark-papers.md)** — 을 손 계산과 코드로 직접 익힌다. 최적 목적값은 하나여도 그 값을 만드는 플럭스 분포는 여러 개일 수 있다.
+> [Chapter 2](../chapter-2/README.md)~[Chapter 3](../chapter-3/README.md)에서 만든 모델([화학량론 행렬](../glossary.md) $$\mathbf{S}$$, 플럭스 범위, 바이오매스 목적함수)에는 사실 무한히 많은 플럭스 해가 존재한다. 이 장에서는 그중 목적함수를 최적화하는 해를 [선형 계획법](../glossary.md)(Linear Programming, LP)으로 찾는 방법 — **[플럭스 균형 분석(Flux Balance Analysis, FBA)](../landmark-papers.md)** — 을 손 계산과 코드로 직접 익힌다. 최적 목적값은 하나여도 그 값을 만드는 플럭스 분포는 여러 개일 수 있다.
 
 ---
 
