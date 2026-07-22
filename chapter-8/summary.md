@@ -93,7 +93,8 @@
 13. Lord CJ, Ashworth A (2017). "PARP inhibitors: Synthetic lethality in the clinic." *Science* 355(6330): 1152–1158.
 
 **바이오 생산 사례 및 산업 응용** (강의 노트 1주차 §5.3 및 종합 자료 기반)
-14. Jantama K, et al. (2008). "Combining metabolic engineering and metabolic evolution to develop nonrecombinant strains of E. coli C that produce succinate and malate." *Biotechnol. Bioeng.* 99(5): 1140–1153. doi: `10.1002/bit.21694`. — succinate KJ060/KJ134.
+14. Jantama K, et al. (2008a). "Combining metabolic engineering and metabolic evolution to develop nonrecombinant strains of E. coli C that produce succinate and malate." *Biotechnol. Bioeng.* 99(5): 1140–1153. doi: `10.1002/bit.21694`. — succinate KJ060/KJ073.
+    - Jantama K, et al. (2008b). "Eliminating side products and increasing succinate yields in engineered strains of Escherichia coli C." *Biotechnol. Bioeng.* 101(5): 881–893. doi: `10.1002/bit.22005`. — succinate KJ122/KJ134. §8.2 표의 KJ134 행은 이 논문이 출처이다.
 15. Paddon CJ, Keasling JD (2014). "Semi-synthetic artemisinin: a model for the use of synthetic biology in pharmaceutical development." *Nat. Rev. Microbiol.* 12(5): 355–367. — 아르테미신산 세포공장.
 16. Paddon CJ, et al. (2013). "High-level semi-synthetic production of the potent antimalarial artemisinin." *Nature* 496:528–532. doi: `10.1038/nature12051`. — 아르테미신산 25 g/L의 1차 연구.
 
@@ -101,7 +102,11 @@
 17. Diener C, Gibbons SM, Resendis-Antonio O (2020). "MICOM: Metagenome-scale modeling to infer metabolic interactions in the gut microbiota." *mSystems* 5(1): e00606-19.
 18. Chan SHJ, Simons MN, Maranas CD (2017). "SteadyCom: Predicting microbial abundances while ensuring community stability." *PLoS Comput. Biol.* 13(5): e1005539.
 19. Zomorrodi AR, Maranas CD (2012). "OptCom: A multi-level optimization framework for the metabolic modeling and analysis of microbial communities." *PLoS Comput. Biol.* 8(2): e1002363.
-20. Heinken A, et al. (2023). "Genome-scale metabolic reconstruction of 7,302 human microorganisms for personalized medicine." *Nat. Biotechnol.* 41: 1320–1331. — AGORA2.
+20. Heinken A, et al. (2023). "Genome-scale metabolic reconstruction of 7,302 human microorganisms for personalized medicine." *Nat. Biotechnol.* 41: 1320–1331. doi: `10.1038/s41587-022-01628-0`. — AGORA2, 검증 자료집과 616명 코호트 적용.
+21. Quinn-Bohmann N, et al. (2024). "Microbial community-scale metabolic modelling predicts personalized short-chain fatty acid production profiles in the human gut." *Nat. Microbiol.* 9(7): 1700–1712. doi: `10.1038/s41564-024-01728-4`. — MICOM 기반 개인별 SCFA 예측.
+22. Jiménez-García B, et al. (2018). "FLYCOP: metabolic modeling-based analysis and engineering microbial communities." *Bioinformatics* 34(17): i954–i963. doi: `10.1093/bioinformatics/bty561`.
+23. Zhuang K, Ma E, Lovley DR, Mahadevan R (2012). "The design of long-term effective uranium bioremediation strategy using a community metabolic model." *Biotechnol. Bioeng.* 109(10): 2475–2483. doi: `10.1002/bit.24528`. — DMMM 기반 Rifle 현장 전략.
+24. "A genome-scale metabolic model for the denitrifying bacterium Thauera sp. MZ1T accurately predicts degradation of pollutants and production of polymers." *PLOS Comput. Biol.* (2025). doi: `10.1371/journal.pcbi.1012736`. — iThauera861.
 
 **소프트웨어**
 - COBRApy — `single_gene_deletion`, `double_gene_deletion`, `moma`, `room`, `production_envelope` (https://opencobra.github.io/cobrapy/)

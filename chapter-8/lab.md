@@ -18,10 +18,10 @@ flowchart LR
 
 이 실습을 마치면 다음을 할 수 있습니다.
 
-1. COBRApy로 `e_coli_core` 모델을 불러오고 야생형(wild-type, WT) 성장률과 [pFBA](../glossary.md) 기준 flux를 **계산한다**.
-2. `single_gene_deletion()`으로 단일 결손 스크리닝을 **실행하고** 필수 유전자 수를 확인한다.
-3. 같은 결손(tpiA)에 대해 FBA·MOMA·ROOM을 **실행하고** 세 방법이 내놓는 성장률과 목적값을 구분해 **해석한다**.
-4. `production_envelope()`로 생산 포락선을 **계산하고** 최대 생장점의 하한으로 growth-coupled 여부를 **판정한다**.
+1. COBRApy로 `e_coli_core` 모델을 불러오고 야생형(wild-type, WT) 성장률과 [pFBA](../glossary.md) 기준 flux를 **계산합니다**.
+2. `single_gene_deletion()`으로 단일 결손 스크리닝을 **실행하고** 필수 유전자 수를 확인합니다.
+3. 같은 결손(tpiA)에 대해 FBA·MOMA·ROOM을 **실행하고** 세 방법이 내놓는 성장률과 목적값을 구분해 **해석합니다**.
+4. `production_envelope()`로 생산 포락선을 **계산하고** 최대 생장점의 하한으로 growth-coupled 여부를 **판정합니다**.
 
 ## 준비물
 

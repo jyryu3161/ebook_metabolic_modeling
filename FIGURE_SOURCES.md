@@ -19,7 +19,7 @@
 python scripts/generate_optimization_figures.py
 ```
 
-생성 코드는 [`scripts/generate_optimization_figures.py`](scripts/generate_optimization_figures.py)입니다. 모식도 네 종은 스크립트에 적힌 좌표·수식에서 직접 그리며 solver를 호출하지 않습니다. 계산 그림 세 종은 COBRApy 0.30.0의 `cobra.io.load_model("textbook")`으로 불러온 [BiGG `e_coli_core`](http://bigg.ucsd.edu/models/e_coli_core)(72 metabolites, 95 reactions, 137 genes), 모델의 기본 배지와 biomass 목적함수, GLPK, `Configuration().processes = 1`을 사용합니다. GLPK의 세부 버전과 모델 파일 checksum은 생성 당시 기록되지 않았으므로, 다음 재생성 때 함께 고정해야 합니다.
+생성 코드는 [`scripts/generate_optimization_figures.py`](scripts/generate_optimization_figures.py)입니다. 모식도 네 종은 스크립트에 적힌 좌표·수식에서 직접 그리며 solver를 호출하지 않습니다. 계산 그림 세 종은 COBRApy 0.30.0의 `cobra.io.load_model("textbook")`으로 불러온 [BiGG `e_coli_core`](http://bigg.ucsd.edu/models/e_coli_core)(72 metabolites, 95 reactions, 137 genes), 모델의 기본 배지와 biomass 목적함수, GLPK, `Configuration().processes = 1`을 사용합니다. GLPK의 세부 버전과 모델 파일 checksum은 자산 생성 당시에는 기록되지 않았습니다. 2026-07-22에 본 저장소의 실행 환경에서 확인한 값은 COBRApy 0.30.0, GLPK 5.0(`swiglpk.glp_version()`), optlang GLPK 인터페이스이며, `load_model("textbook")`이 읽는 COBRApy 배포본 `cobra/data/textbook.xml.gz`의 SHA-256은 `c674befd7a8199f037fd851c4f8ea8502730d0328ef51b1c46946f19fb44f72a`입니다. 이 파일에서 불러온 모델은 대사물 72·반응 95·유전자 137로 위 기재와 일치합니다. 다만 이 값들은 **재현 검증 시점의 환경**이며 원 자산을 생성할 당시의 값과 동일하다고 확인된 것은 아닙니다. 따라서 다음 재생성 때 생성 환경에서 다시 측정해 고정 기록해야 합니다.
 
 COBRApy 코드는 [GPL/LGPL v2 이상 이중 라이선스](https://github.com/opencobra/cobrapy)입니다. [BiGG License](http://bigg.ucsd.edu/license)는 © 2019 The Regents of the University of California로, 저작권·라이선스 문구를 사본에 포함하는 조건 아래 교육·연구·비영리 목적의 사용·복사·수정·배포를 무상 허용하고 상업적 사용에는 별도 연락을 요구합니다. 본 저장소의 그래프는 모델 파일을 복사한 것이 아니라 계산 결과를 저자가 시각화한 것이지만, `e_coli_core` 모델을 배포물에 직접 포함할 때는 이 조건을 적용해야 합니다.
 
