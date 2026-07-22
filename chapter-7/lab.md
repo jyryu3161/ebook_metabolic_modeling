@@ -14,12 +14,12 @@
 
 이 실습을 마치면 다음을 할 수 있습니다.
 
-1. COBRApy로 예제 모델을 불러오고 반응·대사물·유전자 수를 **확인한다.**
-2. GPR 규칙에 따른 단일 유전자 결손의 상대 성장을 **계산하고** 치사 후보를 **판정한다.**
-3. 산소 uptake를 닫아 무산소 조건을 만들고 환경에 따른 조건부 필수성을 **비교한다.**
-4. 이중 결손 결과로 합성 치사 후보와 Bliss 편차를 **해석한다.**
-5. 합성 자료로 ROC-AUC·PR-AUC·Spearman 상관을 **검산한다.**
-6. AFR과 MTA 상태 변환 점수의 계산 구조를 **재현한다.**
+1. COBRApy로 예제 모델을 불러오고 반응·대사물·유전자 수를 **확인합니다.**
+2. GPR 규칙에 따른 단일 유전자 결손의 상대 성장을 **계산하고** 치사 후보를 **판정합니다.**
+3. 산소 uptake를 닫아 무산소 조건을 만들고 환경에 따른 조건부 필수성을 **비교합니다.**
+4. 이중 결손 결과로 합성 치사 후보와 Bliss 편차를 **해석합니다.**
+5. 합성 자료로 ROC-AUC·PR-AUC·Spearman 상관을 **검산합니다.**
+6. AFR과 MTA 상태 변환 점수의 계산 구조를 **재현합니다.**
 
 ## 준비물
 
@@ -80,7 +80,7 @@ def single_deletion_table(current_model, label):
     # A deletion only narrows the FBA feasible set; values slightly above 1 are solver noise.
     result["relative_growth"] = result["relative_growth"].clip(lower=0.0, upper=1.0)
     # 이 실습의 screen policy: infeasible deletion은 growth 0으로 분류하되
-    # 원 상태와 NaN을 feasible/status 열에 보존한다.
+    # 원 상태와 NaN을 feasible/status 열에 보존합니다.
     result["screen_growth"] = result["relative_growth"].fillna(0.0)
     result["effect"] = 1.0 - result["screen_growth"]
     result["condition"] = label
@@ -99,7 +99,7 @@ lethal_by_policy = (
 print(lethal_by_policy.sum(), (~single_default["feasible"]).sum())
 ```
 
-**예상 출력.** 이 환경에서는 기준 성장률이 약 0.873922 $$\mathrm{h^{-1}}$$이고 137개 유전자가 평가됩니다. 유한 최적해의 상대 성장 0.01 미만은 5개이고, 결손 뒤 `infeasible`인 유전자는 2개이므로 위 screen policy의 치사 후보는 7개입니다.
+**예상 출력.** 아래 값은 `textbook`(`e_coli_core`) 모델의 기본 배지에서 포도당 흡수 하한 $$-10\,\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$과 무제한 산소 흡수(호기 조건)를 적용하고, `Biomass_Ecoli_core` 반응을 목적함수로 최대화하며, GLPK와 feasibility 허용오차 $$10^{-7}$$로 푼 결과입니다. 성장률은 biomass 반응의 플럭스이므로 단위가 $$\mathrm{h^{-1}}$$이며, 물질 교환 플럭스의 단위 $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$와 다릅니다. 이 환경에서는 기준 성장률이 약 0.873922 $$\mathrm{h^{-1}}$$이고 137개 유전자가 평가됩니다. 유한 최적해의 상대 성장 0.01 미만은 5개이고, 결손 뒤 `infeasible`인 유전자는 2개이므로 위 screen policy의 치사 후보는 7개입니다.
 
 ```
 0.873922 137
@@ -256,7 +256,7 @@ toy = pd.DataFrame({
     "essential_label": [1, 1, 1, 0, 0, 0],
 })
 
-# DepMap-type gene effect는 더 음수일수록 강한 의존성이므로 부호를 뒤집는다.
+# DepMap-type gene effect는 더 음수일수록 강한 의존성이므로 부호를 뒤집습니다.
 rho, p_value = spearmanr(toy["model_effect"], -toy["gene_effect"])
 roc_auc = roc_auc_score(toy["essential_label"], toy["model_effect"])
 pr_auc = average_precision_score(toy["essential_label"], toy["model_effect"])
