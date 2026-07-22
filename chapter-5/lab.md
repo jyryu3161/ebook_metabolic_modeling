@@ -4,7 +4,7 @@
 
 이 실습에서는 게놈 규모 대사 모델(GEM)을 만든 뒤 반드시 거쳐야 하는 **품질 검사와 gap-filling**을 COBRApy로 직접 실행해 봅니다. 서열 정렬 통계(E-value)의 수치 검산에서 시작해, 반응의 질량·전하 균형, 위상학적 dead-end, [MILP](../glossary.md) [gap-filling](../glossary.md), CarveMe 자동 재구축과 수동 모델 비교, [MEMOTE](../glossary.md) 리포트, 단일 유전자 결손 평가까지 한 번에 따라 합니다. 이 장 본문([5장 1절](01.md)~[6절](06.md))에서 개념으로 설명한 검사들을, 여기서는 실제로 실행되는 코드로 확인합니다.
 
-검증 환경은 Python 3.10 이상과 COBRApy 0.30.0입니다. iML1515의 구조 통계는 이 release에서 genes 1,516, reactions 2,712, metabolites 1,877입니다. 소프트웨어와 모델 release가 바뀌면 결과를 다시 기록합니다.
+검증 환경은 Python 3.10 이상과 COBRApy 0.30.0입니다. 구조 통계의 기준 파일은 [BiGG Models](http://bigg.ucsd.edu/models/iML1515)가 배포하는 iML1515 SBML이며, 원 논문은 [Monk et al. (2017)](https://doi.org/10.1038/nbt.3956)입니다. 2026년 7월 22일에 내려받은 `iML1515.xml.gz`의 SHA-256은 `2555e0f7e55a8cb8e770b9bb29cdaeb5db171941c414e7a232ff2d8e0228e308`이고, 압축을 푼 `iML1515.xml`은 `9c772d44ca43350e40dc7ee86c7aa148796856be1eea45e5406c6df8f7dcde28`입니다. 이 파일에서 genes 1,516, reactions 2,712, metabolites 1,877이 집계됩니다. 집계 기준은 다음과 같습니다. reactions는 경계 반응 337개(교환 331개, demand 6개)를 포함한 전체 반응 수이고, metabolites는 구획별 화학종 수(세포질 1,071 · periplasm 465 · 세포외 341)이므로 구획을 무시한 고유 화합물 수 1,169와 다릅니다. 이 수치는 종의 고정 특성이 아니라 이 release 파일의 속성이므로, 소프트웨어와 모델 release가 바뀌면 결과를 다시 기록합니다.
 
 ## 학습 목표
 
@@ -306,7 +306,7 @@ wt_growth = model.slim_optimize()
 theta = 0.05
 threshold = theta * wt_growth
 
-result = single_gene_deletion(model)          # 모든 유전자를 하나씩 결손시키며 성장률 계산
+result = single_gene_deletion(model, processes=1)   # 모든 유전자를 하나씩 결손시키며 성장률 계산
 result["ratio"] = result["growth"] / wt_growth
 predicted_essential = result[result["growth"] < threshold]
 
@@ -325,7 +325,7 @@ predicted_essential_ids = set(
 print(f"야생형 성장률: {wt_growth:.3f} /h")
 print(f"필수성 임계값(theta=0.05 x WT): {threshold:.4f} /h")
 print(f"예측된 essential 유전자 수: {len(predicted_essential)} / {len(model.genes)}")
-# COBRApy 0.30.0, GLPK, 기본 bounds의 회귀 기준:
+# COBRApy 0.30.0, GLPK, 기본 bounds, processes=1의 회귀 기준:
 # 야생형 성장률 약 0.874 /h, theta=0.05에서 predicted essential genes 5개.
 ```
 
@@ -372,7 +372,7 @@ def confusion_matrix_metrics(predicted_essential_ids, true_essential_ids, all_ge
 
 실험 데이터와 모델의 유전자 식별자 체계가 다르면 명시적인 ID mapping을 적용하고, mapping되지 않은 항목을 분모에서 어떻게 처리했는지 보고합니다. Mapping 실패를 임의로 음성으로 간주하면 모든 분류 지표가 왜곡될 수 있습니다.
 
-**자주 나는 오류와 해결.** `single_gene_deletion` 결과는 유전자 ID를 DataFrame의 index가 아니라 `ids` 열의 한 원소짜리 frozenset으로 저장합니다. 그래서 위 코드는 `extract_single_gene_id`로 frozenset에서 ID를 꺼냅니다. `KeyError: 'gene_id'`가 나면 이 변환 줄을 건너뛴 것입니다. 실행이 느리게 느껴지면 `textbook` 모델(137 genes)을 쓰고 있는지 확인합니다. iML1515(1,516 genes)로 바꾸면 시간이 크게 늘어납니다.
+**자주 나는 오류와 해결.** `single_gene_deletion` 결과는 유전자 ID를 DataFrame의 index가 아니라 `ids` 열의 한 원소짜리 frozenset으로 저장합니다. 그래서 위 코드는 `extract_single_gene_id`로 frozenset에서 ID를 꺼냅니다. `KeyError: 'gene_id'`가 나면 이 변환 줄을 건너뛴 것입니다. `processes=1`은 재현성을 위해 단일 프로세스로 고정하는 인자이므로 지우지 마십시오. COBRApy 0.30.0의 기본값은 사용 가능한 코어 수만큼 병렬 실행하는 것이어서, 환경에 따라 워커 생성(spawn)이 실패하거나 출력이 흔들릴 수 있습니다. 실행이 느리게 느껴지면 `textbook` 모델(137 genes)을 쓰고 있는지 확인합니다. iML1515(1,516 genes)로 바꾸면 시간이 크게 늘어납니다.
 
 ---
 
