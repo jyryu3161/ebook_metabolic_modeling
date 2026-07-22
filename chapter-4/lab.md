@@ -129,7 +129,7 @@ print(f"pFBA 총 |flux| 합: {pfba_solution.fluxes.abs().sum():.1f}")
 
 largest_duals = solution.shadow_prices.abs().sort_values(ascending=False).head(5)
 print(solution.shadow_prices[largest_duals.index])
-# 부호만으로 제한 영양소를 판정하지 말고 §5.2처럼 exchange bound 민감도를 확인한다.
+# 부호만으로 제한 영양소 판정 금지 — §5.2처럼 exchange bound 민감도 확인
 ```
 
 **예상 출력.** 첫 줄의 pFBA 총 `|flux|` 합은 약 `518.4`입니다([8.2절](08.md)). 둘째 출력은 그림자 가격의 절댓값이 큰 상위 5개 대사물과 그 값(부호 포함)입니다.
@@ -161,7 +161,7 @@ result = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=bounds, method="highs")
 print(f"v1*={result.x[0]:.4f}, v2*={result.x[1]:.4f}, Z*={-result.fun:.4f}")
 # 기대 출력: v1*=2.0000, v2*=8.0000, Z*=7.4000  (3.3절의 손 계산과 정확히 일치)
 
-# highs 솔버는 부등식 제약의 쌍대값(shadow price)도 함께 보고한다.
+# highs 솔버의 부등식 제약 쌍대값(shadow price) 동시 보고
 print("쌍대값(y1, y2, y3):", -result.ineqlin.marginals)
 # 기대 출력에 가까운 값: [0.5, 0.0, 0.3]  (5.6절에서 상보 여유성으로 손 계산한 값과 일치)
 ```
@@ -200,8 +200,8 @@ plt.plot(o2_range, mu, marker="o")
 plt.xlabel("산소 흡수 상한 (mmol/gDW/h)")
 plt.ylabel("성장률 μ (h$^{-1}$)")
 plt.title("산소 강건성 곡선 — e_coli_core")
-# 산소가 부족한 구간에서는 μ가 급격히 증가하다가, 어느 지점 이후로는
-# 포도당 10이 병목이 되어 증가폭이 완만해지는 5.4절의 곡선 형태를 재현한다.
+# 산소 부족 구간의 급격한 μ 증가, 이후 포도당 10 병목에 따른 증가폭 완만화 —
+# 5.4절 곡선 형태의 재현
 ```
 
 **예상 출력.** 숫자 출력 대신 그래프 하나가 그려집니다. x축은 산소 흡수 상한, y축은 성장률 μ이며, 산소가 적은 구간에서는 μ가 가파르게 오르다가 어느 지점 이후로는 포도당 공급(10)이 병목이 되어 증가폭이 완만해지는 꺾인 곡선 모양이 나타납니다.
