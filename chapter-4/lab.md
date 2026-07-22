@@ -1,6 +1,6 @@
 # 실습: COBRApy로 FBA · FVA · pFBA 수행하기
 
-> 아래 스니펫들은 핵심 흐름만 보여줍니다. 전체 실행 가능한 예제(모델 불러오기부터 [그림자 가격](../glossary.md) 시각화, 혐기 조건 비교, 연습 문제까지)는 `gem9_w03_lab.ipynb` 노트북을 참고하세요. 이 실습은 [Chapter 1](../chapter-1/README.md)~[Chapter 3](../chapter-3/README.md)에서 계속 사용해 온 [`e_coli_core`](http://bigg.ucsd.edu/models/e_coli_core)를 그대로 이어서 사용합니다.
+> 아래 스니펫들은 핵심 흐름만 보여줍니다. 전체 실행 가능한 예제(모델 불러오기부터 [그림자 가격](../glossary.md) 시각화, 혐기 조건 비교, 연습 문제까지)는 `raw_data/GEM_lecture_notes/gem9_w03_lab.ipynb` 노트북을 참고하세요. 이 실습은 [Chapter 1](../chapter-1/README.md)~[Chapter 3](../chapter-3/README.md)에서 계속 사용해 온 [`e_coli_core`](http://bigg.ucsd.edu/models/e_coli_core)를 그대로 이어서 사용합니다.
 
 ## 이 실습에서 하는 일
 
