@@ -80,7 +80,7 @@ def single_deletion_table(current_model, label):
     # A deletion only narrows the FBA feasible set; values slightly above 1 are solver noise.
     result["relative_growth"] = result["relative_growth"].clip(lower=0.0, upper=1.0)
     # 이 실습의 screen policy: infeasible deletion은 growth 0으로 분류하되
-    # 원 상태와 NaN을 feasible/status 열에 보존합니다.
+    # 원 상태와 NaN은 feasible/status 열에 보존
     result["screen_growth"] = result["relative_growth"].fillna(0.0)
     result["effect"] = 1.0 - result["screen_growth"]
     result["condition"] = label
@@ -256,7 +256,7 @@ toy = pd.DataFrame({
     "essential_label": [1, 1, 1, 0, 0, 0],
 })
 
-# DepMap-type gene effect는 더 음수일수록 강한 의존성이므로 부호를 뒤집습니다.
+# DepMap-type gene effect는 더 음수일수록 강한 의존성 — 방향을 맞추기 위해 부호 반전
 rho, p_value = spearmanr(toy["model_effect"], -toy["gene_effect"])
 roc_auc = roc_auc_score(toy["essential_label"], toy["model_effect"])
 pr_auc = average_precision_score(toy["essential_label"], toy["model_effect"])
