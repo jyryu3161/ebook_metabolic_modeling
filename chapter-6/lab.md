@@ -361,7 +361,7 @@ E-Flux 스케일링 후 성장률: 0.6139 h^-1
 
 ### 단계 6. iMAT을 개념 코드로 이해하기
 
-**무엇을·왜.** iMAT은 GIMME·E-Flux와 달리 [MILP](../glossary.md)(혼합정수선형계획)로 정형화되며, $$y_j$$–$$v_j$$ big-M 연결 제약을 반응마다 정확한 하한·상한으로 조정해야 합니다([3.3절](03.md)의 흔한 함정, [3.3.1절](03.md)의 숫자 예제 참고). 이 상수를 잘못 설정하면 손쉽게 infeasible에 빠지므로, 이 단계는 실행이 아니라 **구조 이해**가 목적입니다. 아래 개념 코드는 고발현·저발현 반응 집합을 나누는 뼈대만 보여 줍니다. 실제 연구에서는 이를 직접 처음부터 구현하기보다 **[Troppo](https://github.com/BioSystemsUM/troppo)**(`troppo.methods.reconstruction`) 프레임워크의 검증된 GIMME/iMAT/FastCORE/tINIT 구현체나 [COBRA Toolbox](https://opencobra.github.io/cobratoolbox/)/[RAVEN](https://github.com/SysBioChalmers/RAVEN)(MATLAB)의 대응 함수를 사용하는 것이 권장됩니다.
+**무엇을·왜.** iMAT은 GIMME·E-Flux와 달리 [MILP](../glossary.md)(혼합정수선형계획)로 정형화되며, $$y_j$$–$$v_j$$ big-M 연결 제약을 반응마다 정확한 하한·상한으로 조정해야 합니다([3.3절](03.md)의 구현상의 주의, [3.3.1절](03.md)의 숫자 예제 참고). 이 상수를 잘못 설정하면 손쉽게 infeasible에 빠지므로, 이 단계는 실행이 아니라 **구조 이해**가 목적입니다. 아래 개념 코드는 고발현·저발현 반응 집합을 나누는 뼈대만 보여 줍니다. 실제 연구에서는 이를 직접 처음부터 구현하기보다 **[Troppo](https://github.com/BioSystemsUM/troppo)**(`troppo.methods.reconstruction`) 프레임워크의 검증된 GIMME/iMAT/FastCORE/tINIT 구현체나 [COBRA Toolbox](https://opencobra.github.io/cobratoolbox/)/[RAVEN](https://github.com/SysBioChalmers/RAVEN)(MATLAB)의 대응 함수를 사용하는 것이 권장됩니다.
 
 **코드.** 이 코드는 함수 정의만 하며, 실행해도 화면에 출력되는 내용은 없습니다. 주석은 실제 iMAT MILP에서 이 두 집합을 어떻게 제약으로 옮기는지 설명합니다.
 
