@@ -12,7 +12,7 @@
 
 1. Karlin–Altschul E-value 식을 코드로 **구현**하고 raw score와 E-value의 지수 관계를 **검산한다**.
 2. `check_mass_balance()`로 반응별 질량·전하 불균형을 **탐지하고**, 일반 반응인지 biomass·polymer 반응인지 **분류한다**.
-3. 계수 부호만 보는 위상학적 screen으로 dead-end 대사산물을 **찾아낸다**.
+3. 계수 부호만 보는 위상학적 screen으로 dead-end 대사물을 **찾아낸다**.
 4. `cobra.flux_analysis.gapfill`로 최소 반응 gap-filling을 **실행하고** 결과를 **해석한다**.
 5. CarveMe 출력과 iML1515를 동일한 구조 지표로 **비교하고**, 단일 유전자 결손으로 필수 유전자 후보를 **예측한다**.
 
@@ -105,15 +105,15 @@ for rxn_id, diff in list(unbalanced.items())[:5]:
 
 **자주 나는 오류와 해결.** `ModuleNotFoundError: No module named 'cobra'`가 나오면 가상환경이 활성화되지 않았거나 COBRApy가 설치되지 않은 것입니다([준비물](#준비물) 참조). `cobra.io.load_model("iML1515")`은 처음 실행 시 모델을 내려받으므로 인터넷 연결이 필요합니다. 오프라인 환경이라면 미리 받아 둔 SBML 파일을 `cobra.io.read_sbml_model("경로.xml")`로 불러옵니다.
 
-### 단계 3. Dead-end 대사산물로 연결성 검증하기
+### 단계 3. Dead-end 대사물로 연결성 검증하기
 
-**무엇을·왜.** dead-end 대사산물은 네트워크에서 생성만 되거나 소비만 되어 정상상태에서 균형을 맞출 수 없는 대사물입니다([5장 5절](05.md)). 이런 대사물이 있으면 관련 반응이 flux를 나를 수 없어 모델 기능이 막힙니다. 여기서는 각 대사물이 참여하는 내부 반응의 **계수 부호만** 보고 생산/소비 반응이 하나도 없는 대사물을 빠르게 찾습니다. 이 코드는 단계 2에서 만든 `model` 변수를 그대로 사용합니다.
+**무엇을·왜.** dead-end 대사물은 네트워크에서 생성만 되거나 소비만 되어 정상상태에서 균형을 맞출 수 없는 대사물입니다([5장 5절](05.md)). 이런 대사물이 있으면 관련 반응이 flux를 나를 수 없어 모델 기능이 막힙니다. 여기서는 각 대사물이 참여하는 내부 반응의 **계수 부호만** 보고 생산/소비 반응이 하나도 없는 대사물을 빠르게 찾습니다. 이 코드는 단계 2에서 만든 `model` 변수를 그대로 사용합니다.
 
 **코드.** 이 코드는 각 대사물에 대해 생산(계수 > 0)·소비(계수 < 0) 반응 수를 세어, 어느 한쪽이 0인 대사물을 dead-end로 수집합니다.
 
 ```python
 def find_dead_end_metabolites(model):
-    """비-경계 반응 기준으로 생산 또는 소비가 전혀 없는 대사산물을 찾는다."""
+    """비-경계 반응 기준으로 생산 또는 소비가 전혀 없는 대사물을 찾는다."""
     dead_ends = []
     for met in model.metabolites:
         internal_rxns = [r for r in met.reactions if not r.boundary]
@@ -128,16 +128,16 @@ def find_dead_end_metabolites(model):
     return dead_ends
 
 dead_ends = find_dead_end_metabolites(model)
-print(f"Dead-end 대사산물 수: {len(dead_ends)}")
+print(f"Dead-end 대사물 수: {len(dead_ends)}")
 ```
 
 **예상 출력.** 출력은 다음 형식의 한 줄입니다. 정확한 개수는 모델 release에 따라 달라집니다.
 
 ```text
-Dead-end 대사산물 수: <정수>
+Dead-end 대사물 수: <정수>
 ```
 
-**확인 포인트.** `Dead-end 대사산물 수:` 뒤에 정수가 출력되면 성공입니다. `dead_ends` 리스트를 출력해 보면 각 항목이 `(대사물 ID, 이름, 사유)` 형태로, "생산 불가" 또는 "소비 불가" 중 어느 쪽인지 확인할 수 있습니다.
+**확인 포인트.** `Dead-end 대사물 수:` 뒤에 정수가 출력되면 성공입니다. `dead_ends` 리스트를 출력해 보면 각 항목이 `(대사물 ID, 이름, 사유)` 형태로, "생산 불가" 또는 "소비 불가" 중 어느 쪽인지 확인할 수 있습니다.
 
 **해석상의 주의.** 이 코드는 계수 부호만 보는 **빠른 위상학적 screen**입니다. 가역 반응과 실제 bounds까지 고려한 producibility/consumability 또는 blocked-reaction 판정은 FVA·flux-consistency 알고리즘으로 별도 확인해야 합니다.
 
@@ -382,7 +382,7 @@ def confusion_matrix_metrics(predicted_essential_ids, true_essential_ids, all_ge
 
 - Karlin–Altschul E-value 식을 구현해 raw score와 유의성의 지수 관계를 검산했습니다(단계 1).
 - iML1515에서 질량·전하 불균형 반응 3건을 찾아, biomass·generic-formula 반응과 일반 반응을 구분하는 판단을 연습했습니다(단계 2).
-- 계수 부호만 보는 빠른 screen으로 dead-end 대사산물을 탐색했습니다(단계 3).
+- 계수 부호만 보는 빠른 screen으로 dead-end 대사물을 탐색했습니다(단계 3).
 - 최소 예제로 MILP gap-filling을 실행해 성장률이 0.0에서 10.0으로 회복되는 과정을 확인했습니다(단계 4).
 - CarveMe 자동 재구축과 iML1515를 동일 지표로 비교하고, MEMOTE 리포트로 표준 품질 시험을 실행했으며, `textbook` 모델에서 필수 유전자 5개를 예측했습니다(단계 5~7).
 

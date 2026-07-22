@@ -2,7 +2,7 @@
 
 ## 핵심 개념
 
-1. **[재구축과 모델](../glossary.md)은 구분된다.** 재구축은 반응·대사산물·GPR·구획·근거의 지식 표현이고, 모델은 여기에 조건별 bounds와 objective 또는 task를 부여한 계산 객체이다.
+1. **[재구축과 모델](../glossary.md)은 구분된다.** 재구축은 반응·대사물·GPR·구획·근거의 지식 표현이고, 모델은 여기에 조건별 bounds와 objective 또는 task를 부여한 계산 객체이다.
 2. **서열 유사성은 기능 증거의 한 종류이다.** BLASTP의 E-value는 현재 검색공간에서 해당 점수 이상의 우연 정렬이 기대되는 수이다. Identity, 양쪽 coverage, domain, catalytic residue, phylogeny 및 genomic context를 함께 평가한다.
 3. **BBH는 orthology의 휴리스틱이다.** 유전자 중복·소실, many-to-many orthology 및 domain fusion이 있으면 reciprocal best hit와 실제 계통관계가 다를 수 있다.
 4. **수동 큐레이션의 핵심은 provenance이다.** 반응의 존재, 방향성, 화학량론, 구획 및 GPR에 대해 증거 유형과 변경 이력을 기록한다.
