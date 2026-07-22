@@ -58,7 +58,7 @@ optimal, μ = 0.8739 h^-1
 **자주 나는 오류와 해결.**
 - `ModuleNotFoundError: No module named 'cobra'` — COBRApy가 설치되지 않았습니다. 가상환경을 활성화한 뒤 `pip install cobra`로 설치합니다.
 - 모델 다운로드 관련 오류가 난다면, `load_model("textbook")`이 처음 호출될 때 모델을 내려받으므로 네트워크 연결을 확인합니다.
-- 뒤 단계에서 `NameError: name 'model' is not defined`가 보이면 이 단계를 실행하지 않은 것입니다. 항상 이 단계부터 순서대로 실행하십시오.
+- 뒤 단계에서 `NameError: name 'model' is not defined`가 보이면 모델을 만드는 셀이 실행되었는지 확인합니다. 노트북을 처음부터 순서대로 실행하거나 필요한 초기화 셀을 다시 실행합니다.
 
 ### 단계 2. 목적 함수를 바꿔 부산물 분비 최대화하기
 

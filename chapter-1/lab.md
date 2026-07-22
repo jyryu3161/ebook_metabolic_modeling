@@ -47,7 +47,7 @@ print(f"대사물 수: {len(model.metabolites)}")
 print(f"유전자 수: {len(model.genes)}")
 ```
 
-**예상 출력.**
+**예상 출력.** 아래 값은 COBRApy 0.30.0의 `textbook` artifact에서 확인한 교육용 기준값입니다. 다른 COBRApy 릴리스, 캐시된 모델 파일 또는 로컬 SBML을 사용하면 먼저 모델 ID·파일 checksum·집계 규칙을 출력해 비교하십시오.
 
 ```
 모델 ID: e_coli_core
@@ -56,12 +56,12 @@ print(f"유전자 수: {len(model.genes)}")
 유전자 수: 137
 ```
 
-**확인 포인트.** 모델 ID가 `e_coli_core`로 나오고 반응 95, 대사물 72, 유전자 137이 그대로 출력되면 성공입니다. 이 세 숫자는 이후 단계의 기준값이 됩니다.
+**확인 포인트.** 모델 ID가 `e_coli_core`로 나오고 위 기준값과 일치하면 이 실습의 bundled artifact를 불러온 것입니다. 일치하지 않으면 숫자만 맞추려 하지 말고 COBRApy 버전, 모델 파일의 출처·checksum, 반응·대사물·유전자 집계 규칙을 함께 기록하십시오. 이 세 숫자는 *E. coli*라는 종의 고정된 특성이 아니라 특정 모델 artifact의 속성입니다.
 
 **자주 나는 오류와 해결.**
 
 {% hint style="warning" %}
-**해석상의 주의(문제 해결 팁):** `cobra.io.load_model("textbook")` 실행 시 `ModuleNotFoundError: No module named 'cobra'` 오류가 뜬다면 COBRApy가 설치되지 않은 것입니다(`pip install cobra`로 해결). 네트워크 연결 문제로 다운로드가 실패한다면, COBRApy 저장소에서 `e_coli_core` 모델의 SBML 파일을 직접 내려받아 `cobra.io.read_sbml_model("경로/e_coli_core.xml")`로 불러올 수도 있습니다. 두 방법 모두 결과는 동일한 `e_coli_core` 모델을 만듭니다.
+**해석상의 주의(문제 해결 팁):** `cobra.io.load_model("textbook")` 실행 시 `ModuleNotFoundError: No module named 'cobra'` 오류가 뜬다면 COBRApy가 설치되지 않은 것입니다(`pip install cobra`로 해결). 네트워크 연결 문제로 다운로드가 실패한다면, 출처와 checksum을 기록한 `e_coli_core` SBML 파일을 `cobra.io.read_sbml_model("경로/e_coli_core.xml")`로 불러올 수 있습니다. 별칭으로 받은 모델과 로컬 SBML이 같은 ID를 보이더라도 파일 바이트와 집계 결과가 같다고 자동으로 가정하지 마십시오.
 {% endhint %}
 
 ### 단계 2. 반응 목록 훑어보기

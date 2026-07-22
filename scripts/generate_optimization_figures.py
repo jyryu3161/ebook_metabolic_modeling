@@ -93,7 +93,10 @@ def draw_lp_geometry() -> None:
     ax.set_title(r"LP: move $0.5v_1+0.8v_2=Z$ outward")
 
     ax = axes[1]
-    ax.plot(xs, 10 - xs, color=ORANGE, lw=4, solid_capstyle="round")
+    # The gray dashed line above shows the complete equality boundary. Emphasize
+    # only its feasible segment so the orange encoding cannot be read as making
+    # infeasible points part of the optimal set.
+    ax.plot([2, 6], [8, 4], color=ORANGE, lw=4, solid_capstyle="round")
     ax.scatter([6, 2], [4, 8], s=80, color=ORANGE, edgecolor="white", zorder=5)
     ax.annotate(
         "every point on this edge is optimal",
