@@ -139,7 +139,7 @@ env = production_envelope(
 max_growth_row = env.loc[env[biomass_id].idxmax()]
 print(max_growth_row[[biomass_id, "flux_minimum", "flux_maximum"]])
 # 기대 출력: 최대 생장률(~0.874)에서 flux_minimum=0, flux_maximum=0
-# flux_minimum > 0일 때만 최대 생장 지점에서 생산이 강제된다.
+# 최대 생장 지점에서 생산이 강제되는 조건: flux_minimum > 0
 ```
 
 **예상 출력.** 최대 생장률(약 0.874) 행에서 아세테이트 flux의 최솟값·최댓값이 모두 0으로 나옵니다(정확한 소수점은 솔버·버전에 따라 달라질 수 있습니다).
