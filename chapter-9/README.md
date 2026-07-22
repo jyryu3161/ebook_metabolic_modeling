@@ -1,6 +1,6 @@
 # Chapter 9. AI와 대사모델링
 
-> 인공지능(Artificial Intelligence, AI)·기계학습(Machine Learning, ML)이 [FBA](../chapter-4/README.md) 같은 전통적 제약 기반 방법의 한계를 어떻게 보완하는지 다룬다. 이 장을 마치면 그래프 특징을 추출해 유전자 필수성을 예측하고, 그래프·초그래프 신경망이 왜 플럭스 예측과 gap-filling을 개선하는지 설명하고, ML 서로게이트·강화학습·대형 언어 모델(LLM)·Foundation Model이 대사모델링의 어느 지점에 기여하는지 스스로 판단할 수 있게 된다.
+> 인공지능(Artificial Intelligence, AI)·머신러닝(Machine Learning, ML)이 [FBA](../chapter-4/README.md) 같은 전통적 제약 기반 방법의 한계를 어떻게 보완하는지 다룬다. 이 장을 마치면 그래프 특징을 추출해 유전자 필수성을 예측하고, 그래프·초그래프 신경망이 왜 플럭스 예측과 gap-filling을 개선하는지 설명하고, ML 서로게이트·강화학습·대형 언어 모델(LLM)·Foundation Model이 대사모델링의 어느 지점에 기여하는지 스스로 판단할 수 있게 된다.
 
 > FBA·pFBA·MOMA·ROOM 등 이 장의 출발점이 된 고전 논문의 질문·핵심 결론·오독 주의점은 [대사모델링 랜드마크 논문 가이드](../landmark-papers.md)에 모아 두었다.
 
