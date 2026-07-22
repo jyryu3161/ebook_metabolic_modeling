@@ -4,15 +4,15 @@
 
 - [화학량론 행렬](../glossary.md) $$\mathbf{S}\in\mathbb{R}^{m\times n}$$의 행은 구획이 지정된 대사물, 열은 반응에 대응한다. 원소 $$S_{ij}$$는 반응 $$j$$에서 대사물 $$i$$의 순 화학량론 몰비이며, 소비는 음수, 생성은 양수로 기록한다.
 - $$\mathbf{S}$$의 행과 열은 구조 진단에 쓰인다. 전부 0인 행은 어떤 반응에도 참여하지 않는 고립 대사물이다. 방향까지 고려해 생성만 또는 소비만 되는 대사물은 막다른(dead-end) 대사물의 후보이며, 관련 반응이 실제로 blocked인지는 전체 네트워크·배지·모든 bounds 아래의 feasible state를 검사해 판정한다. 교환·demand·sink·biomass 반응 열은 비영 원소가 균형을 이루지 않는 의도적 unbalanced 경계 반응이며, 질량·전하 균형은 내부 반응에만 요구된다.
-- 반응 방향성과 용량은 $$\mathbf{S}$$가 아니라 bounds $$\mathbf{l}\leq\mathbf{v}\leq\mathbf{u}$$에 기록한다. 통량 $$v_j$$는 단위 시간·단위 생물량당 반응 진행률이며, $$\mathbf{S}\mathbf{v}$$는 같은 단위의 대사물 순생성률이다. 별도의 부피 변환 없이 농도 변화율로 해석할 수 없다.
-- COBRA 계열 교환 반응이 $$X_e\rightleftharpoons\varnothing$$, $$S_{X,\mathrm{EX}}=-1$$로 저장되어 있으면 음의 교환 통량은 흡수, 양의 교환 통량은 분비를 뜻한다. 모델마다 저장 방향이 다를 수 있으므로 반응식·계수·bounds를 함께 확인한다.
+- 반응 방향성과 용량은 $$\mathbf{S}$$가 아니라 bounds $$\mathbf{l}\leq\mathbf{v}\leq\mathbf{u}$$에 기록한다. 플럭스 $$v_j$$는 단위 시간·단위 생물량당 반응 진행률이며, $$\mathbf{S}\mathbf{v}$$는 같은 단위의 대사물 순생성률이다. 별도의 부피 변환 없이 농도 변화율로 해석할 수 없다.
+- COBRA 계열 교환 반응이 $$X_e\rightleftharpoons\varnothing$$, $$S_{X,\mathrm{EX}}=-1$$로 저장되어 있으면 음의 교환 플럭스는 흡수, 양의 교환 플럭스는 분비를 뜻한다. 모델마다 저장 방향이 다를 수 있으므로 반응식·계수·bounds를 함께 확인한다.
 - 부호·가중 이분 그래프는 $$\mathbf{S}$$의 비영 원소와 계수 크기를 보존할 수 있다. 무가중 이분 그래프는 참여 관계만 보존하며, 대사물 또는 반응 투영 그래프는 다자 반응을 쌍별 간선으로 축약한다.
-- 행렬 비영 비율 $$\operatorname{nnz}(\mathbf{S})/(mn)$$, 이분 incidence 그래프 밀도 $$|E|/(mn)$$, 투영 그래프 밀도는 정의가 서로 다르다. 그래프 경로는 위상적 연결 가능성을 나타낼 뿐 정상상태·bounds·열역학을 만족하는 통량 경로를 보장하지 않는다.
+- 행렬 비영 비율 $$\operatorname{nnz}(\mathbf{S})/(mn)$$, 이분 incidence 그래프 밀도 $$|E|/(mn)$$, 투영 그래프 밀도는 정의가 서로 다르다. 그래프 경로는 위상적 연결 가능성을 나타낼 뿐 정상상태·bounds·열역학을 만족하는 플럭스 경로를 보장하지 않는다.
 - [의사-정상상태](../glossary.md) 가정은 세포 내 중간대사물의 순축적이 관심 시간척도에서 작다고 보는 근사이다. 표준 FBA는 이 근사를 정확한 계산 제약 $$\mathbf{S}\mathbf{v}=0$$으로 부과한다. 정상상태는 화학평형이 아니며 총생성률과 총소비률은 비영일 수 있다.
 - 대사물 풀 $$q_i$$와 정상상태 gross turnover flux $$J_i=J_i^+=J_i^-$$에 대한 회전시간은 $$\tau_i=q_i/J_i$$이다. 정상상태에서 0이 되는 순생성률 $$(\mathbf{S}\mathbf{v})_i$$를 분모로 사용하지 않는다.
 - $$r=\operatorname{rank}(\mathbf{S})$$이면 $$\dim\ker(\mathbf{S})=n-r$$이다. 이는 정상상태 등식계의 nullity이며, bounds까지 적용한 가능 영역의 차원이나 생물학적 경로 수가 아니다. $$n>m$$은 GEM의 필수 조건이 아니다.
 - [null-space basis](../glossary.md)는 비유일한 선형대수 좌표계이다. 비가역성까지 만족하는 support-minimal 경로는 elementary flux mode(EFM), pointed flux cone의 최소 생성 방향은 extreme ray로 구분한다. 유한한 비영 bounds가 포함된 FBA 가능 영역은 일반적으로 원추가 아니라 flux polyhedron이다.
-- 교환 반응이 없는 비가역·비순환 toy network에서는 0 통량만 남을 수 있지만, 가역 반응이나 내부 순환을 가진 닫힌 네트워크에는 비영 정상상태 순환이 존재할 수 있다. 닫힘 여부만으로 통량을 판정할 수 없다.
+- 교환 반응이 없는 비가역·비순환 toy network에서는 0 플럭스만 남을 수 있지만, 가역 반응이나 내부 순환을 가진 닫힌 네트워크에는 비영 정상상태 순환이 존재할 수 있다. 닫힘 여부만으로 플럭스를 판정할 수 없다.
 
 ---
 
@@ -32,7 +32,7 @@
 
 7. **rank-nullity와 bounds**: $$m=4$$, $$n=7$$, $$r=3$$인 모델의 영공간 차원을 계산하시오. 이어서 두 반응의 bounds가 $$l_j=u_j=0$$으로 고정되었을 때 이 값이 가능 영역의 차원과 반드시 같지 않은 이유를 설명하시오.
 
-8. **가정 비판**: 교환 반응이 없는 네트워크에서 비영 정상상태 통량이 가능한 반례를 가역 반응 또는 내부 순환을 사용하여 구성하시오. 해당 통량이 생리학적으로 타당하려면 추가로 어떤 조건을 검토해야 하는가?
+8. **가정 비판**: 교환 반응이 없는 네트워크에서 비영 정상상태 플럭스가 가능한 반례를 가역 반응 또는 내부 순환을 사용하여 구성하시오. 해당 플럭스가 생리학적으로 타당하려면 추가로 어떤 조건을 검토해야 하는가?
 
 9. **경로 개념**: null-space basis, extreme ray, EFM을 정의하고, 임의의 null-space basis 벡터를 대사 경로로 해석하면 안 되는 이유를 서술하시오.
 
@@ -44,11 +44,11 @@
 |:---:|:---|:---|
 | $$\mathbf{S}$$ | 화학량론 행렬 | $$m\times n$$, 계수는 몰비 |
 | $$m,n$$ | 대사물 수, 반응 수 | 무차원 개수 |
-| $$\mathbf{v},v_j$$ | 특정 반응 통량 | 보통 $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$ |
-| $$\mathbf{l},\mathbf{u}$$ | 통량 하한·상한 | $$\mathbf{v}$$와 동일 |
+| $$\mathbf{v},v_j$$ | 특정 반응 플럭스 | 보통 $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$ |
+| $$\mathbf{l},\mathbf{u}$$ | 플럭스 하한·상한 | $$\mathbf{v}$$와 동일 |
 | $$\mathbf{n}$$ | 절대 대사물 물질량 | $$\mathrm{mmol}$$ |
 | $$\mathbf{q}=\mathbf{n}/X$$ | 생물량 정규화 대사물 풀 | $$\mathrm{mmol\,gDW^{-1}}$$ |
-| $$J_i^+,J_i^-$$ | 대사물 $$i$$의 gross 생성·소비 통량 | $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$ |
+| $$J_i^+,J_i^-$$ | 대사물 $$i$$의 gross 생성·소비 플럭스 | $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$ |
 | $$\tau_i=q_i/J_i$$ | 회전시간 | 시간 |
 | $$r$$ | $$\operatorname{rank}(\mathbf{S})$$ | 무차원 |
 | $$n-r$$ | $$\ker(\mathbf{S})$$의 차원 | 정상상태 등식계의 nullity |
@@ -74,7 +74,7 @@
 | 보존량 후보 | 왼쪽 영공간의 비음수이며 화학적으로 해석 가능한 벡터가 나타내는 보존 pool |
 | [플럭스 원추](../glossary.md) | 정상상태 등식과 동차 비가역성 제약의 교집합 |
 | flux polyhedron | 정상상태 등식과 일반적인 유한 bounds의 교집합 |
-| EFM | 플럭스 원추의 비영 support-minimal 통량 벡터 |
+| EFM | 플럭스 원추의 비영 support-minimal 플럭스 벡터 |
 | EFV | 일반 flux polyhedron으로 확장된 elementary flux vector |
 
 ---
