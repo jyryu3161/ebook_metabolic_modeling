@@ -6,7 +6,7 @@ $$
 \frac{d\mathbf x}{dt}=\mathbf S\mathbf v
 $$
 
-로 쓸 수 있다. 또 내부 대사산물이 [pseudo-steady-state](../glossary.md)(의사 정상상태)에 있다는 조건은
+로 쓸 수 있다. 또 내부 대사물이 [pseudo-steady-state](../glossary.md)(의사-정상상태)에 있다는 조건은
 
 $$
 \mathbf S\mathbf v=\mathbf 0
@@ -37,19 +37,19 @@ flowchart LR
     R["반응식과 계수"] --> S["화학량론 행렬 S"]
     S --> G["부호·가중 이분 그래프"]
     S --> D["d x/dt = S v"]
-    D --> SS["내부 대사산물의<br/>S v = 0"]
+    D --> SS["내부 대사물의<br/>S v = 0"]
     SS --> F["Chapter 4<br/>feasible set과 FBA"]
 ```
 
-*Figure 2.1: 반응식에서 정상상태 제약까지의 표현 변환. 행렬과 이분 그래프는 동일한 화학량론 정보를 다른 형식으로 나타낸다. 저자 작성.*
+*그림 2.1. 반응식에서 정상상태 제약까지의 표현 변환. 행렬과 이분 그래프는 동일한 화학량론 정보를 다른 형식으로 나타낸다. 저자 작성.*
 
 ## 장 구성
 
 | 절 | 주제 | 핵심 산출물 |
 |:---|:---|:---|
-| §1 | 반응·대사산물·flux | 부호와 단위가 명시된 reaction record |
+| §1 | 반응·대사물·flux | 부호와 단위가 명시된 reaction record |
 | §2 | 화학량론 행렬 | $$\mathbf S$$의 행·열과 계수 |
-| §3 | 이분 그래프 | 반응–대사산물 연결 구조 |
+| §3 | 이분 그래프 | 반응–대사물 연결 구조 |
 | §4 | 동역학·정상상태·선형대수 | rank, null space, conservation relation |
 | Lab | [COBRApy](https://opencobra.github.io/cobrapy/) 조회와 행렬 검산 | `textbook` 모델의 $$\mathbf S$$ snapshot |
 
