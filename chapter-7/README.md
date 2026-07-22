@@ -27,7 +27,7 @@
 | 상태 변환 분석 | source 기준 flux와 source-target 발현 방향 | MTA/rMTA 표적 순위 | 발현-flux 대응, 기준 flux 비유일성 |
 | 검증 | [DepMap](https://depmap.org/portal/), 세포·동물 실험, 약리 자료 | 지지·기각된 가설 | 데이터 누출, 용량·시간·표적 외 효과 |
 
-*Table 0.1. Chapter 7의 질병 대사 모델링 흐름. 모든 단계에서 조건과 불확실성을 함께 기록한다.*
+*Table 7.1. Chapter 7의 질병 대사 모델링 흐름. 모든 단계에서 조건과 불확실성을 함께 기록한다.*
 
 유전자 결손 뒤 플럭스 예측에 사용하는 [FBA](../chapter-4/README.md), [MOMA와 ROOM](../chapter-8/README.md)의 차이는 [유전자 교란 보충 자료](../supplements/perturbation-analysis.md)에서 자세히 다룬다. 발현 자료를 이용한 맥락 특이적 모델 구축은 [Chapter 6](../chapter-6/README.md)을 전제로 한다.
 
@@ -47,7 +47,7 @@
 
 질병 대사 모델의 목표는 “표적 하나를 단정”하는 것이 아니라, 모델 가정 아래에서 **실험 검증 우선순위를 세우는 것**이다.
 
-1. 질병과 정상 상태에 같은 단위·조건 체계를 적용한다.
+1. 질병 모델과 정상 모델에 같은 단위·조건 체계를 적용한다.
 2. 단일 결손, 이중 결손, 부분 억제를 구분해 계산한다.
 3. 질병 효과뿐 아니라 정상 조직의 최악 효과와 환경 변화에 대한 강건성을 평가한다.
 4. 후보를 실험으로 옮길 때에는 rescue, isogenic control, target engagement를 계획한다.
