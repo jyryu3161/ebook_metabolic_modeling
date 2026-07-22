@@ -4,17 +4,17 @@
 
 이 실습에서는 게놈 규모 대사 모델(GEM)을 만든 뒤 반드시 거쳐야 하는 **품질 검사와 gap-filling**을 COBRApy로 직접 실행해 봅니다. 서열 정렬 통계(E-value)의 수치 검산에서 시작해, 반응의 질량·전하 균형, 위상학적 dead-end, [MILP](../glossary.md) [gap-filling](../glossary.md), CarveMe 자동 재구축과 수동 모델 비교, [MEMOTE](../glossary.md) 리포트, 단일 유전자 결손 평가까지 한 번에 따라 합니다. 이 장 본문([5장 1절](01.md)~[6절](06.md))에서 개념으로 설명한 검사들을, 여기서는 실제로 실행되는 코드로 확인합니다.
 
-검증 환경은 Python 3.10 이상과 COBRApy 0.30.0입니다. iML1515의 구조 통계는 이 release에서 genes 1,516, reactions 2,712, metabolites 1,877입니다. 소프트웨어와 모델 release가 바뀌면 결과를 다시 기록합니다.
+검증 환경은 Python 3.10 이상과 COBRApy 0.30.0입니다. 구조 통계의 기준 파일은 [BiGG Models](http://bigg.ucsd.edu/models/iML1515)가 배포하는 iML1515 SBML이며, 원 논문은 [Monk et al. (2017)](https://doi.org/10.1038/nbt.3956)입니다. 2026년 7월 22일에 내려받은 `iML1515.xml.gz`의 SHA-256은 `2555e0f7e55a8cb8e770b9bb29cdaeb5db171941c414e7a232ff2d8e0228e308`이고, 압축을 푼 `iML1515.xml`은 `9c772d44ca43350e40dc7ee86c7aa148796856be1eea45e5406c6df8f7dcde28`입니다. 이 파일에서 genes 1,516, reactions 2,712, metabolites 1,877이 집계됩니다. 집계 기준은 다음과 같습니다. reactions는 경계 반응 337개(교환 331개, demand 6개)를 포함한 전체 반응 수이고, metabolites는 구획별 화학종 수(세포질 1,071 · periplasm 465 · 세포외 341)이므로 구획을 무시한 고유 화합물 수 1,169와 다릅니다. 이 수치는 종의 고정 특성이 아니라 이 release 파일의 속성이므로, 소프트웨어와 모델 release가 바뀌면 결과를 다시 기록합니다.
 
 ## 학습 목표
 
 이 실습을 마치면 다음을 수행할 수 있습니다.
 
-1. Karlin–Altschul E-value 식을 코드로 **구현**하고 raw score와 E-value의 지수 관계를 **검산한다**.
-2. `check_mass_balance()`로 반응별 질량·전하 불균형을 **탐지하고**, 일반 반응인지 biomass·polymer 반응인지 **분류한다**.
-3. 계수 부호만 보는 위상학적 screen으로 dead-end 대사산물을 **찾아낸다**.
-4. `cobra.flux_analysis.gapfill`로 최소 반응 gap-filling을 **실행하고** 결과를 **해석한다**.
-5. CarveMe 출력과 iML1515를 동일한 구조 지표로 **비교하고**, 단일 유전자 결손으로 필수 유전자 후보를 **예측한다**.
+1. Karlin–Altschul E-value 식을 코드로 **구현**하고 raw score와 E-value의 지수 관계를 **검산합니다**.
+2. `check_mass_balance()`로 반응별 질량·전하 불균형을 **탐지하고**, 일반 반응인지 biomass·polymer 반응인지 **분류합니다**.
+3. 계수 부호만 보는 위상학적 screen으로 dead-end 대사물을 **찾아냅니다**.
+4. `cobra.flux_analysis.gapfill`로 최소 반응 gap-filling을 **실행하고** 결과를 **해석합니다**.
+5. CarveMe 출력과 iML1515를 동일한 구조 지표로 **비교하고**, 단일 유전자 결손으로 필수 유전자 후보를 **예측합니다**.
 
 ## 준비물
 
@@ -105,15 +105,15 @@ for rxn_id, diff in list(unbalanced.items())[:5]:
 
 **자주 나는 오류와 해결.** `ModuleNotFoundError: No module named 'cobra'`가 나오면 가상환경이 활성화되지 않았거나 COBRApy가 설치되지 않은 것입니다([준비물](#준비물) 참조). `cobra.io.load_model("iML1515")`은 처음 실행 시 모델을 내려받으므로 인터넷 연결이 필요합니다. 오프라인 환경이라면 미리 받아 둔 SBML 파일을 `cobra.io.read_sbml_model("경로.xml")`로 불러옵니다.
 
-### 단계 3. Dead-end 대사산물로 연결성 검증하기
+### 단계 3. Dead-end 대사물로 연결성 검증하기
 
-**무엇을·왜.** dead-end 대사산물은 네트워크에서 생성만 되거나 소비만 되어 정상상태에서 균형을 맞출 수 없는 대사물입니다([5장 5절](05.md)). 이런 대사물이 있으면 관련 반응이 flux를 나를 수 없어 모델 기능이 막힙니다. 여기서는 각 대사물이 참여하는 내부 반응의 **계수 부호만** 보고 생산/소비 반응이 하나도 없는 대사물을 빠르게 찾습니다. 이 코드는 단계 2에서 만든 `model` 변수를 그대로 사용합니다.
+**무엇을·왜.** dead-end 대사물은 네트워크에서 생성만 되거나 소비만 되어 정상상태에서 균형을 맞출 수 없는 대사물입니다([5장 5절](05.md)). 이런 대사물이 있으면 관련 반응이 flux를 나를 수 없어 모델 기능이 막힙니다. 여기서는 각 대사물이 참여하는 내부 반응의 **계수 부호만** 보고 생산/소비 반응이 하나도 없는 대사물을 빠르게 찾습니다. 이 코드는 단계 2에서 만든 `model` 변수를 그대로 사용합니다.
 
 **코드.** 이 코드는 각 대사물에 대해 생산(계수 > 0)·소비(계수 < 0) 반응 수를 세어, 어느 한쪽이 0인 대사물을 dead-end로 수집합니다.
 
 ```python
 def find_dead_end_metabolites(model):
-    """비-경계 반응 기준으로 생산 또는 소비가 전혀 없는 대사산물을 찾는다."""
+    """비-경계 반응 기준으로 생산 또는 소비가 전혀 없는 대사물을 찾는다."""
     dead_ends = []
     for met in model.metabolites:
         internal_rxns = [r for r in met.reactions if not r.boundary]
@@ -128,16 +128,16 @@ def find_dead_end_metabolites(model):
     return dead_ends
 
 dead_ends = find_dead_end_metabolites(model)
-print(f"Dead-end 대사산물 수: {len(dead_ends)}")
+print(f"Dead-end 대사물 수: {len(dead_ends)}")
 ```
 
 **예상 출력.** 출력은 다음 형식의 한 줄입니다. 정확한 개수는 모델 release에 따라 달라집니다.
 
 ```text
-Dead-end 대사산물 수: <정수>
+Dead-end 대사물 수: <정수>
 ```
 
-**확인 포인트.** `Dead-end 대사산물 수:` 뒤에 정수가 출력되면 성공입니다. `dead_ends` 리스트를 출력해 보면 각 항목이 `(대사물 ID, 이름, 사유)` 형태로, "생산 불가" 또는 "소비 불가" 중 어느 쪽인지 확인할 수 있습니다.
+**확인 포인트.** `Dead-end 대사물 수:` 뒤에 정수가 출력되면 성공입니다. `dead_ends` 리스트를 출력해 보면 각 항목이 `(대사물 ID, 이름, 사유)` 형태로, "생산 불가" 또는 "소비 불가" 중 어느 쪽인지 확인할 수 있습니다.
 
 **해석상의 주의.** 이 코드는 계수 부호만 보는 **빠른 위상학적 screen**입니다. 가역 반응과 실제 bounds까지 고려한 producibility/consumability 또는 blocked-reaction 판정은 FVA·flux-consistency 알고리즘으로 별도 확인해야 합니다.
 
@@ -306,7 +306,7 @@ wt_growth = model.slim_optimize()
 theta = 0.05
 threshold = theta * wt_growth
 
-result = single_gene_deletion(model)          # 모든 유전자를 하나씩 결손시키며 성장률 계산
+result = single_gene_deletion(model, processes=1)   # 모든 유전자를 하나씩 결손시키며 성장률 계산
 result["ratio"] = result["growth"] / wt_growth
 predicted_essential = result[result["growth"] < threshold]
 
@@ -325,7 +325,7 @@ predicted_essential_ids = set(
 print(f"야생형 성장률: {wt_growth:.3f} /h")
 print(f"필수성 임계값(theta=0.05 x WT): {threshold:.4f} /h")
 print(f"예측된 essential 유전자 수: {len(predicted_essential)} / {len(model.genes)}")
-# COBRApy 0.30.0, GLPK, 기본 bounds의 회귀 기준:
+# COBRApy 0.30.0, GLPK, 기본 bounds, processes=1의 회귀 기준:
 # 야생형 성장률 약 0.874 /h, theta=0.05에서 predicted essential genes 5개.
 ```
 
@@ -372,7 +372,7 @@ def confusion_matrix_metrics(predicted_essential_ids, true_essential_ids, all_ge
 
 실험 데이터와 모델의 유전자 식별자 체계가 다르면 명시적인 ID mapping을 적용하고, mapping되지 않은 항목을 분모에서 어떻게 처리했는지 보고합니다. Mapping 실패를 임의로 음성으로 간주하면 모든 분류 지표가 왜곡될 수 있습니다.
 
-**자주 나는 오류와 해결.** `single_gene_deletion` 결과는 유전자 ID를 DataFrame의 index가 아니라 `ids` 열의 한 원소짜리 frozenset으로 저장합니다. 그래서 위 코드는 `extract_single_gene_id`로 frozenset에서 ID를 꺼냅니다. `KeyError: 'gene_id'`가 나면 이 변환 줄을 건너뛴 것입니다. 실행이 느리게 느껴지면 `textbook` 모델(137 genes)을 쓰고 있는지 확인합니다. iML1515(1,516 genes)로 바꾸면 시간이 크게 늘어납니다.
+**자주 나는 오류와 해결.** `single_gene_deletion` 결과는 유전자 ID를 DataFrame의 index가 아니라 `ids` 열의 한 원소짜리 frozenset으로 저장합니다. 그래서 위 코드는 `extract_single_gene_id`로 frozenset에서 ID를 꺼냅니다. `KeyError: 'gene_id'`가 나면 이 변환 줄을 건너뛴 것입니다. `processes=1`은 재현성을 위해 단일 프로세스로 고정하는 인자이므로 지우지 마십시오. COBRApy 0.30.0의 기본값은 사용 가능한 코어 수만큼 병렬 실행하는 것이어서, 환경에 따라 워커 생성(spawn)이 실패하거나 출력이 흔들릴 수 있습니다. 실행이 느리게 느껴지면 `textbook` 모델(137 genes)을 쓰고 있는지 확인합니다. iML1515(1,516 genes)로 바꾸면 시간이 크게 늘어납니다.
 
 ---
 
@@ -382,7 +382,7 @@ def confusion_matrix_metrics(predicted_essential_ids, true_essential_ids, all_ge
 
 - Karlin–Altschul E-value 식을 구현해 raw score와 유의성의 지수 관계를 검산했습니다(단계 1).
 - iML1515에서 질량·전하 불균형 반응 3건을 찾아, biomass·generic-formula 반응과 일반 반응을 구분하는 판단을 연습했습니다(단계 2).
-- 계수 부호만 보는 빠른 screen으로 dead-end 대사산물을 탐색했습니다(단계 3).
+- 계수 부호만 보는 빠른 screen으로 dead-end 대사물을 탐색했습니다(단계 3).
 - 최소 예제로 MILP gap-filling을 실행해 성장률이 0.0에서 10.0으로 회복되는 과정을 확인했습니다(단계 4).
 - CarveMe 자동 재구축과 iML1515를 동일 지표로 비교하고, MEMOTE 리포트로 표준 품질 시험을 실행했으며, `textbook` 모델에서 필수 유전자 5개를 예측했습니다(단계 5~7).
 
