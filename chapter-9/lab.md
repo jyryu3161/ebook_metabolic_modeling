@@ -216,7 +216,7 @@ AUC-ROC: …
 `e_coli_core`는 반응이 95개뿐이라 학습 표본이 매우 적습니다 — [§3.5](03.md)에서 다룬 편향-분산 트레이드오프를 몸소 체험하기 좋은 조건입니다. 표본이 적을수록 `max_depth`를 낮추고 `class_weight='balanced'`를 유지하는 것이 과적합을 막는 데 중요합니다. 위 코드에서 `train_test_split(..., test_size=0.3, stratify=y)`는 [§2.5](02.md)에서 설명한 대로 전체 95개 반응 중 30%(약 29개)를 테스트 세트로 떼어 두고, `stratify=y`로 필수/비필수 비율을 훈련·테스트 양쪽 모두에서 원본과 같게(약 19% 필수) 유지합니다. 표본이 이렇게 작을 때는 단 한 번의 분할 결과가 운에 따라 크게 흔들릴 수 있으므로, 진지한 분석이라면 [§2.5](02.md)의 Stratified K-Fold로 여러 번 분할해 평균과 분산을 함께 보고하는 편이 안전합니다.
 
 {% hint style="info" %}
-**잠깐, 생각해보기:** 이 실습에서 `max_depth`를 3, 8, 20으로 각각 바꿔가며 훈련 정확도와 테스트 정확도를 비교해 봅니다. §3.5의 표에서 예상했듯 `max_depth=20`처럼 제한이 거의 없을 때 훈련 정확도는 100%에 가까워지지만 테스트 정확도는 오히려 낮아지는 과적합 패턴이 실제로 재현되는지 직접 확인해 보기를 권합니다.
+**잠깐, 생각해보기:** 이 실습에서 `max_depth`를 3, 8, 20으로 바꿔가며 훈련 정확도와 테스트 정확도를 각각 기록해 보십시오. 두 정확도가 `max_depth`에 따라 같은 방향으로 움직이는지, 갈라진다면 어느 지점부터인지를 §3.5의 편향-분산 논의와 연결해 보면 방향을 잡을 수 있습니다. 풀이는 [마무리](summary.md)의 「답안」 절에 있습니다.
 {% endhint %}
 
 ## 단계 4. 여러 배양 조건의 FBA 플럭스를 K-Means로 클러스터링하기
@@ -229,7 +229,7 @@ AUC-ROC: …
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 
-# 4장에서 배운 것처럼 교환 반응의 하한(lower_bound)만 바꿔 여러 조건을 만든다
+# 4장에서 배운 것처럼 교환 반응의 하한(lower_bound)만 바꿔 여러 조건 생성
 conditions = {
     'aerobic_glucose':      {'EX_glc__D_e': -10, 'EX_o2_e': -20},
     'anaerobic_glucose':    {'EX_glc__D_e': -10, 'EX_o2_e': 0},
@@ -259,7 +259,7 @@ flux_2d = pca.fit_transform(flux_matrix)
 for name, label in zip(names, labels):
     print(f"{name:>22s}  ->  cluster {label}")
 # 기대 경향: 무산소(anaerobic_glucose)는 발효 대사 모드로,
-#           나머지 호기 조건들과 다른 클러스터에 속할 가능성이 높다.
+#           나머지 호기 조건들과 다른 클러스터에 속할 가능성
 
 plt.scatter(flux_2d[:, 0], flux_2d[:, 1], c=labels, cmap='viridis', s=100)
 for i, name in enumerate(names):
