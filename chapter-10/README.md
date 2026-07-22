@@ -68,7 +68,7 @@ flowchart TD
 
 ![COBRApy textbook 모델에서 최대 성장률 90퍼센트 이상을 유지할 때 선택 반응들의 FVA 최소·최대 구간과 하나의 pFBA 해](../.gitbook/assets/fva-intervals.png)
 
-_참고 그림. `e_coli_core`에서 계산한 pFBA 해와 몇몇 반응의 FVA 최소–최대 구간. 이 장의 [§5](06.md)에서 `PGI`·`PFK`·`TPI`에 대해 같은 종류의 계산을 직접 실행하며 재현한다. 출처: 저자 계산; 조건과 생성 스크립트는 그림 4.6(Chapter 4)과 동일 파일을 재사용([FIGURE_SOURCES.md](../FIGURE_SOURCES.md) 참고). 개념 근거: FVA([Mahadevan & Schilling, 2003](https://doi.org/10.1016/j.ymben.2003.09.002)), pFBA([Lewis et al., 2010](https://doi.org/10.1038/msb.2010.47))._
+_참고 그림. `e_coli_core`에서 계산한 pFBA 해와 몇몇 반응의 FVA 최소–최대 구간. 이 장의 [§5](06.md)에서 `PGI`·`PFK`·`TPI`에 대해 같은 종류의 계산을 직접 실행하며 재현합니다. 출처: 저자 계산; 조건과 생성 스크립트는 그림 4.6(Chapter 4)과 동일 파일을 재사용([FIGURE_SOURCES.md](../FIGURE_SOURCES.md) 참고). 개념 근거: FVA([Mahadevan & Schilling, 2003](https://doi.org/10.1016/j.ymben.2003.09.002)), pFBA([Lewis et al., 2010](https://doi.org/10.1038/msb.2010.47))._
 
 ## 이 장을 읽는 방법
 
