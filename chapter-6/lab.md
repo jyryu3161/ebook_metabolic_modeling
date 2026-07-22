@@ -1,6 +1,8 @@
 # 실습: RNA-seq 발현 데이터를 GEM에 통합하기
 
 > **실습 범위:** 아래 코드는 [COBRApy](https://opencobra.github.io/cobrapy/) 0.30.0의 `textbook` 모델([`e_coli_core`](http://bigg.ucsd.edu/models/e_coli_core): 반응 95개, 대사물 72개, 유전자 137개)에 합성 발현값을 통합합니다. 결과는 알고리즘 검산용이며 실제 조직의 생물학적 결론으로 해석하지 않습니다.
+>
+> **재현 조건:** 이 문서의 모든 수치는 COBRApy 0.30.0, 기본 솔버 GLPK 5.0(`optlang.glpk_interface`), 모델 허용오차 `model.tolerance = 1e-07`, 모델의 기본 배지와 `Biomass_Ecoli_core` 목적함수, `processes=1`, 그리고 본문에 표시한 난수 시드(`np.random.seed(0)`, `np.random.seed(42)`)에서 얻은 값입니다. 솔버·허용오차·시드 가운데 하나라도 다르면 마지막 자리 수치나 대체 최적해의 선택이 달라질 수 있습니다.
 
 ## 이 실습에서 하는 일
 
@@ -10,11 +12,11 @@
 
 이 실습을 마치면 다음을 할 수 있습니다.
 
-1. `counts_to_tpm` 함수로 raw counts를 TPM으로 **정규화하고** 합이 항상 100만이 되는지 **확인한다**.
-2. 고정·백분위수·z-score 세 가지 임계값 방법이 활성 유전자 수를 어떻게 다르게 만드는지 **비교한다**.
-3. COBRApy의 GPR 파서를 이용해 AND=min, OR=max 휴리스틱으로 RAS를 **계산한다**.
-4. GIMME 2단계 LP와 E-Flux 경계 스케일링을 `e_coli_core`에 **실행하고** 성장률 변화를 **해석한다**.
-5. generic 모델과 context 모델의 단일 유전자 결손 결과를 같은 기준으로 **비교한다**.
+1. `counts_to_tpm` 함수로 raw counts를 TPM으로 **정규화하고** 합이 항상 100만이 되는지 **확인합니다**.
+2. 고정·백분위수·z-score 세 가지 임계값 방법이 활성 유전자 수를 어떻게 다르게 만드는지 **비교합니다**.
+3. COBRApy의 GPR 파서를 이용해 AND=min, OR=max 휴리스틱으로 RAS를 **계산합니다**.
+4. GIMME 2단계 LP와 E-Flux 경계 스케일링을 `e_coli_core`에 **실행하고** 성장률 변화를 **해석합니다**.
+5. generic 모델과 context 모델의 단일 유전자 결손 결과를 같은 기준으로 **비교합니다**.
 
 ## 준비물
 
@@ -223,6 +225,8 @@ GPR 보유 반응 (RAS 계산 대상): 69 / 95
 
 ```python
 model.objective = "Biomass_Ecoli_core"
+# 재현 조건을 결과와 함께 기록: 솔버와 허용오차가 다르면 마지막 자리가 달라질 수 있음
+print(f"solver: {model.solver.interface.__name__.split('.')[-1]}, tolerance: {model.tolerance}")
 Z_star = model.slim_optimize()
 print(f"1단계(원래 FBA) 최적 성장률 Z* = {Z_star:.4f} h^-1")
 
@@ -250,7 +254,7 @@ active_in_one_solution = [
     rid for rid in low_rxns if abs(gimme_sol.fluxes[rid]) > 1e-6
 ]
 
-# 최소 패널티 값을 고정한 뒤 각 저발현 반응의 가능한 flux 범위를 조사한다.
+# 최소 패널티 값을 고정한 뒤 각 저발현 반응의 가능한 flux 범위를 조사
 stage2.add_cons_vars(stage2.problem.Constraint(
     penalty_expr, ub=penalty_star + 1e-9, name="minimum_penalty_face"))
 guaranteed_off = []
@@ -277,6 +281,7 @@ print(f"모든 최소 패널티 해에서 0인 반응: {len(guaranteed_off)}개"
 print(f"hard-pruned 모델의 최대 성장률: {context_baseline:.4f} h^-1")
 
 # 기대 출력:
+# solver: glpk_interface, tolerance: 1e-07
 # 1단계(원래 FBA) 최적 성장률 Z* = 0.8739 h^-1
 # 저발현 반응(하위 25%, GPR 보유 반응 중): 18개
 # 2단계 상태: optimal
@@ -289,6 +294,7 @@ print(f"hard-pruned 모델의 최대 성장률: {context_baseline:.4f} h^-1")
 **예상 출력.** 콘솔에 다음이 나오면 성공입니다.
 
 ```
+solver: glpk_interface, tolerance: 1e-07
 1단계(원래 FBA) 최적 성장률 Z* = 0.8739 h^-1
 저발현 반응(하위 25%, GPR 보유 반응 중): 18개
 2단계 상태: optimal
@@ -361,7 +367,7 @@ E-Flux 스케일링 후 성장률: 0.6139 h^-1
 
 ### 단계 6. iMAT을 개념 코드로 이해하기
 
-**무엇을·왜.** iMAT은 GIMME·E-Flux와 달리 [MILP](../glossary.md)(혼합정수선형계획)로 정형화되며, $$y_j$$–$$v_j$$ big-M 연결 제약을 반응마다 정확한 하한·상한으로 조정해야 합니다([3.3절](03.md)의 흔한 함정, [3.3.1절](03.md)의 숫자 예제 참고). 이 상수를 잘못 설정하면 손쉽게 infeasible에 빠지므로, 이 단계는 실행이 아니라 **구조 이해**가 목적입니다. 아래 개념 코드는 고발현·저발현 반응 집합을 나누는 뼈대만 보여 줍니다. 실제 연구에서는 이를 직접 처음부터 구현하기보다 **[Troppo](https://github.com/BioSystemsUM/troppo)**(`troppo.methods.reconstruction`) 프레임워크의 검증된 GIMME/iMAT/FastCORE/tINIT 구현체나 [COBRA Toolbox](https://opencobra.github.io/cobratoolbox/)/[RAVEN](https://github.com/SysBioChalmers/RAVEN)(MATLAB)의 대응 함수를 사용하는 것이 권장됩니다.
+**무엇을·왜.** iMAT은 GIMME·E-Flux와 달리 [MILP](../glossary.md)(혼합정수선형계획)로 정형화되며, $$y_j$$–$$v_j$$ big-M 연결 제약을 반응마다 정확한 하한·상한으로 조정해야 합니다([3.3절](03.md)의 구현상의 주의, [3.3.1절](03.md)의 숫자 예제 참고). 이 상수를 잘못 설정하면 손쉽게 infeasible에 빠지므로, 이 단계는 실행이 아니라 **구조 이해**가 목적입니다. 아래 개념 코드는 고발현·저발현 반응 집합을 나누는 뼈대만 보여 줍니다. 실제 연구에서는 이를 직접 처음부터 구현하기보다 **[Troppo](https://github.com/BioSystemsUM/troppo)**(`troppo.methods.reconstruction`) 프레임워크의 검증된 GIMME/iMAT/FastCORE/tINIT 구현체나 [COBRA Toolbox](https://opencobra.github.io/cobratoolbox/)/[RAVEN](https://github.com/SysBioChalmers/RAVEN)(MATLAB)의 대응 함수를 사용하는 것이 권장됩니다.
 
 **코드.** 이 코드는 함수 정의만 하며, 실행해도 화면에 출력되는 내용은 없습니다. 주석은 실제 iMAT MILP에서 이 두 집합을 어떻게 제약으로 옮기는지 설명합니다.
 
