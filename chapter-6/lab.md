@@ -381,7 +381,7 @@ def imat_style_reconstruction(model, reaction_weights, high_q=75, low_q=25, eps=
     # 이후 R_high는 "y=1이면 |v|>=eps", R_low는 "y=1이면 v=0"이 되도록
     # 반응별 lower_bound/upper_bound를 반영한 big-M 제약을 세우고
     # y_low를 "저발현 반응이 비활성"인 지시자로 정의했다면
-    # sum(y_high_active) + sum(y_low_inactive)를 최대화한다 (3.3절 참고).
+    # sum(y_high_active) + sum(y_low_inactive) 최대화 (3.3절 참고)
     return R_high, R_low
 ```
 
@@ -407,7 +407,7 @@ context_baseline = context_model.slim_optimize()
 
 def deletion_growth_by_gene(cobra_model):
     result = single_gene_deletion(cobra_model, processes=1).copy()
-    # COBRApy의 ids 열은 한 원소짜리 set이므로 유전자 ID를 명시적으로 꺼낸다.
+    # COBRApy의 ids 열은 한 원소짜리 set이므로 유전자 ID를 명시적으로 추출
     result["gene"] = result["ids"].map(lambda ids: next(iter(ids)))
     return result.set_index("gene")["growth"]
 
