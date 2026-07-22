@@ -10,11 +10,11 @@
 
 이 실습을 마치면 다음을 수행할 수 있습니다.
 
-1. Karlin–Altschul E-value 식을 코드로 **구현**하고 raw score와 E-value의 지수 관계를 **검산한다**.
-2. `check_mass_balance()`로 반응별 질량·전하 불균형을 **탐지하고**, 일반 반응인지 biomass·polymer 반응인지 **분류한다**.
-3. 계수 부호만 보는 위상학적 screen으로 dead-end 대사물을 **찾아낸다**.
-4. `cobra.flux_analysis.gapfill`로 최소 반응 gap-filling을 **실행하고** 결과를 **해석한다**.
-5. CarveMe 출력과 iML1515를 동일한 구조 지표로 **비교하고**, 단일 유전자 결손으로 필수 유전자 후보를 **예측한다**.
+1. Karlin–Altschul E-value 식을 코드로 **구현**하고 raw score와 E-value의 지수 관계를 **검산합니다**.
+2. `check_mass_balance()`로 반응별 질량·전하 불균형을 **탐지하고**, 일반 반응인지 biomass·polymer 반응인지 **분류합니다**.
+3. 계수 부호만 보는 위상학적 screen으로 dead-end 대사물을 **찾아냅니다**.
+4. `cobra.flux_analysis.gapfill`로 최소 반응 gap-filling을 **실행하고** 결과를 **해석합니다**.
+5. CarveMe 출력과 iML1515를 동일한 구조 지표로 **비교하고**, 단일 유전자 결손으로 필수 유전자 후보를 **예측합니다**.
 
 ## 준비물
 
