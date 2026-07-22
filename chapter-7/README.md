@@ -27,7 +27,7 @@
 | 상태 변환 분석 | source 기준 flux와 source-target 발현 방향 | MTA/rMTA 표적 순위 | 발현-flux 대응, 기준 flux 비유일성 |
 | 검증 | [DepMap](https://depmap.org/portal/), 세포·동물 실험, 약리 자료 | 지지·기각된 가설 | 데이터 누출, 용량·시간·표적 외 효과 |
 
-*Table 7.1. Chapter 7의 질병 대사 모델링 흐름. 모든 단계에서 조건과 불확실성을 함께 기록한다.*
+*표 7.1. Chapter 7의 질병 대사 모델링 흐름. 모든 단계에서 조건과 불확실성을 함께 기록한다.*
 
 유전자 결손 뒤 플럭스 예측에 사용하는 [FBA](../chapter-4/README.md), [MOMA와 ROOM](../chapter-8/README.md)의 차이는 [유전자 교란 보충 자료](../supplements/perturbation-analysis.md)에서 자세히 다룬다. 발현 자료를 이용한 맥락 특이적 모델 구축은 [Chapter 6](../chapter-6/README.md)을 전제로 한다.
 
