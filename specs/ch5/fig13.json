@@ -1,0 +1,7 @@
+{
+  "name": "ch5_fig13_release_bundle",
+  "out_dir": "figures/ch5",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"재현 가능한 모델 release 묶음\" + smaller warm-grey \"Reproducible release bundle\". 중앙에 큰 폴더 윤곽 카드 \"GEM release\"를 두고 여덟 개의 필수 산출물이 겹치지 않는 2×4 격자로 폴더 안에 들어가는 모습을 그린다: \"SBML + checksum\", \"genome·DB release\", \"배지·bounds\", \"목적·maintenance\", \"gap-filling 근거\", \"MEMOTE report\", \"독립 benchmark\", \"license·변경 이력\". 폴더 오른쪽에서 정확히 두 출력 화살표가 갈라져 \"재실행\"과 \"해석 범위 확인\"으로 향한다. 왼쪽 아래에는 불완전한 단일 파일 윤곽 \"model.xml만\"을 폴더와 연결하지 않고 빨간 X 하나로 막는다. VISIBLE TEXT WHITELIST: \"재현 가능한 모델 release 묶음\", \"Reproducible release bundle\", \"GEM release\", \"SBML + checksum\", \"genome·DB release\", \"배지·bounds\", \"목적·maintenance\", \"gap-filling 근거\", \"MEMOTE report\", \"독립 benchmark\", \"license·변경 이력\", \"재실행\", \"해석 범위 확인\", \"model.xml만\"만 각각 한 번씩 보이게 하고 다른 글자·숫자·기호는 생략한다. HIGHEST-PRIORITY OVERRIDE: 균일한 #FCFCFA 배경의 black-and-white stroke-only release-package diagram으로 그린다. 폴더·산출물 카드·파일·출력 태그 내부는 모두 #FCFCFA로 비우고 검정/남색 단색 윤곽선·텍스트·화살촉과 한 번의 단색 빨간 X만 사용한다. 색칠된 면·헤더·pill 없이, 그라데이션·그림자·glow·bevel·광택·반투명 틴트·입체감·밝기 변화가 단 한 픽셀도 없어야 한다. 특정 저장소 화면·캡션·설명문·날짜·점수·로고·워터마크 없이."
+}

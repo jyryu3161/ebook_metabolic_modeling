@@ -1,0 +1,7 @@
+{
+  "name": "ch2_fig08_bipartite_projection",
+  "out_dir": "figures/ch2",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "ABSOLUTE PASS REQUIREMENT — OUTLINE-ONLY TECHNICAL DIAGRAM. Override any general request for light colored fills: fill EVERY background, node, arrow, tag, and panel marker with the identical plain warm off-white #FCFCFA. Use color ONLY for crisp constant-width outline strokes and text. No colored interiors anywhere; no gradients, fades, highlights, glow, shadows, transparency, texture, lighting, or tonal variation. Title (top): \"이분 그래프와 투영 그래프\" + smaller warm-grey \"Bipartite graph and projection\". Two panels labeled \"A\" and \"B\". Panel A subtitle \"반응 노드 유지\" and, directly beneath it, print the exact reaction line \"A + 2B → C + D\". Below that line, show metabolite outline circles \"A\", \"B\", \"C\", \"D\" and one reaction outline rectangle \"R₁\"; draw arrows A→R₁ and B→R₁, then R₁→C and R₁→D. Place edge weights exactly once each: \"1\" on A→R₁, \"2\" on B→R₁, \"1\" on R₁→C, \"1\" on R₁→D. Panel B subtitle \"대사물만 투영\". Remove R₁ and show exactly four directed edges A→C, A→D, B→C, B→D. Add two small grey outline loss tags: \"계수 2 소실\" and \"한 반응 관계 소실\". VISIBLE TEXT MANIFEST: only the quoted strings in this prompt may appear, exactly spelled. No other text, caption, logo, watermark, gradient, or shadow."
+}

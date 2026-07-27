@@ -1,0 +1,34 @@
+Create a restrained professional flat-vector infographic for a university science textbook, with the polish of scientific-journal graphics and the sole purpose of clear information delivery. This opening sentence is an instruction and must never appear as visible text.
+
+RENDERING (obey strictly):
+- Flat 2D vector illustration. Each shape = ONE solid muted fill + a clean crisp outline. NO gradient fills, NO drop shadows, NO 3D/bevel/gloss, NO texture, NO photorealism, NO gradient background.
+- Background: plain warm off-white #FCFCFA (not pure white). Keep calm whitespace; do NOT fill it with clutter. Align everything to a shared baseline / tidy grid. Flow left-to-right, top-to-bottom.
+
+PROFESSIONAL COLOR SYSTEM — deeper, calmer, editorial (NOT candy pastel). Every colored shape uses a {darker outline stroke / calmer light fill} PAIR (fill light, outline = a darker version of the same hue). This tonal outlining is the key to the professional look.
+Semantic colors (fixed to a concept, reused everywhere):
+- Structure / actor (protein, enzyme, receptor, cell, organ, system): outline #33526F, fill #C4D4E6
+- Input / activation / positive (substrate, agonist, ON, normal): outline #43704E, fill #C6DCC3
+- Secondary / competitive molecule: outline #8E5877, fill #E3C3D4
+- Inhibitor / antagonist / blocked / negative / OFF: outline #9E3B34, fill #E4A69F
+Categorical / stage colors (assign in order to any undefined category/stage; solid fill with white text): #35507E, #6A5399, #C2912E, #4E8C57, #2C6E6A, slate #4A5A6A.
+Neutrals: ink outlines & body text #1F242B; secondary lines/text graphite #3C444D; English academic terms & captions warm-grey #7C838C; inactive fill #E4E7EA with #AAB0B7 outline; hairline grid/guides #E1E4E8.
+Emphasis color #9E2B25 — use ONCE per image only, for the single most important marker/label.
+
+LINE-WEIGHT HIERARCHY (organize information by stroke weight — do NOT draw everything at one weight):
+- Main silhouette (key shapes): ~3px, in the shape's outline color or ink.
+- Interior detail / secondary shapes: ~1.5px, graphite.
+- Process arrow (next step): ~2.5px straight, ink #1F242B, filled triangular arrowhead.
+- Binding / action arrow: ~2px curved, SAME color as the molecule it connects.
+- Axis / grid / guides: ~1px hairline #E1E4E8.
+Consistent corner radius (containers 12-16px; stage tags fully rounded pills). Uniform arrowhead & line-cap style throughout.
+
+HANDLING UNSPECIFIED ELEMENTS (general-purpose): classify EVERY element into a role and style it consistently — structure->blue, input/positive->green, block/negative->red (+red X or grey-out), secondary->mauve, stage/category->categorical palette in order, data->slate bars/points/lines on a hairline grid with only the key series in the emphasis color, annotation/key->emphasis (once), inactive->grey. If a concept has no color yet, take the next unused categorical hue and reuse it.
+
+TYPOGRAPHY HIERARCHY: clean geometric sans-serif. Title heavy (800) Korean + smaller English academic term in warm-grey (600). Panel labels: bold categorical-colored A/B/C + Korean subtitle. Body labels 600; values/annotations smaller. Keep all text minimal, EXACT spelling as given, fully legible, high contrast, no gibberish, no stray numbers/letters. Technical terms (Agonist, Allosteric...) stay in English.
+
+STRICT TEXT WHITELIST (highest priority): In the figure-specific prompt below, ONLY render text strings that are explicitly enclosed in double quotation marks. Never add, translate, paraphrase, abbreviate, or invent any other Korean/English word, number, variable, placeholder, pseudo-equation, or interface label. Unquoted prose is an instruction, not visible text. If an icon, matrix, table, plot, or pathway would normally contain internal text or numbers that are not quoted, draw it with clean abstract shapes or blank cells instead. When uncertain, omit text rather than invent it.
+
+LAYOUT: outer margin generous. Time/value axis only may use a color transition (light pink #F3CFCB -> emphasis #9E2B25); nowhere else.
+NO CAPTION: Do NOT add any caption, description, footnote, or explanatory sentence anywhere in the image. The image contains ONLY the figure itself — title, panel labels, axis/data labels, legend. No full-sentence text at the bottom or elsewhere.
+KOREAN TEXT SAFETY: Render Korean EXACTLY as given, syllable by syllable. Avoid rare/complex final consonants (e.g. 묾, 풂) — they garble easily; prefer common wording. Do NOT invent words, English fragments, or layout words like "COLUMN"/"PANEL" (use only "A"/"B" as panel markers). Every Hangul syllable must be a real, correctly-spelled character.
+DON'T: gradient bg/fills, shadows, 3D, emoji, decorative icons, meaningless numbers, outline-less blurry shapes, logos/watermarks, any caption/description sentence, time-stamped "as-of" single-point values, or drawing everything at the same weight/saturation.

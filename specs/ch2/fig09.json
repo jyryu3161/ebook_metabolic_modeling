@@ -1,0 +1,7 @@
+{
+  "name": "ch2_fig09_path_vs_balance",
+  "out_dir": "figures/ch2",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "ABSOLUTE PASS REQUIREMENT — OUTLINE-ONLY TECHNICAL DIAGRAM. Override any general request for light colored fills: fill EVERY background, node, reaction, arrow, X, and badge with the identical plain warm off-white #FCFCFA. Use color ONLY for crisp constant-width outline strokes and text; the red X is two solid red strokes with no fill effects. No colored interiors anywhere; no gradients, fades, highlights, glow, shadows, transparency, texture, lighting, or tonal variation. Title (top): \"연결 경로와 가능한 플럭스\" + smaller warm-grey \"Graph path versus feasible flux\". Two aligned panels labeled \"A\" and \"B\", both using the same path of five alternating outline nodes: \"A_e\" → \"R₁\" → \"B_c\" → \"R₂\" → \"C_e\". Panel A subtitle \"그래프 연결\" and show the full connected path in neutral outline colors. Panel B subtitle \"물질수지와 범위 적용\". CRITICAL: place \"v₂ = 0\" exactly once, immediately beside reaction R₂, and put one red X directly on R₂. Grey out the outline and text of R₁. Under B_c, show \"v₁ − v₂ = 0\" followed by one outline emphasis badge \"v₁ = 0\". Never place \"v₁ = 0\" above or beside R₂ and never duplicate it. Arrows and X must point to the correct reaction. VISIBLE TEXT MANIFEST: only the quoted strings in this prompt may appear, with node labels rendered using subscripts and each equation rendered exactly once. No other claim, caption, logo, watermark, gradient, or shadow."
+}

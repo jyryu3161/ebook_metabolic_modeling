@@ -41,7 +41,7 @@ flowchart TB
 | 절 | 주제 | 핵심 구분 |
 |:---|:---|:---|
 | §1 | GEM의 범위와 규모 | 모델명·release·집계 기준 |
-| §2 | GPR | complex AND, isoenzyme OR, mixed rule |
+| §2 | GPR | 효소 복합체 AND, 동위효소 OR, 단일 결손 |
 | §3 | 구획 | 동일 화합물과 구획별 species |
 | §4 | 운송 반응 | uniport·symport·antiport와 수동·능동 수송 |
 | §5 | 경계 반응 | exchange·demand·sink 및 system boundary |
@@ -79,7 +79,7 @@ GEM은 행렬만으로 완성되지 않는다. 이 장에서는 반응에 **생�
 4. 바이오매스 반응과 목적함수는 계산이 무엇을 선호할지 정한다.
 
 {% hint style="warning" %}
-GPR의 AND/OR 논리는 효소량, 약물 농도, 부분 기능 저하를 직접 표현하지 않는다. 유전자 결손 결과를 약물 효과로 곧바로 번역해서는 안 된다.
+GPR의 AND/OR 논리는 효소량, 약물 농도, 부분 기능 저하를 직접 표현하지 않는다. 단일 유전자 결손 결과를 약물 효과로 곧바로 번역해서는 안 된다.
 {% endhint %}
 
 ## 학습 목표
@@ -87,7 +87,7 @@ GPR의 AND/OR 논리는 효소량, 약물 농도, 부분 기능 저하를 직접
 이 장을 마치면 다음을 수행할 수 있다.
 
 1. 중첩된 GPR을 구문 트리로 해석하고 단일·OR-only·AND-only·mixed rule을 구분한다.
-2. 유전자 결손 집합이 주어졌을 때 GPR의 Boolean 결과와 반응 bound의 변화를 계산한다.
+2. 단일 유전자 결손이 효소 복합체와 동위효소 GPR의 Boolean 결과 및 반응 bound에 미치는 차이를 계산한다.
 3. 구획별 metabolite species와 transport reaction을 $$\mathbf S$$에 표현한다.
 4. Uniport, symport 및 antiport를 방향과 coupling species로 구분한다.
 5. Exchange, demand 및 sink reaction의 역할과 bound가 system boundary에 미치는 영향을 설명한다.

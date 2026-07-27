@@ -1,0 +1,7 @@
+{
+  "name": "ch9_fig02_gem_ml_experiment_roles",
+  "out_dir": "figures/ch9",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"GEM·머신러닝·실험의 역할\" + smaller warm-grey \"Distinct Evidence Roles\". Three equal panels left-to-right with exact labels. Panel A marker \"A\" and title \"GEM 계산\"; inputs \"반응·GPR\", \"배지·경계\", \"목적함수\" flow to output \"가능 상태·결손 예측\". Panel B marker \"B\" and title \"머신러닝\"; inputs \"특징\", \"레이블\", \"분할 규칙\" flow to output \"점수·후보 순위\". Panel C marker \"C\" and title \"독립 실험\"; inputs \"시료·교란\", \"배양 조건\", \"측정 기준\" flow to output \"조건부 관찰\". In every panel, all three input pills must visibly converge through lines or a shared junction into that panel's single output; do not leave any input floating or unconnected. Connect A to B with arrow label \"특징·후보\", B to C with arrow label \"검증 후보\", and C back to both A and B with a thin feedback line that visibly forks into two separate arrowheads entering A and B, labeled once \"불일치 검토\". Add one red X below the three outputs with exact label \"자동 확정 아님\". Preserve this connection structure exactly. Every individual fill must be one perfectly uniform constant color from edge to edge, including panel markers, input pills, output cards, panel backgrounds, and page background; zero gradients, zero highlights, zero tonal shading, zero glow. Do not imply that any panel is ground truth or that the flow is a performance ranking. Exact labels only, no full-sentence explanation, caption, logo, watermark, number, or stray text."
+}

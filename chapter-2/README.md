@@ -1,12 +1,6 @@
-# Chapter 2. 생화학 반응과 대사 네트워크의 수학적 표현
+# Chapter 2. 생화학 반응과 대사 네트워크 표현
 
-세포 안에서는 수많은 생화학 반응이 동시에 일어난다. 이 반응들을 컴퓨터로 계산하려면 먼저 수식으로 옮겨야 한다. [제약 기반 대사 모델](../glossary.md)은 이 작업을 [화학량론 행렬](../glossary.md) $$\mathbf S$$ 하나로 해낸다. 이 행렬은 하나의 큰 표라고 보면 된다. 각 열은 하나의 반응이고, 각 행은 **구획까지 구분한 대사물**이다. 예를 들어 세포질 포도당과 세포외 포도당은 같은 물질이라도 서로 다른 행에 기록한다. $$\mathbf{x}$$를 일정한 생물량 기준으로 정규화한 내부 대사물 pool로 두면 순생성률은
-
-$$
-\frac{d\mathbf x}{dt}=\mathbf S\mathbf v
-$$
-
-로 쓸 수 있다. 또 내부 대사물이 [의사-정상상태](../glossary.md)(pseudo-steady-state)에 있다는 조건은
+세포 안에서는 수많은 생화학 반응이 동시에 일어난다. 이 반응들을 컴퓨터로 계산하려면 먼저 수식으로 옮겨야 한다. [제약 기반 대사 모델](../glossary.md)은 이 작업에 [화학량론 행렬](../glossary.md) $$\mathbf S$$라는 기록표를 사용한다. 각 열은 하나의 반응이고, 각 행은 **구획까지 구분한 대사물**이다. 예를 들어 세포질 포도당과 세포외 포도당은 같은 물질이라도 서로 다른 행에 기록한다. 각 반응의 플럭스를 모은 $$\mathbf v$$를 이 기록표에 적용하면 $$\mathbf S\mathbf v$$가 대사물별 순생성률 목록이 된다. 내부 대사물이 [의사-정상상태](../glossary.md)(pseudo-steady-state)에 있다는 조건은
 
 $$
 \mathbf S\mathbf v=\mathbf 0
@@ -18,7 +12,7 @@ $$
 
 이 책은 한국어 용어를 먼저 쓰고, 처음 등장할 때 영어 원어와 약어를 함께 표기한다. 이후에는 같은 장 안에서 한 표기를 일관되게 사용한다.
 
-- **[플럭스](../glossary.md)**(flux; 대사 통량), **반응**(reaction), **대사물**(metabolite)은 각각 단위 시간·단위 생물량당 반응 진행률, 화학량론적 변환, 구획을 포함한 화학종을 뜻한다. $$\mathbf{x}$$의 단위를 $$\mathrm{mmol\,gDW^{-1}}$$로 두면 $$d\mathbf{x}/dt$$와 $$\mathbf{S}\mathbf{v}$$는 같은 $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$ 단위를 갖는다.
+- **[플럭스](../glossary.md)**(flux; 대사 통량), **반응**(reaction), **대사물**(metabolite)은 각각 단위 시간·단위 생물량당 반응 진행률, 화학량론적 변환, 구획을 포함한 화학종을 뜻한다. 플럭스의 단위를 $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$로 두면 $$\mathbf{S}\mathbf{v}$$도 같은 단위를 갖는다. 별도 변환 없이 이를 농도 변화율로 읽지 않는다.
 - **경계조건**(bounds), **목적함수**(objective function), **솔버**(solver)는 생물학적 사실이 아니라 모델에 부여한 계산 조건이다.
 - 조건·가정·절차는 번호 목록으로, 결과의 범위와 예외는 `해석상의 주의` 상자로 구분한다.
 
@@ -28,7 +22,7 @@ $$
 
 ## 범위
 
-이 장에서는 화학량론, 반응 방향성, 플럭스 경계조건, [행렬의 계수(rank)](../glossary.md), [영공간(null space)](../glossary.md)을 다룬다. 영공간은 $$\mathbf S\mathbf v=0$$을 만족하는 플럭스 조합의 집합이다. [GPR](../chapter-3/README.md), 세포 구획의 생물학적 의미, transport, boundary reaction 및 biomass formulation은 [Chapter 3](../chapter-3/README.md)에서 다룬다. [FBA](../chapter-4/README.md)의 선형계획 정식화와 flux variability analysis는 [Chapter 4](../chapter-4/README.md)에서 다룬다.
+이 장에서는 화학량론, 반응 방향성, 플럭스 경계조건과 대사물별 물질수지를 다룬다. 행렬 계산은 선형대수의 증명보다 “각 대사물이 여러 반응에서 얼마나 생성되고 소비되는가”를 한꺼번에 확인하는 방법에 초점을 둔다. [GPR](../chapter-3/README.md), 세포 구획의 생물학적 의미, transport, boundary reaction 및 biomass formulation은 [Chapter 3](../chapter-3/README.md)에서 다룬다. [FBA](../chapter-4/README.md)의 선형계획 정식화와 flux variability analysis는 [Chapter 4](../chapter-4/README.md)에서 다룬다.
 
 ## 표현의 흐름
 
@@ -36,8 +30,8 @@ $$
 flowchart LR
     R["반응식과 계수"] --> S["화학량론 행렬 S"]
     S --> G["부호·가중 이분 그래프"]
-    S --> D["d x/dt = S v"]
-    D --> SS["내부 대사물의<br/>S v = 0"]
+    S --> D["대사물별 순생성률<br/>S v"]
+    D --> SS["생성과 소비가 맞음<br/>S v = 0"]
     SS --> F["Chapter 4<br/>feasible set과 FBA"]
 ```
 
@@ -50,8 +44,8 @@ flowchart LR
 | §1 | 반응·대사물·플럭스 | 부호와 단위가 명시된 reaction record |
 | §2 | 화학량론 행렬 | $$\mathbf S$$의 행·열과 계수 |
 | §3 | 이분 그래프 | 반응–대사물 연결 구조 |
-| §4 | 동역학·정상상태·선형대수 | rank, null space, conservation relation |
-| Lab | [COBRApy](https://opencobra.github.io/cobrapy/) 조회와 행렬 검산 | `textbook` 모델의 $$\mathbf S$$ snapshot |
+| §4 | 물질수지와 의사-정상상태 | 대사물별 생성·소비 합계 |
+| Lab | [COBRApy](https://opencobra.github.io/cobrapy/) 조회와 물질수지 검산 | `textbook` 모델의 $$\mathbf S$$ 기록표 |
 
 ## 표기
 
@@ -60,8 +54,6 @@ flowchart LR
 | $$m,n$$ | metabolite 수, reaction 수 |
 | $$\mathbf S\in\mathbb R^{m\times n}$$ | stoichiometric matrix |
 | $$\mathbf v\in\mathbb R^n$$ | [플럭스 벡터](../glossary.md) |
-| $$\mathbf x\in\mathbb R^m$$ | metabolite amount 또는 concentration vector |
-| $$r=\operatorname{rank}(\mathbf S)$$ | [행렬 rank](../glossary.md) |
 | $$\ell_j,u_j$$ | reaction $$j$$의 lower/upper bound |
 
 플럭스의 단위는 모델 convention에 따라 다르며, 이 교재의 COBRApy 예제에서는 일반적으로 $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$를 사용한다.
@@ -99,7 +91,7 @@ $$\mathbf S\mathbf v=\mathbf0$$은 농도가 절대 변하지 않는다는 뜻�
 3. compartment suffix가 다른 metabolite species를 구분하고 필요한 transport reaction을 식별한다.
 4. $$\mathbf S\mathbf v$$를 계산하여 metabolite별 순생성률을 해석한다.
 5. pseudo-steady-state 가정과 thermodynamic equilibrium을 구분한다.
-6. rank–nullity theorem으로 $$\dim\ker(\mathbf S)=n-r$$를 계산하고, null-space basis·elementary flux mode·extreme ray를 구별한다.
-7. COBRApy의 `textbook` 모델에서 $$\mathbf S$$의 크기, nonzero entry, rank 및 null-space dimension을 검산한다.
+6. 대사물별 생성 기여와 소비 기여를 더하여 $$\mathbf S\mathbf v=\mathbf0$$의 의미를 설명한다.
+7. COBRApy의 `textbook` 모델에서 $$\mathbf S$$의 크기와 nonzero entry를 확인하고, 장난감 네트워크의 물질수지를 검산한다.
 
 ---

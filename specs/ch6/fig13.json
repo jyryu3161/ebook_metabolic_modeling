@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig13_four_method_translation",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"같은 저발현 반응, 네 가지 해석\" + smaller warm-grey \"Four method translations\". 중앙의 입력 카드 \"저발현 반응 Rj\"에서 네 개 패널로 화살표를 보낸다. \"A\" \"GIMME\" output \"사용 벌점\" with small cost tag \"벌점\", \"B\" \"iMAT\" output \"비활성 선호\" with status \"OFF\", \"C\" \"E-Flux\" output \"용량 감소\", \"D\" \"tINIT\" output \"제외 선호 · 과제 필요 시 보호\". 각 패널은 작은 동일 반응 화살표를 사용하되 A는 2D outline cost tag, B는 outline OFF state, C는 좁은 2D outline bound gate, D는 outline-only task shield icon으로 의미를 구분한다. cube, box, cylinder 같은 3D output object는 절대 그리지 않는다. 네 방법이 모두 반응을 즉시 삭제하는 것처럼 보이지 않게 한다. STRICT OUTLINE-ONLY DIAGRAM: 배경은 texture와 grid가 없는 균일한 warm off-white다. 모든 card, icon, marker의 내부는 배경과 정확히 같은 단색이며 색은 outline과 text에만 쓴다. \"A\", \"B\", \"C\", \"D\"도 채운 badge가 아니라 배경 위의 단색 글자다. colored fill, gradient, highlight, shadow, glow, bevel, perspective, 3D를 하나라도 넣으면 실패다. 보이는 텍스트와 문자·기호는 이 prompt의 큰따옴표 문자열만 허용하며 성능 순위·로고·워터마크를 넣지 않는다."
+}

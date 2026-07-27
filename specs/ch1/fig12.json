@@ -1,0 +1,7 @@
+{
+  "name": "ch1_fig12_history_added_layers",
+  "out_dir": "figures/ch1",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"대사모델링에 추가된 표현\" + smaller warm-grey \"Layers Added Across the Field\". 가로 시간 흐름을 네 구간으로 나누되 성장 그래프나 성능 순위처럼 보이지 않게 한다. 첫 구간 라벨은 \"1990년대\"이고 카드 내용은 \"화학량론\", \"경계\", \"목적\"이다. 둘째 구간 라벨은 \"1999–2007\"이고 새로 추가된 카드 내용은 \"게놈 근거\", \"GPR\", \"구획\"이다. 셋째 구간 라벨은 \"2008–2017\"이고 새로 추가된 카드 내용은 \"표준 큐레이션\", \"커뮤니티 검증\", \"공개 릴리스\"이다. 넷째 구간 라벨은 \"2018–2024\"이고 새로 추가된 카드 내용은 \"구조\", \"효소 자원\", \"군집\", \"AI 보조\"이다. 각 구간 사이의 화살표는 새 정보층의 추가를 뜻한다. 이전 정보층이 사라지지 않음은 텍스트를 반복하지 말고 각 구간 뒤에 텍스트 없는 작은 윤곽선 카드 더미가 두꺼워지는 모습으로 나타낸다. \"최초\", \"완성\", \"정확도 향상\" 같은 단정 라벨은 사용하지 않는다. Use an outline-first SVG diagram: leave all date tags and all text cards completely unfilled plain #FCFCFA. Distinguish periods with crisp blue, purple, ochre and green outline strokes only. Show the cumulative layer stacks as nested unfilled outline frames, not solid colored slabs. Only the arrowheads may have small uniform solid fills. No gradient, transparency, shadow, highlight, glow, shading, bevel, texture, or lighting. 정확한 라벨만 사용하고 과학적으로 정확하게. 캡션·설명문·임의 성능 수치·현재 시점 마커·로고·워터마크 없이."
+}

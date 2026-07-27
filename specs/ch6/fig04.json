@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig04_release_identity",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"모델 이름만으로는 부족하다\" + smaller warm-grey \"Release identity\". 왼쪽에 큰 카드 \"Human-GEM\" 하나와 단독 기호 \"?\"를 둔다. 오른쪽에는 재현 가능한 인용을 구성하는 여섯 개의 정렬된 카드 \"release / tag\", \"배포 DOI\", \"파일명\", \"checksum\", \"배지·bounds\", \"목적·코드 commit\"을 배치하고 하나의 최종 카드 \"재현 가능한 모델 인용\"으로 합류시킨다. 아래에는 자식 카드나 가지가 전혀 없는 독립된 비교 띠 세 개 \"재구축\", \"계산 model\", \"파생 모델\"만 둔다. \"버전\", \"파일\", \"조건\" 같은 보조 라벨을 절대 쓰지 않는다. 버전·파일·조건이 함께 고정되어야 같은 계산 객체가 된다는 관계는 위 여섯 카드의 합류만으로 보여 준다. STRICT OUTLINE-ONLY DIAGRAM: 배경은 texture와 grid가 없는 균일한 warm off-white다. 모든 카드와 띠의 내부는 배경과 정확히 같은 단색이며 색은 outline과 text에만 쓴다. colored fill, gradient, highlight, shadow, glow, bevel, 3D를 하나라도 넣으면 실패다. 모든 connector는 단일 검정 실선과 단색 검정 삼각형 화살촉이다. 보이는 텍스트와 기호는 이 prompt의 큰따옴표 문자열만 허용하며 panel letter, 색상 코드, 실제 checksum, 시점, 로고, 워터마크를 추가하지 않는다."
+}

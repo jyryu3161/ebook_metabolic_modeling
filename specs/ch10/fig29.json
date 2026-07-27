@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig29_mini_project_workflow",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"한 조건을 완결된 분석으로\" + smaller warm-grey \"Complete One Mini Project\". A seven-stage curved workflow with exact labels: \"조건 선택\" -> \"모델·환경 고정\" -> \"with model 적용\" -> \"status·질량보존\" -> \"pFBA·FVA\" -> \"그림·해석\" -> \"SBML·JSON 저장\". Under \"조건 선택\" show two optional branches \"탄소원\" and \"유전자\" that rejoin before environment setup. Under \"그림·해석\" add tags \"축 단위\", \"조건\", \"예측 ≠ 관찰\". Finish with green card \"재현 가능한 보고서\". Add one red loop from a failed status check back to \"조건·입력 점검\". Do not imply both optional branches must be completed. Exact labels only, no caption, paragraph, logo, watermark, result numbers, or stray text."
+}

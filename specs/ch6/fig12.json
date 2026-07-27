@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig12_threshold_sensitivity",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"임계값에 따라 달라지는 활성 집합\" + smaller warm-grey \"Threshold sensitivity\". 같은 여섯 유전자 점을 공통 세로 스케일에 놓고 세 열로 반복한다: \"A\" \"고정값\", \"B\" \"상위 25%\", \"C\" \"3단 분류\". 각 열에서 활성은 green outline, 불확실은 amber outline, 비활성은 grey outline의 hollow circle로 표시하고 내부는 모두 warm off-white로 비운다. threshold를 나타내는 수평선 옆에는 텍스트를 전혀 쓰지 않는다. \"고정 임계값\", \"상위 임계값\", \"하위 임계값\", \"상위 25% 임계값\"을 절대 쓰지 않는다. 열 아래 outline-only 결과 pill은 각각 \"활성 4\", \"활성 2\", \"활성 2 · 불확실 2 · 비활성 2\"로 정확히 적는다. 동일 입력이 규칙에 따라 다른 분류가 됨을 보여 주되 실제 데이터나 통계적 성능처럼 보이지 않게 축 단위는 \"상대 발현\"만 쓴다. STRICT OUTLINE-ONLY DIAGRAM: 배경은 texture와 grid가 없는 균일한 warm off-white다. 모든 circle과 pill 내부는 배경과 정확히 같은 단색이며 색은 outline과 text에만 쓴다. gradient, highlight, shadow, glow, bevel, 3D를 하나라도 넣으면 실패다. 보이는 텍스트와 문자·숫자·기호는 이 prompt의 큰따옴표 문자열만 허용하며 추가 숫자·로고·워터마크를 넣지 않는다."
+}

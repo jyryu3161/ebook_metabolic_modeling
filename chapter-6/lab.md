@@ -6,7 +6,7 @@
 
 ## 이 실습에서 하는 일
 
-가상의 RNA-seq 발현값을 실제 대사 모델 `e_coli_core`에 단계별로 통합해 봅니다. 구체적으로 raw counts를 [TPM](../glossary.md)으로 정규화하고([4.1절](04.md)), 여러 임계값 방법을 비교하고([2.3절](02.md)), 실제 [GPR](../chapter-3/README.md)로 [반응 활성 점수](../glossary.md)(RAS)를 계산한 뒤([2.1~2.2절](02.md)), 그 RAS를 [GIMME](../landmark-papers.md)([3.2절](03.md))와 E-Flux([3.4절](03.md)) 제약으로 번역해 모델에 직접 실행합니다. 마지막에는 맥락 특이적 제약이 유전자 필수성 예측을 바꾸는지 계산으로 확인합니다. 이 실습은 [1절](01.md)의 7단계 통합 파이프라인 중 3~7단계를 손으로 따라가 보는 것입니다.
+가상의 RNA-seq 발현값을 실제 대사 모델 `e_coli_core`에 단계별로 통합해 봅니다. 구체적으로 raw counts를 [TPM](../glossary.md)으로 정규화하고([8.1절](08.md)), 여러 임계값 방법을 비교하고([6.3절](06.md)), 실제 [GPR](../chapter-3/README.md)로 [반응 활성 점수](../glossary.md)(RAS)를 계산한 뒤([6.1~6.2절](06.md)), 그 RAS를 [GIMME](../landmark-papers.md)([7.2절](07.md))와 E-Flux([7.4절](07.md)) 제약으로 번역해 모델에 직접 실행합니다. 마지막에는 맥락 특이적 제약이 유전자 필수성 예측을 바꾸는지 계산으로 확인합니다. 이 실습은 [4절](04.md)의 통합 파이프라인 가운데 전처리·RAS·제약·검증 단계를 따라가는 과정입니다.
 
 ## 학습 목표
 
@@ -31,7 +31,7 @@ flux는 `mmol gDW⁻¹ h⁻¹` 단위의 반응 진행률(속도)이고, 성장�
 
 ### 단계 1. Raw counts를 TPM으로 정규화하기
 
-**무엇을·왜.** RNA-seq의 원시 계수(raw counts)는 라이브러리 크기와 유전자 길이에 의존하므로 그대로 반응 점수로 쓸 수 없습니다. [4.1절](04.md)에서 손으로 계산해 본 TPM 공식을 코드로 옮겨 정규화합니다. 핵심은 "길이로 나눈 비율(rate)을 구한 뒤, 그 비율의 합으로 다시 정규화해 항상 100만이 되도록 만든다"는 두 단계입니다.
+**무엇을·왜.** RNA-seq의 원시 계수(raw counts)는 라이브러리 크기와 유전자 길이에 의존하므로 그대로 반응 점수로 쓸 수 없습니다. [8.1절](08.md)에서 손으로 계산해 본 TPM 공식을 코드로 옮겨 정규화합니다. 핵심은 "길이로 나눈 비율(rate)을 구한 뒤, 그 비율의 합으로 다시 정규화해 항상 100만이 되도록 만든다"는 두 단계입니다.
 
 **코드.** 아래 코드는 다섯 유전자의 counts와 길이로부터 TPM을 계산하고, 검증용으로 TPM의 합을 함께 출력합니다.
 
@@ -87,7 +87,7 @@ TPM 합계 (검증용, 항상 1e6): 1000000.0
 
 ### 단계 2. 발현 임계값 이산화 방법 비교하기
 
-**무엇을·왜.** RAS 같은 연속 발현값을 "활성/비활성"으로 나눌 때 어떤 임계값 규칙을 쓰느냐에 따라 활성으로 분류되는 유전자 수가 크게 달라집니다. [2.3절](02.md)의 세 전략(고정값, 백분위수, 일반 z-score)을 같은 합성 데이터에 적용해 그 차이를 눈으로 확인합니다. 아래 `standard_zscore`는 전체 값의 평균·표준편차를 쓰는 탐색적 규칙이며 rFASTCORMICS의 zFPKM이 아닙니다.
+**무엇을·왜.** RAS 같은 연속 발현값을 "활성/비활성"으로 나눌 때 어떤 임계값 규칙을 쓰느냐에 따라 활성으로 분류되는 유전자 수가 크게 달라집니다. [6.3절](06.md)의 세 전략(고정값, 백분위수, 일반 z-score)을 같은 합성 데이터에 적용해 그 차이를 눈으로 확인합니다. 아래 `standard_zscore`는 전체 값의 평균·표준편차를 쓰는 탐색적 규칙이며 rFASTCORMICS의 zFPKM이 아닙니다.
 
 **코드.** 이 코드는 세 방법으로 각각 활성 유전자 수를 세어 출력합니다. 결과를 재현하려면 `np.random.seed(42)`를 반드시 함께 실행해야 합니다.
 
@@ -96,7 +96,7 @@ import pandas as pd
 from scipy import stats
 
 def discretize_expression(log2_expr, method='percentile', threshold=None):
-    """연속 log2(TPM+1) 발현값을 이산 활성/비활성 라벨로 변환 (2.3절의 세 전략)"""
+    """연속 log2(TPM+1) 발현값을 이산 활성/비활성 라벨로 변환 (6.3절의 세 전략)"""
     if method == 'fixed':
         thr = threshold if threshold is not None else 1.0
         return (log2_expr > thr).astype(int)
@@ -139,12 +139,12 @@ standard_zscore: 활성 유전자 98 / 200개
 - `ModuleNotFoundError: No module named 'scipy'`(또는 `pandas`) — `pip install scipy pandas`로 설치하십시오.
 
 {% hint style="warning" %}
-**해석상의 주의:** `fixed`는 절대 cutoff에, `percentile`은 선택 비율에, `standard_zscore`는 전체 분포의 평균과 표준편차에 의존합니다. rFASTCORMICS는 이 셋째 코드를 사용하지 않습니다. 표본별 $$\log_2(\mathrm{FPKM})$$ 주봉의 오른쪽에 half-Gaussian을 적합해 얻은 $$\mu_E,\sigma_E$$로 zFPKM을 계산하고 발현·불확실·비발현 영역을 나눕니다. full workflow를 재현하려면 density fitting과 적합 진단이 추가로 필요합니다([2.3.1절](02.md)).
+**해석상의 주의:** `fixed`는 절대 cutoff에, `percentile`은 선택 비율에, `standard_zscore`는 전체 분포의 평균과 표준편차에 의존합니다. rFASTCORMICS는 이 셋째 코드를 사용하지 않습니다. 표본별 $$\log_2(\mathrm{FPKM})$$ 주봉의 오른쪽에 half-Gaussian을 적합해 얻은 $$\mu_E,\sigma_E$$로 zFPKM을 계산하고 발현·불확실·비발현 영역을 나눕니다. full workflow를 재현하려면 density fitting과 적합 진단이 추가로 필요합니다([6.3.1절](06.md)).
 {% endhint %}
 
 ### 단계 3. `e_coli_core`의 실제 GPR로 RAS 계산하기
 
-**무엇을·왜.** 이제 장난감 예제가 아니라 실제 모델의 [유전자-단백질-반응 연관](../chapter-3/README.md)(Gene-Protein-Reaction, GPR)에 min/max 휴리스틱을 적용해 RAS를 계산합니다([2.1~2.2절](02.md)). COBRApy는 GPR을 자체 파서로 읽어 논리식 객체로 보관합니다. 따라서 문자열을 `eval()`하거나 파이썬 식별자 규칙에 맞게 임의로 바꾸지 않고, `Reaction.gpr.as_symbolic()`이 반환하는 SymPy 논리식을 재귀적으로 평가합니다. 이 방식은 하이픈이나 마침표가 포함된 유전자 ID도 모델의 GPR 파서가 처리한 결과를 그대로 사용합니다.
+**무엇을·왜.** 이제 장난감 예제가 아니라 실제 모델의 [유전자-단백질-반응 연관](../chapter-3/README.md)(Gene-Protein-Reaction, GPR)에 min/max 휴리스틱을 적용해 RAS를 계산합니다([6.1~6.2절](06.md)). COBRApy는 GPR을 자체 파서로 읽어 논리식 객체로 보관합니다. 따라서 문자열을 `eval()`하거나 파이썬 식별자 규칙에 맞게 임의로 바꾸지 않고, `Reaction.gpr.as_symbolic()`이 반환하는 SymPy 논리식을 재귀적으로 평가합니다. 이 방식은 하이픈이나 마침표가 포함된 유전자 ID도 모델의 GPR 파서가 처리한 결과를 그대로 사용합니다.
 
 **코드.** 이 코드는 모델을 불러오고(`load_model`), 데모용 임의 발현값을 만든 뒤, 대표 반응 다섯 개의 RAS를 출력합니다. 마지막으로 GPR을 가진 모든 반응의 RAS를 `reaction_weights` 딕셔너리에 저장합니다. **이 `reaction_weights`는 단계 4·5에서 그대로 재사용되므로 반드시 이 셀을 먼저 실행해야 합니다.**
 
@@ -219,7 +219,7 @@ GPR 보유 반응 (RAS 계산 대상): 69 / 95
 
 ### 단계 4. GIMME 2단계 LP를 `e_coli_core`에 실행하기
 
-**무엇을·왜.** 단계 3에서 얻은 `reaction_weights`를 그대로 이어받아, [3.2절](03.md)의 GIMME 2단계 LP(선형계획, Linear Programming)를 실제로 풀어봅니다. [3.2.1절](03.md)에서 손으로 풀어본 장난감 3-반응 네트워크와 원리는 완전히 같습니다 — 다만 이번에는 반응 95개짜리 실제 대사 네트워크 전체에서 solver가 그 계산을 대신 수행합니다. GIMME는 (1) 원래 FBA로 최적 성장률 $$Z^*$$를 구하고, (2) 성장률을 $$0.9Z^*$$ 이상으로 유지한다는 하한을 둔 채 저발현 반응의 flux를 최소화합니다.
+**무엇을·왜.** 단계 3에서 얻은 `reaction_weights`를 그대로 이어받아, [7.2절](07.md)의 GIMME 2단계 LP(선형계획, Linear Programming)를 실제로 풀어봅니다. 이번에는 반응 95개짜리 실제 대사 네트워크 전체에서 solver가 계산을 수행합니다. GIMME는 (1) 원래 FBA로 최적 성장률 $$Z^*$$를 구하고, (2) 성장률을 $$0.9Z^*$$ 이상으로 유지한다는 하한을 둔 채 저발현 반응의 flux를 최소화합니다.
 
 **코드.** 이 코드는 네 부분으로 이루어집니다: 원래 FBA 성장률 계산, 저발현 반응 선정(하위 25%), 최소 패널티 해 계산, 그리고 최적면 전체에서 항상 0인 반응만 찾아 차단한 교육용 `context_model` 구성입니다. **여기서 만든 `context_model`은 단계 7에서 다시 사용됩니다.**
 
@@ -320,7 +320,7 @@ hard-pruned 모델의 최대 성장률: 0.7967 h^-1
 
 ### 단계 5. E-Flux 경계 스케일링을 `e_coli_core`에 실행하기
 
-**무엇을·왜.** [3.4.1절](03.md)에서 손으로 계산한 경계 스케일링(원래 상한에 정규화된 발현값을 곱하는 것)을 그대로 코드로 적용합니다. E-Flux는 별도의 성장 하한 없이, 발현이 낮은 반응일수록 그 반응이 흐를 수 있는 최대 용량 자체를 줄입니다. 단계 3에서 만든 `reaction_weights`와 `model`을 다시 사용합니다.
+**무엇을·왜.** [7.4절](07.md)의 경계 스케일링(원래 상한에 정규화된 발현값을 곱하는 것)을 그대로 코드로 적용합니다. E-Flux는 별도의 성장 하한 없이, 발현이 낮은 반응일수록 그 반응이 흐를 수 있는 최대 용량 자체를 줄입니다. 단계 3에서 만든 `reaction_weights`와 `model`을 다시 사용합니다.
 
 **코드.** 이 코드는 각 반응의 RAS를 0~1로 정규화한 뒤(`E`), `with model:` 블록 안에서 상·하한을 스케일링하고 FBA를 다시 풉니다. `with model:` 블록은 안에서 바꾼 경계를 블록이 끝나면 자동으로 원래대로 되돌리므로, 원본 `model`은 손상되지 않습니다.
 
@@ -365,31 +365,22 @@ E-Flux 스케일링 후 성장률: 0.6139 h^-1
 **해석상의 주의:** GIMME는 원래 최적 성장률의 90% 이상을 허용 가능한 영역으로 두고 그 안에서 저발현 flux penalty를 최소화합니다. 이 예제의 반환 해는 우연이 아니라 목적함수 구조 때문에 하한에 놓였지만, 제약 자체는 등식이 아닙니다. E-Flux는 별도의 성장 하한 없이 발현으로 경계를 스케일링하여 최대 성장률이 0.6139 h$$^{-1}$$가 되었습니다. 따라서 두 숫자는 각각 "기능 하한을 둔 뒤 발현 불일치를 줄이는 방법"과 "발현을 용량의 대리값으로 쓰는 방법"의 차이를 보여 줍니다.
 {% endhint %}
 
-### 단계 6. iMAT을 개념 코드로 이해하기
+### 단계 6. iMAT의 입력과 출력을 구분하기
 
-**무엇을·왜.** iMAT은 GIMME·E-Flux와 달리 [MILP](../glossary.md)(혼합정수선형계획)로 정형화되며, $$y_j$$–$$v_j$$ big-M 연결 제약을 반응마다 정확한 하한·상한으로 조정해야 합니다([3.3절](03.md)의 구현상의 주의, [3.3.1절](03.md)의 숫자 예제 참고). 이 상수를 잘못 설정하면 손쉽게 infeasible에 빠지므로, 이 단계는 실행이 아니라 **구조 이해**가 목적입니다. 아래 개념 코드는 고발현·저발현 반응 집합을 나누는 뼈대만 보여 줍니다. 실제 연구에서는 이를 직접 처음부터 구현하기보다 **[Troppo](https://github.com/BioSystemsUM/troppo)**(`troppo.methods.reconstruction`) 프레임워크의 검증된 GIMME/iMAT/FastCORE/tINIT 구현체나 [COBRA Toolbox](https://opencobra.github.io/cobratoolbox/)/[RAVEN](https://github.com/SysBioChalmers/RAVEN)(MATLAB)의 대응 함수를 사용하는 것이 권장됩니다.
+**무엇을·왜.** iMAT은 발현값을 high·moderate·low 범주로 나누고, 고발현 반응은 활성인 상태를, 저발현 반응은 비활성인 상태를 선호합니다([7.3절](07.md)). 이 실습에서는 최적화 연결식을 직접 구현하지 않습니다. 검증된 구현체를 사용하더라도 아래 입력과 출력의 뜻을 먼저 구분하는 것이 목적입니다.
 
-**코드.** 이 코드는 함수 정의만 하며, 실행해도 화면에 출력되는 내용은 없습니다. 주석은 실제 iMAT MILP에서 이 두 집합을 어떻게 제약으로 옮기는지 설명합니다.
+| 구분 | 확인할 항목 | 생물학적 해석 |
+|:---|:---|:---|
+| 입력 | 발현 정규화, high·low 임계값 | 어떤 반응을 강하거나 약한 증거로 분류했는가 |
+| 입력 | 최소 활성 flux와 반응 경계 | 어느 정도의 사용을 ‘활성’으로 판정했는가 |
+| 출력 | 발현–활성 일치 점수 | 입력 분류와 반응 사용 상태가 얼마나 맞는가 |
+| 검증 | 대사 과제와 독립 표현형 | 선택한 반응 상태가 필요한 기능과 관찰을 설명하는가 |
 
-```python
-# 개념 코드 (실행 목적이 아닌 구조 설명용) — 실제로는 Troppo 등의 패키지 사용을 권장
-def imat_style_reconstruction(model, reaction_weights, high_q=75, low_q=25, eps=1.0):
-    vals = list(reaction_weights.values())
-    hi, lo = np.percentile(vals, high_q), np.percentile(vals, low_q)
-    R_high = [rid for rid, w in reaction_weights.items() if w >= hi]
-    R_low  = [rid for rid, w in reaction_weights.items() if w <= lo]
-    # 이후 R_high는 "y=1이면 |v|>=eps", R_low는 "y=1이면 v=0"이 되도록
-    # 반응별 lower_bound/upper_bound를 반영한 big-M 제약을 세우고
-    # y_low를 "저발현 반응이 비활성"인 지시자로 정의했다면
-    # sum(y_high_active) + sum(y_low_inactive) 최대화 (3.3절 참고)
-    return R_high, R_low
-```
+실제 연구에서는 처음부터 직접 구현하기보다 [Troppo](https://github.com/BioSystemsUM/troppo/), [COBRA Toolbox](https://opencobra.github.io/cobratoolbox/) 또는 [RAVEN](https://github.com/SysBioChalmers/RAVEN)의 검증된 구현을 사용하고, 패키지 버전·임계값·solver·종료 상태를 기록합니다.
 
-**예상 출력.** 이 셀은 함수를 정의만 하므로 출력이 없습니다. 오류 없이 실행이 끝나면(다음 프롬프트로 넘어가면) 성공입니다. 직접 호출해 보려면 `R_high, R_low = imat_style_reconstruction(model, reaction_weights)`처럼 실행할 수 있습니다.
+**확인 포인트.** iMAT의 높은 일치 점수는 발현 분류와 계산된 활성 패턴의 일치를 뜻합니다. 독립 실험 정확도나 실제 flux 측정을 뜻하지 않습니다.
 
-**확인 포인트.** 오류 메시지 없이 셀이 완료되면 함수가 정상적으로 정의된 것입니다. 이 단계에서 성장률 같은 숫자를 기대하지 마십시오.
-
-암 맥락에서의 완전한 Troppo 파이프라인 예시는 [Chapter 7](../chapter-7/README.md)에서 이어집니다.
+암 세포주 모델을 실험 의존성 자료와 비교할 때에는 [Chapter 9 §3](../chapter-9/03.md)의 계산 레이블·실험 레이블 구분을 적용합니다.
 
 ### 단계 7. 맥락 특이적 제약이 유전자 필수성에 미치는 영향 검증하기
 
@@ -458,7 +449,7 @@ context에서 새로 필수가 된 유전자: ['b1761', 'b3956']
 동일한 유전자 결손을 두 모델에 적용하면 맥락 제약이 대체 경로를 제거해 새 취약성을 만들 수 있음을 계산적으로 확인할 수 있습니다. 여기서는 `b1761`과 `b3956`이 그 예입니다.
 
 {% hint style="warning" %}
-**해석상의 주의:** 입력 발현값이 난수이고 실험 관측과 비교하지 않았으므로, 이는 **외부 검증이 아니라 모델 간 민감도 비교**입니다. 예측 정확도를 주장하려면 배지와 세포 상태를 맞춘 실험적 유전자 필수성 자료를 독립적으로 대조해야 합니다. 암-정상 모델과 DepMap CRISPR 자료를 이용한 비교는 [Chapter 7](../chapter-7/README.md)에서 다룹니다.
+**해석상의 주의:** 입력 발현값이 난수이고 실험 관측과 비교하지 않았으므로, 이는 **외부 검증이 아니라 모델 간 민감도 비교**입니다. 예측 정확도를 주장하려면 배지와 세포 상태를 맞춘 실험적 유전자 필수성 자료를 독립적으로 대조해야 합니다. 계산 모델과 DepMap CRISPR 레이블의 비교 원칙은 [Chapter 9 §3](../chapter-9/03.md)에서 다룹니다.
 {% endhint %}
 
 ---
@@ -484,8 +475,8 @@ context에서 새로 필수가 된 유전자: ['b1761', 'b3956']
 
 ## 다음 단계
 
-- 임계값과 zFPKM 통계 배경을 더 보려면 [2.3절](02.md)과 [오믹스 데이터 분석과 기초 통계](../supplements/omics-statistics.md)를 참고하십시오.
-- 여기서 다룬 GIMME·iMAT·E-Flux·tINIT의 정형화 비교는 [3절](03.md)에, RNA-seq 전처리 파이프라인 전체는 [4절](04.md)에 있습니다.
-- 암 세포주 맥락 특이적 모델을 이용한 약물 표적 예측과 실험 필수성 자료 대조는 [Chapter 7](../chapter-7/README.md)에서 이어집니다.
+- 임계값과 zFPKM 통계 배경을 더 보려면 [6.3절](06.md)과 [오믹스 데이터 분석과 기초 통계](../supplements/omics-statistics.md)를 참고하십시오.
+- 여기서 다룬 GIMME·iMAT·E-Flux·tINIT의 비교는 [7절](07.md)에, RNA-seq 전처리 파이프라인 전체는 [8절](08.md)에 있습니다.
+- 암 세포주 모델과 실험 필수성 자료의 대조는 [Chapter 9 §3](../chapter-9/03.md), 미생물 교란 방법 비교는 [Chapter 4 §13](../chapter-4/13.md), 생산–성장 포락선 실습은 [Chapter 10 §11](../chapter-10/11.md)에서 이어집니다.
 
 ---

@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig09_gpr_logic",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"GPR의 OR와 AND\" + smaller warm-grey \"Gene–Protein–Reaction Logic\". Two equal panels. Left panel title is \"A\" and \"OR · 동위효소\". Show separate gene boxes \"g1\" and \"g2\" independently feeding reaction \"R1\"; cross out \"g1\" in red, keep \"g2\" green, and keep \"R1\" green with \"활성\" and \"하나가 남으면 유지\". Right panel title is \"B\" and \"AND · 효소 복합체\". Show gene boxes \"g3\" and \"g4\" as two required subunits; cross out \"g3\", show its subunit as a pale missing silhouette without repeating its text inside the complex, and make \"R2\" grey with \"비활성\" and \"하나가 없으면 차단\". FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every gene box, complex subunit, reaction, arrow, and marker has one perfectly uniform solid fill. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; no other text, caption, truth table, or label."
+}

@@ -1,0 +1,7 @@
+{
+  "name": "ch1_fig10_model_card_four_axes",
+  "out_dir": "figures/ch1",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"모델 카드의 네 축\" + smaller warm-grey \"Four-Axis Model Card\". 중앙에 카드 \"분석할 모델\"을 두고 네 방향으로 서로 겹치지 않는 연결선을 뻗는다. 왼쪽 위 카드는 \"생화학적 범위\"와 하위 라벨 \"경로 · core · 게놈 규모\", 오른쪽 위 카드는 \"시스템 경계\"와 하위 라벨 \"세포 · 조직 · 군집\", 왼쪽 아래 카드는 \"수학적 형식\"과 하위 라벨 \"화학량론 · 효소 · 동역학\", 오른쪽 아래 카드는 \"맥락화\"와 하위 라벨 \"범용 · 조건 · 표본\"이다. 각 하위 라벨은 인용된 전체 문자열을 글자와 가운데점까지 그대로 한 줄에 한 번만 표시하며, 단어를 별도 칩으로 쪼개거나 되풀이하지 않는다. 맨 아래에는 가로형 기록 띠 \"릴리스 · 배지 · 목적 · solver · 검증\"을 하나의 연속 문자열로 배치하고 중앙 카드와 연결한다. 네 축은 순위나 한 줄짜리 단계가 아니라 동시에 기록하는 독립 항목으로 보여야 하며, 한 모델에 여러 태그가 함께 적용될 수 있음을 네 카드가 동시에 활성화된 단순 구조로 나타낸다. Use an outline-first SVG diagram: leave the center card, all four axis cards and the bottom record strip completely unfilled plain #FCFCFA. Do not use solid header tabs or any colored fill. Distinguish the four axes only with crisp flat blue, purple, ochre and green outline strokes and matching flat text. The center card must also remain uniformly unfilled #FCFCFA with a single flat ink outline. Every interior and background region must be one uniform flat color with no tonal variation. No gradient, transparency, shadow, highlight, glow, shading, bevel, texture, or lighting. 정확한 라벨만 사용하고 과학적으로 정확하게. 캡션·설명문·수치·시점 의존 라벨·로고·워터마크 없이."
+}

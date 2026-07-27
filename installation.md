@@ -88,7 +88,7 @@ print(model.optimize().objective_value)   # ≈ 0.8739 h^-1
 ```
 
 {% hint style="info" %}
-**기본 솔버(GLPK)** 는 COBRApy 설치 시 `optlang`·`swiglpk`를 통해 함께 들어오므로 별도 설치가 필요 없다. 작은/중간 모델에는 충분하다. 대규모 모델이나 MILP(예: [OptKnock](chapter-8/06.md), [ROOM](supplements/perturbation-analysis.md))에서는 Gurobi/CPLEX가 훨씬 빠르다.
+**기본 솔버(GLPK)** 는 COBRApy 설치 시 `optlang`·`swiglpk`를 통해 함께 들어오므로 별도 설치가 필요 없다. 작은/중간 모델에는 충분하다. 대규모 모델이나 혼합정수 계산에서는 Gurobi/CPLEX가 더 빠를 수 있다. ROOM의 질문과 솔버 요구사항은 [Chapter 4 §12](chapter-4/12.md)에서 설명한다.
 {% endhint %}
 
 ## 5. Gurobi 설치와 학술 라이선스 취득

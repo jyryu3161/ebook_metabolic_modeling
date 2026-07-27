@@ -86,12 +86,12 @@ flowchart TD
 | 모델의 연구 기능과 한계 | §2 | [Chapter 4](../chapter-4/README.md) |
 | 재구축과 GEM 구성 | §3 | [Chapter 3](../chapter-3/README.md), [Chapter 5](../chapter-5/README.md) |
 | 제약 기반·동역학 모델 비교 | §4 | [Chapter 4](../chapter-4/README.md) |
-| 모델 분류 | §5 | Chapters 5–9 |
+| 모델 분류 | §5 | [Chapter 5](../chapter-5/README.md), [Chapter 6 §4](../chapter-6/04.md), Chapter 9 [§1](../chapter-9/01.md)·[§2](../chapter-9/02.md)·[§3](../chapter-9/03.md) |
 | 역사와 원 논문 | §6 | [대표 논문 가이드](../landmark-papers.md) |
 | 계산 객체 조사 | 실습 | [Chapter 10](../chapter-10/README.md) |
 
 ## 선수 지식과 표기
 
-행렬과 벡터의 기본 연산, 몰과 화학량론 계수, 함수와 부등식에 대한 기초 지식을 전제로 한다. 플럭스의 기본 단위는 별도 언급이 없으면 $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$이며, $$\mathrm{gDW}$$는 건조 세포 질량(gram dry weight)을 뜻한다. [정상상태](../glossary.md), 반응 방향성, 성장 최적화는 어떤 세포에나 통하는 생물 법칙이 아니다. 이 책에서는 뒤 장에서 검토할 모델 가정으로 다룬다.
+선형대수나 최적화 과목을 이수하지 않았다고 가정한다. 행렬과 벡터는 반응식의 계수와 여러 반응 속도를 표·목록으로 묶어 쓰는 표기로 처음부터 설명하며, 목적함수는 여러 후보 가운데 정한 기준에 가장 잘 맞는 상태를 고르는 계산 규칙으로 소개한다. 선수 지식은 몰과 화학 반응식, 간단한 함수와 부등식이면 충분하다. 플럭스의 기본 단위는 별도 언급이 없으면 $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$이며, $$\mathrm{gDW}$$는 건조 세포 질량(gram dry weight)을 뜻한다. [정상상태](../glossary.md), 반응 방향성, 성장 최적화는 어떤 세포에나 통하는 생물 법칙이 아니다. 이 책에서는 뒤 장에서 검토할 모델 가정으로 다룬다.
 
 ---

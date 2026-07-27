@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig20_gapfill_evidence_gate",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"선택된 반응은 검토할 가설\" + smaller warm-grey \"Evidence Gate After Gap-Filling\". Left input card \"gap-filling 선택 반응\" with a red caution tag \"생물학적 증명 아님\". Center a four-gate checklist in a 2x2 grid with exact labels \"유전체 주석\", \"문헌 근거\", \"열역학 방향\", \"세포 구획\". Right split into two outcomes: green \"모델에 채택\" with tag \"근거·confidence 기록\", and gray-red \"보류·거절\" with tag \"후보 풀·penalty 재검토\". Add a return arrow from rejection to the input labeled \"반복\". Do not show paper logos, database logos, numerical confidence score, or claim that passing every gate proves truth. Exact labels only, no caption, paragraph, watermark, or stray text."
+}

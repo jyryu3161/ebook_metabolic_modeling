@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig15_pfba_two_stage",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"pFBA의 두 단계\" + smaller warm-grey \"Parsimonious FBA\". Draw two large left-to-right panels. Left panel label \"1 주 목적 최대화\" shows several abstract pathway arrows reaching one blue target badge \"최적 목적값\". Right panel label \"2 전체 절대 플럭스 최소화\" shows the same target badge \"최적 목적값\" unchanged while unnecessary pathway arrows become thin grey lines and one compact route remains. Place one arrow above the panels labeled \"목적값 유지\" and emphasize only that label in red. FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every panel, node, route, arrow, target, and badge has one perfectly uniform solid fill. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; no equations, numbers outside the two panel labels, claims, captions, or other text."
+}

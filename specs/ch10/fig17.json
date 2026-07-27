@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig17_method_objective_vs_growth",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"목적값과 성장률을 분리해 읽기\" + smaller warm-grey \"Method Objective vs Growth\". Three horizontal rows labeled \"FBA\", \"선형 MOMA\", \"선형 ROOM\". In each row show a solution card splitting into two columns. Left column title \"생물학적 관심 출력\" with exact token \"Biomass_Ecoli_core flux\" and common unit tag \"h⁻¹\". Right column title \"방법 고유 목적값\" with row-specific tags \"biomass\", \"flux 차이 합\", \"허용 범위 이탈\". Place a large red crossed double-arrow only between the MOMA and ROOM objective cards labeled \"크기 직접 비교 금지\". Add a green vertical alignment guide down the biomass column labeled \"공통 비교 열\". Exact labels only, no numerical result, caption, paragraph, logo, watermark, or stray text."
+}

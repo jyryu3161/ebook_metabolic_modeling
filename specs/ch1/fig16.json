@@ -1,0 +1,7 @@
+{
+  "name": "ch1_fig16_mismatch_diagnosis",
+  "out_dir": "figures/ch1",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"예측–관찰 불일치의 진단\" + smaller warm-grey \"Diagnosing Model–Experiment Mismatch\". 위 중앙의 시작 카드 \"예측–관찰 불일치\"에서 아래의 다섯 점검 카드로 가지를 뻗는다. 점검 카드는 왼쪽부터 \"실험 조건\", \"교환 경계\", \"반응식·구획\", \"GPR\", \"바이오매스·목적\"이다. 다섯 카드 안에는 이 정확한 라벨 하나씩만 넣고, \"Check\" 같은 영문 머리말이나 아이콘은 넣지 않는다. 다섯 카드에서 나온 선은 판정 다이아몬드 \"판별 근거\"로 다시 모인다. 다이아몬드에도 이 정확한 라벨만 넣고 \"Decision\" 같은 영문 머리말은 넣지 않는다. 판정에서 녹색 화살표는 \"근거 기반 갱신\", 회색 화살표는 \"보류·추가 측정\"으로 이어진다. \"근거 기반 갱신\"에서 시작 카드로 돌아가는 녹색 반복 화살표를 그린다. 별도 경로 \"근거 없는 반응 추가\"는 짧은 빨간 화살표가 큰 빨간 X 바로 앞에서 끝나게 그린다. 그 빨간 X 뒤에는 선이나 화살표를 절대 이어 그리지 않고, 판정 다이아몬드와 갱신 카드 어디에도 연결하지 않는다. 이 흐름은 한 방향 자동 파이프라인이 아니라 진단 뒤 증거 단계로 되돌아가는 반복 구조로 보이게 한다. Use an outline-first SVG diagram: leave the start card, all five check cards, the diamond and both result cards completely unfilled plain #FCFCFA. Distinguish roles with crisp colored outlines only. All arrow interiors are also #FCFCFA with colored outlines; only the red X may be one uniform solid color. No gradient, transparency, shadow, highlight, glow, shading, bevel, texture, or lighting. 정확한 라벨만 사용하고 과학적으로 정확하게. 캡션·설명문·수치·시점 의존 라벨·로고·워터마크 없이."
+}

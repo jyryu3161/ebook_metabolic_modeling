@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig06_curation_assurance_layers",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"큐레이션의 검증 층\" + smaller warm-grey \"Curation assurance layers\". 왼쪽에서 오른쪽으로 네 단계 게이트를 그린다: \"A\" \"후보 선별\" 아래에는 \"규칙·LLM\", \"B\" \"전문가 판정\" 아래에는 \"반응식·GPR·근거\", \"C\" \"자동 회귀 시험\" 아래에는 \"형식·대사 과제·중복\", \"D\" \"독립 benchmark\" 아래에는 \"의존성·생체표지자\". \"sublabel\"이라는 단어, 빈 placeholder rectangle, 하단 설명 문구를 절대 만들지 않는다. A에서 바로 D로 건너뛰는 경로에는 단색 빨간 \"X\"를 표시한다. 각 게이트의 출력은 다음 게이트로 가고, D에서 B로 돌아가는 feedback arrow에는 어떤 텍스트도 쓰지 않는다. 자동 선별과 자동 시험이 전문가 판정·외부 검증을 대체하지 않는 구조를 명확히 한다. \"A\", \"B\", \"C\", \"D\"는 채운 badge가 아니라 배경 위의 단색 글자다. STRICT OUTLINE-ONLY DIAGRAM: 배경은 texture와 grid가 없는 균일한 warm off-white다. 모든 gate와 card 내부는 배경과 정확히 같은 단색이며 색은 outline과 text에만 쓴다. colored fill, gradient, highlight, shadow, glow, bevel, 3D를 하나라도 넣으면 실패다. 보이는 텍스트와 기호는 이 prompt의 큰따옴표 문자열만 허용하며 성능 수치·로고·워터마크를 추가하지 않는다."
+}

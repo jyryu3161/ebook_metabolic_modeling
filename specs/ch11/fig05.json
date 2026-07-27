@@ -1,0 +1,7 @@
+{
+  "name": "ch11_fig05_exchange_flux_signs",
+  "out_dir": "figures/ch11",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"교환 flux 부호 읽기\" + smaller warm-grey \"Exchange Flux Sign Convention\". 중앙에 파란색 구조 컨테이너 \"모델 경계\"를 두고 그 안에 \"세포 대사망\"을 표시한다. 왼쪽 패널 A 제목 \"A  흡수\". 외부 대사물 원 \"Xₑ\"에서 모델 경계 안으로 향하는 초록 화살표와 라벨 \"flux < 0\"을 둔다. 오른쪽 패널 B 제목 \"B  분비\". 모델 경계 안에서 외부 대사물 원 \"Xₑ\"로 향하는 보라색 화살표와 라벨 \"flux > 0\"을 둔다. 아래 중앙에 비활성 회색 반응과 라벨 \"flux = 0\"을 둔다. 반응 표기 카드에 정확히 \"EX_X_e: Xₑ ↔ ∅\"를 한 번만 표시한다. 부호와 화살표 방향이 반드시 일치해야 하며, 붉은 강조는 0 지점의 작은 기준선에 한 번만 사용한다. 정확한 라벨만 사용하고 과학적으로 정확하게. 캡션·설명문·시점 의존 라벨·로고·워터마크 없이. Preserve the exact empty-set symbol in the reaction card and do not substitute a letter O or slashed Latin letter. STYLE CORRECTION: every container, metabolite circle, arrow, and card must use a perfectly uniform solid fill with no tonal variation; use no gradient, lighting, gloss, depth, or shadow anywhere. Keep all content comfortably inside the canvas."
+}

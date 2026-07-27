@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig08_fba_input_code_output",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"FBA의 입력·코드·출력\" + smaller warm-grey \"FBA Input–Code–Output\". Three large columns connected left-to-right. Column A marker \"A\" title \"입력\" with cards \"화학량론 S\", \"반응 bounds\", \"biomass 목적\". Column B marker \"B\" title \"코드\" with one clean card \"model.optimize()\" and small tag \"GLPK\". Column C marker \"C\" title \"출력\" with three rows \"status\", \"objective_value\", \"fluxes\". Below C add a decision gate: green route \"optimal + 유한값\" -> \"생물학적 해석\", red route \"그 밖의 상태\" -> \"조건 점검\". Do not draw a solver algorithm or imply that optimal means experimentally true. Exact labels only, no caption, paragraph, logo, watermark, fabricated value, or stray text."
+}

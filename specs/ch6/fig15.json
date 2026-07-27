@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig15_counts_to_tpm",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"Raw counts에서 TPM까지\" + smaller warm-grey \"Counts to TPM\". 왼쪽에서 오른쪽으로 네 단계 outline-only 카드를 그린다: \"Raw counts Xi\", \"유효 길이로 나누기 Xi / li\", \"rate 합으로 나누기\", \"× 10⁶ → TPM\". 단계 앞이나 카드 위에 A/B/C/D 또는 숫자 marker를 절대 쓰지 않는다. 아래에는 세 유전자 \"X\", \"Y\", \"Z\"의 stacked bar를 두 번 보여 준다. 왼쪽 counts bar는 \"총합 가변\"이고 오른쪽 TPM bar보다 전체 높이와 X·Y·Z segment 비율이 모두 뚜렷하게 다르다. 오른쪽 TPM bar에는 정확히 \"합 = 10⁶\"을 적는다. 작은 tag \"상대 조성\"은 TPM bar 옆에 정확히 한 번만 둔다. TPM이 한 유전자의 절대 RNA 양이나 flux로 연결되는 화살표는 금지한다. STRICT FLAT VECTOR DIAGRAM: 배경은 texture와 grid가 없는 균일한 warm off-white다. 네 단계 card 내부는 배경과 정확히 같은 단색이다. 각 bar segment는 한 가지 완전히 균일한 solid color이며 한 segment 안에 두 톤을 쓰지 않는다. gradient, highlight, shadow, glow, bevel, 3D를 하나라도 넣으면 실패다. 보이는 텍스트와 문자·숫자·수식은 이 prompt의 큰따옴표 문자열만 허용하며 임의 값·로고·워터마크를 넣지 않는다."
+}

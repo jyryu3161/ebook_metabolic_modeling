@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig14_method_selection_tree",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"생물학적 질문으로 방법 선택\" + smaller warm-grey \"Method selection tree\". 맨 위 질문 \"보존할 기능이 명확한가?\"에서 분기한다. \"단일 정량 기능\" → \"GIMME\", \"여러 대사 과제\" → \"tINIT · ftINIT\", \"아니오\" → 다음 질문 \"발현 상태 일치가 목표인가?\"; \"예\" → \"iMAT\", \"아니오\" → 다음 질문 \"반응 목록을 유지하며 용량만 조정하는가?\"; \"예\" → \"E-Flux\", \"불확실\" → \"복수 설정 · 민감도 분석\". 맨 아래 공통 검증 띠 \"같은 기저 모델 · 배지 · 외부 endpoint\"를 모든 leaf와 연결한다. 순위나 최고 방법을 표시하지 않는다. STRICT OUTLINE-ONLY DIAGRAM: 배경은 texture와 grid가 없는 균일한 warm off-white다. 모든 question, branch label, leaf, validation strip의 내부는 배경과 정확히 같은 단색이며 색은 outline과 text에만 쓴다. colored fill, gradient, highlight, shadow, glow, bevel, 3D, background grid를 하나라도 넣으면 실패다. 보이는 텍스트와 기호는 이 prompt의 큰따옴표 문자열만 허용하며 로고·워터마크를 넣지 않는다."
+}

@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig20_model_experiment_loop",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"예측과 실험의 진단 순환\" + smaller warm-grey \"Model–Experiment Diagnostic Loop\". Draw one closed clockwise loop in this exact sequence: \"조건 일치\" to \"계산 예측\" to \"실험 관찰\" to \"불일치 원인\" to \"모델·배지 수정\" and back to \"계산 예측\". Under \"불일치 원인\" show exactly four compact tags: \"GPR\", \"반응 누락\", \"방향\", and \"조절\". Use blue for model stages, green for observation, and red emphasis only on \"불일치 원인\". FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every card, tag, and arrow has one perfectly uniform solid fill. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; no claim, caption, logo, or other text."
+}

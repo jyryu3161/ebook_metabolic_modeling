@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig04_preflight_environment_contract",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"계산 전 환경 계약\" + smaller warm-grey \"Preflight Environment Contract\". Left column marker \"A\" titled \"입력 고정\" with stacked cards exact labels \"Python\", \"COBRApy 0.30.0\", \"GLPK\", \"textbook 모델\", \"processes = 1\". Center marker \"B\" titled \"코드 점검\" with a terminal-like but simplified card containing only exact tokens \"assert\", \"model.id\", \"solver\". Right column marker \"C\" titled \"확인 출력\" with pills \"버전\", \"solver 인터페이스\", \"95 반응\", \"72 대사물\", \"137 유전자\". Connect left to center to right. Add one red stop marker beside a mismatch branch labeled \"중단 후 환경 수정\". The numbers are model identity checks, not organism-wide counts. Exact labels only, no full sentences, caption, logo, watermark, source code, or stray text."
+}

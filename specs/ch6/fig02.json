@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig02_evidence_decision_ledger",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"반응 근거와 판정 기록\" + smaller warm-grey \"Evidence-to-decision ledger\". 왼쪽에 네 개의 입력 카드 \"유전자·isoform\", \"효소 문헌\", \"소기관 위치\", \"질환·기능 자료\"를 배치한다. 중앙에는 정확한 열 이름을 가진 반응 기록표 한 행을 그린다: \"반응 ID\", \"반응식\", \"구획\", \"GPR\", \"근거 등급\", \"판정\". 판정은 세 개의 pill \"포함\", \"보류\", \"가설\"로만 표시한다. 오른쪽에 \"기능 검증\" 카드와 되돌아오는 화살표 \"큐레이션\"을 정확히 한 번만 둔다. 이 feedback arrow의 시작은 \"기능 검증\"이고 화살촉은 중앙 반응 기록표를 정확히 가리켜야 하며 입력 카드나 빈 공간을 가리키면 안 된다. Feedback arrow는 가는 단일 검정 실선과 단색 검정 삼각형 화살촉으로만 그린다. 넓은 ribbon, 이중 outline, 색 채움은 금지한다. 데이터베이스 수록 하나만으로 포함이 확정되지 않고 provenance가 유지되는 구조가 보여야 한다. 표의 body row는 판정 pill 세 개를 제외하고 완전히 비우며 어떤 placeholder text, 색상 코드, 문자, 숫자, 수식, 해시 기호도 넣지 않는다. STRICT FLATNESS: 배경, 네 입력 카드, 중앙 표의 모든 cell, 기능 검증 카드는 모두 같은 단색 warm off-white의 outline-only shape로 그린다. 입력 카드와 표 header에 파란 fill을 넣지 않는다. 세 판정 pill도 off-white interior와 solid colored outline만 사용한다. 모든 영역 안의 밝기는 가장자리부터 중앙까지 균일해야 한다. gradient, color transition, highlight, 입체 음영, inner shadow, drop shadow, glow, bevel을 하나라도 넣으면 실패다. 보이는 텍스트는 이 prompt의 큰따옴표 문자열만 허용하며 반복 라벨·색상 코드·panel marker를 추가하지 않는다."
+}

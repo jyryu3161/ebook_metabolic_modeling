@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig30_final_evidence_chain",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"계산 결과를 주장으로 바꾸는 근거 사슬\" + smaller warm-grey \"Evidence Chain for a Computational Claim\". Five linked cards left-to-right with exact titles and contents. Card A \"입력\" tags \"모델·버전\", \"배지·bounds\". Card B \"계산\" tags \"목적함수\", \"solver\". Card C \"검산\" tags \"status\", \"S v 잔차\", \"유한값\". Card D \"불확실성\" tags \"FVA 범위\", \"방법 가정\". Card E \"보고\" tags \"조건부 예측\", \"파일·JSON\". Under the chain show a separate gray experimental card \"실험 관찰\" connected to Card E by a comparison arrow labeled \"같은 endpoint로 비교\". Place one red X on a shortcut from calculation directly to experiment labeled \"자동 확정 금지\". Exact labels only, no caption, paragraph, logo, watermark, fabricated result, or stray text."
+}

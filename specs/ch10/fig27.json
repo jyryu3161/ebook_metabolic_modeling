@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig27_provenance_json_layers",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"재현 기록 JSON의 다섯 층\" + smaller warm-grey \"Five Layers of a Provenance Record\". Center a large JSON document silhouette divided into five horizontal sections with exact section titles and tags. Section A \"환경\" tags \"Python\", \"패키지\", \"solver\". Section B \"모델\" tags \"source\", \"ID\", \"반응·대사물·유전자\". Section C \"조건\" tags \"배지\", \"bounds\", \"목적함수\". Section D \"결과\" tags \"status\", \"성장률\", \"관심 flux\". Section E \"해석 정책\" tags \"임계값\", \"NaN 처리\", \"허용오차\". Add a small top-right timestamp tag \"생성 시점\" and a red X beside it labeled \"모델 release 아님\". Exact labels only, no code body, actual timestamp, caption, logo, watermark, or stray text."
+}

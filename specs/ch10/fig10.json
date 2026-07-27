@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig10_context_manager_restore",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"Context manager의 조건 복원\" + smaller warm-grey \"Temporary Model Changes\". A three-stage left-to-right timeline. Stage A marker \"A\" title \"블록 전\" with model card and tags \"기본 배지\", \"biomass 목적\". Stage B marker \"B\" title \"with model 안\" with same model silhouette, changed tags \"glucose 5\" and \"임시 목적\", plus code token \"optimize()\" inside the container. Stage C marker \"C\" title \"블록 후\" with original tags restored \"기본 배지\", \"biomass 목적\". Use a curved return arrow from B to C labeled \"자동 복원\". Add one red X below a misplaced optimize card outside B labeled \"복원 뒤 계산\". Make clear it is the same model object, using exact label \"같은 객체\" across stages. Exact labels only, no caption, paragraph, logo, watermark, or stray text."
+}

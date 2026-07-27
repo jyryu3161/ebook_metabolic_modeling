@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig09_mass_balance_residual",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"질량보존 잔차 검산\" + smaller warm-grey \"Mass-Balance Residual Check\". Panel A marker \"A\" title \"대사물 하나\". Show reaction R1 producing a central metabolite X with +1 and reaction R2 consuming X with -1; arrows labeled \"생성률\" and \"소비률\" and equation token \"vR1 - vR2\". Panel B marker \"B\" title \"모든 대사물\". Show a compact matrix card \"S\" multiplied by column card \"fluxes\" leading to residual column labeled \"생성 - 소비\". Panel C marker \"C\" title \"판정\" with card \"max |S v|\" and threshold pill \"< 1e-9\" leading to green check \"수치 허용오차 안\". Add one red X branch for \"큰 잔차\" -> \"입력·정렬 점검\". Exact labels only, no full sentence, caption, logo, watermark, or invented residual value."
+}

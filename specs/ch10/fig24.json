@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig24_widget_explore_then_record",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"슬라이더 탐색에서 고정 기록으로\" + smaller warm-grey \"Explore, Then Record\". A left-to-right four-stage flow. Stage A marker \"A\" title \"탐색 입력\" with two slider graphics labeled \"glucose\" and \"oxygen\". Stage B marker \"B\" title \"임시 계산\" with tags \"with model\", \"growth\", \"자동 복원\". Stage C marker \"C\" title \"조건 선택\" with two locked numeric-field silhouettes labeled \"glucose 값\" and \"oxygen 값\" but no actual numbers. Stage D marker \"D\" title \"재현 기록\" with JSON document tags \"배지\", \"목적함수\", \"solver\", \"결과\". Place a red X on a direct arrow from sliders to final claim labeled \"위젯 상태만 저장 금지\". Exact labels only, no caption, paragraph, logo, watermark, fabricated result, or stray text."
+}

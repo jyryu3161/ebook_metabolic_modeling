@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig02_notebook_cell_contracts",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"노트북 셀의 실행 계약\" + smaller warm-grey \"Notebook Cell Contracts\". Four equal rounded cards in a 2x2 grid. Card A marker \"A\", title \"독립 실행\", tags \"import 포함\", \"입력 준비\". Card B marker \"B\", title \"선행 셀 필요\", tags \"model\", \"results\" and a small incoming arrow labeled \"앞 셀 출력\". Card C marker \"C\", title \"외부 자산 필요\", tags \"SBML\", \"로컬 경로\". Card D marker \"D\", title \"의사코드\", tags \"논리 확인\", \"실행 안 함\". Along the bottom show one thin left-to-right route using only cards A then B with exact label \"핵심 실행 경로\". Keep C and D visually optional, not failed. Exact labels only, no full-sentence explanation, caption, logo, watermark, code text, or stray characters."
+}

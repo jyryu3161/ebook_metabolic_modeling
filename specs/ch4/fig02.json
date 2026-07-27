@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig02_evidence_layers",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"입력·계산·예측·실험의 구분\" + smaller warm-grey \"Evidence Layers\". Four vertically stacked rounded cards labeled \"A\" \"모델 입력\", \"B\" \"수치 결과\", \"C\" \"조건부 예측\", and \"D\" \"실험 평가\". Connect only downward A to B to C to D with clean arrows. Inside cards use only \"모델·배지·목적\", \"상태·목적값·플럭스\", \"표현형 가설\", and \"관측과 비교\". A separate direct B-to-D shortcut is blocked by one red X labeled \"자동 확정 아님\"; do not draw any A-to-D shortcut. FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every card, tag, arrow, and marker has one perfectly uniform solid fill. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; no other text, numbers, symbols, color codes, or panel words."
+}

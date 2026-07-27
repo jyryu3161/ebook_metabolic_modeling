@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig21_moma_inputs",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"MOMA의 입력과 출력\" + smaller warm-grey \"Minimization of Metabolic Adjustment\". Exactly three input cards enter a central blue container labeled \"MOMA\": \"WT 기준 플럭스\", \"돌연변이 경계\", and \"거리 기준\". Exactly one output card exits: \"WT에서 가까운 돌연변이 플럭스\". Below the output show separate badges \"거리 목적값\" and \"바이오매스 플럭스\" with one red not-equal glyph between the two badges. FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every container, card, badge, arrow, and glyph has one perfectly uniform solid fill. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; no equations, claims, captions, logos, or other text."
+}

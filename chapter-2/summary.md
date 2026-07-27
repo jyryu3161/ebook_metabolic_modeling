@@ -1,4 +1,4 @@
-# 마무리: 요약 · 연습문제 · 용어
+# 마무리: 요약 · 스스로 점검 · 용어
 
 ## 한 장 요약
 
@@ -8,15 +8,14 @@
 - COBRA 계열 교환 반응이 $$X_e\rightleftharpoons\varnothing$$, $$S_{X,\mathrm{EX}}=-1$$로 저장되어 있으면 음의 교환 플럭스는 흡수, 양의 교환 플럭스는 분비를 뜻한다. 모델마다 저장 방향이 다를 수 있으므로 반응식·계수·bounds를 함께 확인한다.
 - 부호·가중 이분 그래프는 $$\mathbf{S}$$의 비영 원소와 계수 크기를 보존할 수 있다. 무가중 이분 그래프는 참여 관계만 보존하며, 대사물 또는 반응 투영 그래프는 다자 반응을 쌍별 간선으로 축약한다.
 - 행렬 비영 비율 $$\operatorname{nnz}(\mathbf{S})/(mn)$$, 이분 incidence 그래프 밀도 $$|E|/(mn)$$, 투영 그래프 밀도는 정의가 서로 다르다. 그래프 경로는 위상적 연결 가능성을 나타낼 뿐 정상상태·bounds·열역학을 만족하는 플럭스 경로를 보장하지 않는다.
-- [의사-정상상태](../glossary.md) 가정은 세포 내 중간대사물의 순축적이 관심 시간척도에서 작다고 보는 근사이다. 표준 FBA는 이 근사를 정확한 계산 제약 $$\mathbf{S}\mathbf{v}=0$$으로 부과한다. 정상상태는 화학평형이 아니며 총생성률과 총소비률은 비영일 수 있다.
-- 대사물 풀 $$q_i$$와 정상상태 gross turnover flux $$J_i=J_i^+=J_i^-$$에 대한 회전시간은 $$\tau_i=q_i/J_i$$이다. 정상상태에서 0이 되는 순생성률 $$(\mathbf{S}\mathbf{v})_i$$를 분모로 사용하지 않는다.
-- $$r=\operatorname{rank}(\mathbf{S})$$이면 $$\dim\ker(\mathbf{S})=n-r$$이다. 이는 정상상태 등식계의 nullity이며, bounds까지 적용한 가능 영역의 차원이나 생물학적 경로 수가 아니다. $$n>m$$은 GEM의 필수 조건이 아니다.
-- [null-space basis](../glossary.md)는 비유일한 선형대수 좌표계이다. 비가역성까지 만족하는 support-minimal 경로는 elementary flux mode(EFM), pointed flux cone의 최소 생성 방향은 extreme ray로 구분한다. 유한한 비영 bounds가 포함된 FBA 가능 영역은 일반적으로 원추가 아니라 flux polyhedron이다.
-- 교환 반응이 없는 비가역·비순환 toy network에서는 0 플럭스만 남을 수 있지만, 가역 반응이나 내부 순환을 가진 닫힌 네트워크에는 비영 정상상태 순환이 존재할 수 있다. 닫힘 여부만으로 플럭스를 판정할 수 없다.
+- [의사-정상상태](../glossary.md) 가정은 세포 내 중간대사물의 순축적이 관심 시간척도에서 작다고 보는 근사이다. 표준 FBA는 이 근사를 계산 제약 $$\mathbf{S}\mathbf{v}=0$$으로 부과한다. 이는 대사물마다 생성과 소비가 맞는다는 뜻이며, 모든 반응 플럭스가 0이라는 뜻은 아니다.
+- $$\mathbf{S}\mathbf{v}$$는 한 행씩 검산할 수 있다. 계수 $$S_{ij}$$와 플럭스 $$v_j$$를 곱해 양의 기여는 생성, 음의 기여는 소비로 합한 뒤 두 합이 수치 허용오차 안에서 맞는지 확인한다.
+- 반응 연결이 그림에 존재해도 정상상태 플럭스가 보장되지는 않는다. 연결된 대사물의 생성·소비와 모든 반응의 bounds를 함께 확인해야 한다.
+- 급격한 배지 전환, 저장 물질의 축적, 외부 배양액의 고갈처럼 풀 크기가 시간에 따라 변하는 문제에는 의사-정상상태 근사를 그대로 적용하지 않고 동적 물질수지를 고려한다.
 
 ---
 
-## 연습문제
+## 스스로 점검
 
 1. **정의 확인**: 반응 $$2A+B\rightarrow3C$$를 행 순서 $$(A,B,C)$$로 표현한 화학량론 열을 작성하고 각 계수의 단위를 설명하시오.
 
@@ -26,15 +25,13 @@
 
 4. **그래프 표현 비교**: 하나의 반응 $$A+2B\rightarrow C+D$$를 부호·가중 이분 그래프와 대사물 투영 그래프로 각각 표현하시오. 두 표현이 보존하거나 잃는 정보를 비교하시오.
 
-5. **정상상태와 평형**: $$J_i^+=J_i^-=20\ \mathrm{mmol\,gDW^{-1}\,h^{-1}}$$인 대사물에 대해 순생성률을 계산하고, 이 상태가 화학평형을 의미하지 않는 이유를 설명하시오.
+5. **정상상태와 평형**: 총생성률과 총소비률이 각각 $$20\ \mathrm{mmol\,gDW^{-1}\,h^{-1}}$$인 대사물에 대해 순생성률을 계산하고, 이 상태가 화학평형을 의미하지 않는 이유를 설명하시오.
 
-6. **회전시간**: 특정 대사물 풀 크기가 $$0.20\ \mathrm{mmol\,gDW^{-1}}$$이고 정상상태 gross inflow가 $$20\ \mathrm{mmol\,gDW^{-1}\,h^{-1}}$$이다. 회전시간을 시간과 초 단위로 계산하시오.
+6. **행별 물질수지**: $$R_0:\varnothing\rightarrow A$$, $$R_1:A\rightarrow B$$, $$R_2:B\rightarrow\varnothing$$에서 $$(v_0,v_1,v_2)=(5,4,4)$$이다. $$A$$와 $$B$$의 순생성률을 각각 계산하고, 어느 대사물의 생성·소비가 맞지 않는지 판정하시오.
 
-7. **rank-nullity와 bounds**: $$m=4$$, $$n=7$$, $$r=3$$인 모델의 영공간 차원을 계산하시오. 이어서 두 반응의 bounds가 $$l_j=u_j=0$$으로 고정되었을 때 이 값이 가능 영역의 차원과 반드시 같지 않은 이유를 설명하시오.
+7. **가정 비판**: 배지를 바꾼 직후 세포 내 대사물 농도가 빠르게 변하는 실험에 $$\mathbf{S}\mathbf{v}=0$$을 적용할 때 생길 수 있는 해석 오류를 설명하시오. 추가로 기록해야 할 상태변수와 시간 정보를 제안하시오.
 
-8. **가정 비판**: 교환 반응이 없는 네트워크에서 비영 정상상태 플럭스가 가능한 반례를 가역 반응 또는 내부 순환을 사용하여 구성하시오. 해당 플럭스가 생리학적으로 타당하려면 추가로 어떤 조건을 검토해야 하는가?
-
-9. **경로 개념**: null-space basis, extreme ray, EFM을 정의하고, 임의의 null-space basis 벡터를 대사 경로로 해석하면 안 되는 이유를 서술하시오.
+8. **연결과 실현 가능성**: $$A\rightarrow B\rightarrow C$$ 경로가 있지만 $$B\rightarrow C$$의 bound가 0으로 고정되어 있다. 내부 대사물 $$B$$에 의사-정상상태를 적용할 때 $$A\rightarrow B$$ 플럭스가 어떻게 제한되는지 설명하시오.
 
 ---
 
@@ -46,13 +43,6 @@
 | $$m,n$$ | 대사물 수, 반응 수 | 무차원 개수 |
 | $$\mathbf{v},v_j$$ | 특정 반응 플럭스 | 보통 $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$ |
 | $$\mathbf{l},\mathbf{u}$$ | 플럭스 하한·상한 | $$\mathbf{v}$$와 동일 |
-| $$\mathbf{n}$$ | 절대 대사물 물질량 | $$\mathrm{mmol}$$ |
-| $$\mathbf{q}=\mathbf{n}/X$$ | 생물량 정규화 대사물 풀 | $$\mathrm{mmol\,gDW^{-1}}$$ |
-| $$J_i^+,J_i^-$$ | 대사물 $$i$$의 gross 생성·소비 플럭스 | $$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$ |
-| $$\tau_i=q_i/J_i$$ | 회전시간 | 시간 |
-| $$r$$ | $$\operatorname{rank}(\mathbf{S})$$ | 무차원 |
-| $$n-r$$ | $$\ker(\mathbf{S})$$의 차원 | 정상상태 등식계의 nullity |
-| $$m-r$$ | $$\ker(\mathbf{S}^\top)$$의 차원 | 왼쪽 영공간의 차원 |
 
 ## 다음 장
 
@@ -69,21 +59,13 @@
 | 부호·가중 이분 그래프 | 대사물과 반응을 서로 다른 노드 집합으로 두고 계수의 부호·크기를 간선에 기록한 그래프 |
 | 투영 그래프 | 이분 그래프에서 한 종류의 노드만 남겨 쌍별 관계로 축약한 그래프 |
 | [의사-정상상태](../glossary.md) | 관심 시간척도에서 세포 내 중간대사물의 순축적을 무시하는 근사 |
-| 회전시간 | 대사물 pool size를 정상상태 gross inflow 또는 gross outflow로 나눈 시간 |
-| [영공간](../glossary.md) | $$\{\mathbf{v}:\mathbf{S}\mathbf{v}=0\}$$ |
-| 보존량 후보 | 왼쪽 영공간의 비음수이며 화학적으로 해석 가능한 벡터가 나타내는 보존 pool |
-| [플럭스 원추](../glossary.md) | 정상상태 등식과 동차 비가역성 제약의 교집합 |
-| flux polyhedron | 정상상태 등식과 일반적인 유한 bounds의 교집합 |
-| EFM | 플럭스 원추의 비영 support-minimal 플럭스 벡터 |
-| EFV | 일반 flux polyhedron으로 확장된 elementary flux vector |
+| 대사물별 순생성률 | 한 대사물 행에서 모든 $$S_{ij}v_j$$를 더한 값 |
+| 물질수지 검산 | 대사물마다 생성 기여와 소비 기여가 맞는지 확인하는 절차 |
+| 정상상태 제약 | 관심 시간척도에서 내부 대사물의 순축적을 0으로 두는 계산 조건 |
 
 ---
 
 ## 참고문헌
 
 1. Orth JD, Thiele I, Palsson BØ. What is flux balance analysis? *Nature Biotechnology*. 2010;28:245–248. [DOI: 10.1038/nbt.1614](https://doi.org/10.1038/nbt.1614), [PMC3108565](https://pmc.ncbi.nlm.nih.gov/articles/PMC3108565/)
-2. Jang C, Chen L, Rabinowitz JD. Metabolomics and isotope tracing. *Cell*. 2018;173:822–837. [DOI: 10.1016/j.cell.2018.03.055](https://doi.org/10.1016/j.cell.2018.03.055), [PMC6034115](https://pmc.ncbi.nlm.nih.gov/articles/PMC6034115/)
-3. Klamt S, Regensburger G, Gerstl MP, et al. From elementary flux modes to elementary flux vectors. *PLoS Computational Biology*. 2017;13:e1005409. [DOI: 10.1371/journal.pcbi.1005409](https://doi.org/10.1371/journal.pcbi.1005409)
-4. Poupin N, Corvez A, Mariadassou M, et al. Combining graph and flux-based structures to decipher phenotypic essential metabolites within metabolic networks. *BMC Systems Biology*. 2017;11:94. [PMC5641430](https://pmc.ncbi.nlm.nih.gov/articles/PMC5641430/)
-
 ---

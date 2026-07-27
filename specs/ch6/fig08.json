@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig08_generic_to_context_choices",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"범용 모델에서 조건별 선택으로\" + smaller warm-grey \"Generic to context-specific choices\". 왼쪽에 동일한 범용 반응망을 표시한다: 여섯 반응 노드 \"R1\", \"R2\", \"R3\", \"R4\", \"R5\", \"R6\"와 두 경로. 중앙에 세 입력 카드 \"오믹스 증거\", \"배지·교환\", \"보호 대사 과제\"를 둔다. 오른쪽 최종 맥락 모델에서는 R1·R2·R4를 green outline과 \"지지\", R3을 amber outline과 \"기능 보호\", R5를 grey outline과 \"제외\", R6을 red outline과 \"조건 불일치\"로 정확히 표시한다. 높은 증거만으로 남거나 낮은 증거만으로 제거되는 단순 필터처럼 보이지 않게 한다. 작은 범례는 \"지지\", \"기능 보호\", \"제외\", \"조건 불일치\" 네 항목만 사용한다. panel marker나 section heading은 넣지 않는다. STRICT OUTLINE-ONLY DIAGRAM: 배경은 texture와 grid가 없는 균일한 warm off-white다. 모든 node, card, status symbol의 내부는 배경과 정확히 같은 단색이며 색은 outline과 text에만 쓴다. shield나 circle도 절대 채우지 않는다. colored fill, gradient, highlight, shadow, glow, bevel, 3D를 하나라도 넣으면 실패다. 보이는 텍스트는 이 prompt의 큰따옴표 문자열만 허용하며 A/B/C, 색상 hex code, flux 수치, 로고, 워터마크를 절대 표시하지 않는다."
+}

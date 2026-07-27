@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig11_gpr_ras_logic",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"GPR에서 RAS로\" + smaller warm-grey \"GPR to reaction activity score\". 세 패널을 가로로 배치한다. \"A\" \"복합체 AND\"에는 \"GeneA=6\", \"GeneB=2\"가 두 소단위로 모이고 결과 \"min = 2\". \"B\" \"아이소자임 OR\"에는 \"GeneC=4\", \"GeneD=1\"이 두 대체 효소로 모이고 결과 \"max = 4\". \"C\" \"중첩 GPR\"에는 정확한 식 \"(A and B) or C\"와 단계 \"min(6,2)=2\" 다음 \"max(2,4)=4\"를 텍스트로 표시한다. 빈 rectangle을 만들지 않는다. 최종 카드 \"RAS = 4\" 아래 작은 grey tag에는 \"발현 증거\"만 정확히 쓰고 그 옆이나 뒤에 숫자·기호를 붙이지 않는다. flux gauge나 효소 용량 수치는 넣지 않는다. standalone \"AND\" 또는 \"OR\" 글자를 패널 내부에 반복하지 않는다. STRICT OUTLINE-ONLY DIAGRAM: 배경은 texture와 grid가 없는 균일한 warm off-white다. 단백질 shape, card, panel의 내부는 배경과 정확히 같은 단색이며 색은 outline과 text에만 쓴다. colored fill, gradient, highlight, shadow, glow, bevel, 3D를 하나라도 넣으면 실패다. 보이는 텍스트와 문자·숫자·기호는 이 prompt의 큰따옴표 문자열만 허용하며 로고·워터마크를 넣지 않는다."
+}

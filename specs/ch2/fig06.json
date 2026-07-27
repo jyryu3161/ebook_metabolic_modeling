@@ -1,0 +1,7 @@
+{
+  "name": "ch2_fig06_matrix_balance_ledger",
+  "out_dir": "figures/ch2",
+  "aspect": "4:3",
+  "size": "2K",
+  "prompt": "ABSOLUTE PASS REQUIREMENT — OUTLINE-ONLY TECHNICAL DIAGRAM. Override any general request for light colored fills: fill EVERY background, cell, row highlight, column highlight, node, arrow, and badge with the identical plain warm off-white #FCFCFA. Use color ONLY for crisp constant-width outline strokes and text. Indicate the R₂ column with one mauve rectangular OUTLINE only and indicate the B row with one blue rectangular OUTLINE only; do not tint either interior. No colored interiors anywhere; no gradients, fades, highlights, glow, shadows, transparency, texture, lighting, or tonal variation. Title (top): \"화학량론 행렬은 물질수지 기록표\" + smaller warm-grey \"Stoichiometric matrix as a balance ledger\". Draw one precise 3 by 3 matrix table with column headers \"R₁\", \"R₂\", \"R₃\" and row headers \"A\", \"B\", \"C\". Exact cells by row: \"−1\", \"0\", \"−1\" for A; \"+1\", \"−1\", \"0\" for B; \"0\", \"+1\", \"+1\" for C. Connect the outlined R₂ column to the reaction \"B → C\". Connect the outlined B row downward to the exact expression \"(+1 × v₁) + (−1 × v₂) + (0 × v₃)\", ending at a compact outline badge \"B의 순생성률\". Keep zeros neutral and nonzero cell text color-coded by sign. VISIBLE TEXT MANIFEST: only the quoted strings in this prompt may appear, exactly spelled. No caption, logo, watermark, gradient, or shadow."
+}

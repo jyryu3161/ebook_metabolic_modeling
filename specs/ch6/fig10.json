@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig10_task_protected_path",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"낮은 증거 반응의 기능 보호\" + smaller warm-grey \"Task-protected pathway\". 중앙에 기질 \"P\"에서 산물 \"R\"로 가는 두 대안 경로를 그린다. 위 경로는 \"R3\" 하나이며 pill \"낮은 증거 −3\". 아래 경로는 \"R1\" pill \"높은 증거 +3\" 다음 \"R2\" pill \"낮은 증거 −2\"로 이어진다. 오른쪽에 대사 과제 카드 \"대사 과제\", \"P → R\"과 상태 \"통과\"를 둔다. 비교 패널 \"A\" \"단순 양수 선택\"은 R1만 남겨 끊긴 경로가 되고 단색 빨간 \"X\", 비교 패널 \"B\" \"과제 보호 선택\"은 R1+R2가 연결되어 단색 green check가 되게 한다. 개별 점수보다 완전한 기능 경로 조합이 중요함을 보여 준다. STRICT OUTLINE-ONLY DIAGRAM: 배경은 texture와 grid가 없는 균일한 warm off-white다. 모든 node, pill, card, status symbol의 내부는 배경과 정확히 같은 단색이며 색은 outline과 text에만 쓴다. colored fill, gradient, highlight, shadow, glow, bevel, cylinder-like 3D를 하나라도 넣으면 실패다. 보이는 텍스트와 문자·숫자·기호는 이 prompt의 큰따옴표 문자열만 허용하며 추가 반응·로고·워터마크를 넣지 않는다."
+}

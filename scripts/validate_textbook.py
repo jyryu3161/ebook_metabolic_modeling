@@ -15,11 +15,22 @@ for path in root.rglob('*.md'):
 summary = (root / 'SUMMARY.md').read_text()
 if 'textbook-completeness-supplement.md' not in summary:
     errors.append('SUMMARY.md: textbook supplement missing from navigation')
-for n in range(1, 11):
-    page = (root / f'chapter-{n}' / 'README.md').read_text()
+interactive_chapters = []
+for readme in sorted(root.glob('chapter-*/README.md')):
+    match = re.fullmatch(r'chapter-(\d+)', readme.parent.name)
+    if not match:
+        continue
+    n = int(match.group(1))
+    if n > 10:
+        continue
+    interactive_chapters.append(n)
+    page = readme.read_text()
     if f'interactive/index.html?chapter={n}' not in page:
         errors.append(f'chapter-{n}/README.md: interactive figure link missing')
 
 if errors:
     raise SystemExit('\n'.join(errors))
-print('PASS: manuscript structural checks; 10 interactive chapter links and supplement navigation present.')
+print(
+    'PASS: manuscript structural checks; '
+    f'{len(interactive_chapters)} interactive chapter links and supplement navigation present.'
+)

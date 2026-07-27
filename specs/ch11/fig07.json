@@ -1,0 +1,7 @@
+{
+  "name": "ch11_fig07_pfba_fva_questions",
+  "out_dir": "figures/ch11",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"pFBA와 FVA가 답하는 질문\" + smaller warm-grey \"Representative Flux vs Feasible Range\". 두 개의 같은 너비 패널을 나란히 둔다. 패널 A 제목 \"A  pFBA\". 상단 입력 칩 \"주 목적값 유지\"에서 여러 가능한 회색 경로가 있는 영역으로 연결하고, 그 영역 안에서 회색 경로 하나를 초록색으로 바꾸어 선택된 단일 경로를 명확히 표시한 뒤 라벨 \"전체 flux 사용량 최소\"와 출력 칩 \"대표 flux 1개\"로 연결한다. 패널 B 제목 \"B  FVA\". 상단 입력 칩 \"성장 하한 유지\"에서 세 반응 행 \"반응 1\", \"반응 2\", \"반응 3\"의 가로 최소–최대 구간으로 연결한다. 각 구간 양끝에 \"최소\"와 \"최대\"를 표시하고 출력 칩 \"반응별 범위\"를 둔다. 패널 B 아래 작은 라벨 \"끝점마다 별도 실행\"을 둔다. 두 패널 사이에 강조색 표시를 한 번만 사용하고 정확한 라벨 \"유일한 세포 상태 아님\"을 넣되, 이 표시에서 각 패널로 향하는 화살표는 그리지 않는다. 실제 계산값이나 축 눈금을 넣지 않는다. 정확한 라벨만 사용하고 과학적으로 정확하게. 캡션·설명문·시점 의존 라벨·로고·워터마크 없이. STYLE CORRECTION: every panel, chip, route, interval, and tag must use a perfectly uniform solid fill with no tonal variation; use no gradient, lighting, gloss, depth, or shadow anywhere. Keep all content comfortably inside the canvas."
+}

@@ -1,0 +1,7 @@
+{
+  "name": "ch6_fig18_multiomics_conflict_matrix",
+  "out_dir": "figures/ch6",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"다중 오믹스 증거의 일치와 충돌\" + smaller warm-grey \"Multi-omics evidence states\". 행은 반응 \"R1\", \"R2\", \"R3\", \"R4\", 열은 \"전사체\", \"단백질체\", \"대사체\", \"판정\"인 네 열 표를 그린다. 정확한 상태는 R1: \"지지\"/\"지지\"/\"지지\"/\"강건 후보\"; R2: \"지지\"/\"결측\"/\"보류\"/\"민감도 분석\"; R3: \"지지\"/\"비지지\"/\"보류\"/\"충돌 검토\"; R4: \"결측\"/\"결측\"/\"결측\"/\"기능·문헌 확인\". 상태는 green outline check, grey dash, red outline conflict와 amber outline circle로 시각화하되 물음표를 넣지 않는다. 표 아래에 세 공통 출력 카드 \"우선순위 규칙\", \"결측 정책\", \"외부 검증\"을 둔다. panel letter A/B/C/D는 넣지 않는다. 합산 점수나 최고 방법은 표시하지 않는다. STRICT OUTLINE-ONLY DIAGRAM: 배경은 texture와 grid가 없는 균일한 warm off-white다. 표 header, status icon, decision pill, output card의 내부는 모두 배경과 정확히 같은 단색이며 색은 outline과 text에만 쓴다. colored fill, gradient, highlight, shadow, glow, bevel, 3D를 하나라도 넣으면 실패다. 보이는 텍스트와 문자·숫자는 이 prompt의 큰따옴표 문자열만 허용하며 로고·워터마크를 추가하지 않는다."
+}

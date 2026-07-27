@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig12_pfba_two_stage_readout",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"pFBA의 두 단계와 출력 읽기\" + smaller warm-grey \"Two-Stage pFBA Readout\". A left-to-right two-stage flow. Stage A marker \"A\" title \"1단계\" with input \"biomass 목적\" and output pill \"최대 성장 μ*\". Stage B marker \"B\" title \"2단계\" with lock tag \"μ = μ*\", objective card \"총 |flux| 최소화\", and output \"대표 flux 해\". On the right show a result card with two separate rows: \"성장률 → biomass flux\" and \"목적값 → 총 |flux|\". Place one red crossed arrow between the two rows labeled \"같은 값 아님\". Do not depict total flux as enzyme mass or experimental resource use. Exact labels only, no caption, paragraph, logo, watermark, number, or stray text."
+}

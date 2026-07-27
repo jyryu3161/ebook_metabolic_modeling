@@ -16,3 +16,11 @@ docs/.bkit-memory.json
 .venv-*/
 __pycache__/
 .ipynb_checkpoints/
+
+# Local API credentials
+key.txt
+
+# Regenerable figure working copies and API usage logs
+figures/**/*.jpg
+figures/**/_attempts/
+figures/**/_usage.jsonl

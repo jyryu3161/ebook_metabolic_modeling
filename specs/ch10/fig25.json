@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig25_sbml_roundtrip_checks",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"SBML 왕복 검증\" + smaller warm-grey \"SBML Round-Trip Validation\". Circular three-stage flow. Stage A marker \"A\" title \"메모리 모델\" with tags \"반응\", \"대사물\", \"목적함수\". Stage B marker \"B\" title \"SBML 저장\" with file icon \"textbook_snapshot.xml\" and checksum tag \"SHA-256\". Stage C marker \"C\" title \"다시 읽은 모델\" with solver tag \"optimize()\". From C lead to a five-row checklist with exact labels \"status\", \"반응 수\", \"대사물 수\", \"목적함수\", \"최적값\" and green checkboxes. Add a return arrow from C to A labeled \"의미 비교\". Use one red caution tag beside the file icon \"저장만으로 완료 아님\". Exact labels only, no full sentences, caption, logo, watermark, real hash, or stray text."
+}

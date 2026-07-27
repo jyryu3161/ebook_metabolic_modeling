@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig13_fva_independent_ranges",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"FVA 구간은 반응별 별도 계산\" + smaller warm-grey \"Independent Reaction Ranges\". Left input column labeled \"공통 조건\" with cards \"모델·배지\", \"biomass ≥ 90%\", \"관심 반응\". Center show three parallel mini-optimization rows labeled exactly \"PGI 최소 / 최대\", \"PFK 최소 / 최대\", \"TPI 최소 / 최대\"; each row has its own solver icon and separate arrow. Right show three horizontal interval bars labeled \"PGI 범위\", \"PFK 범위\", \"TPI 범위\". Below place a red X over a bundled vector labeled \"모든 minimum의 공동 해 아님\". Avoid numeric endpoints and statistical error-bar styling. Exact labels only, no full-sentence explanation, caption, logo, watermark, or stray text."
+}

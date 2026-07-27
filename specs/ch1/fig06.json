@@ -1,0 +1,7 @@
+{
+  "name": "ch1_fig06_reconstruction_to_models",
+  "out_dir": "figures/ch1",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"하나의 재구축, 여러 계산 모델\" + smaller warm-grey \"Reconstruction to Conditional Models\". 완전히 빈 배경 위에 도형 없는 텍스트와 선만으로 구성한다. 제목 아래 중앙에 \"공유 재구축\"을 쓰고 바로 아래 한 줄에 \"반응 · 대사물 · GPR · 구획 · 근거\"를 쓴다. 이 공유 텍스트 그룹 아래에서 검은 Y자형 선 하나가 갈라져 왼쪽 화살촉은 아래 왼쪽의 A 텍스트 그룹으로, 오른쪽 화살촉은 아래 오른쪽의 B 텍스트 그룹으로 직접 들어간다. 왼쪽 그룹 제목은 \"A  포도당·산소\"이며 아래에 \"포도당 배지\", \"산소 허용\", \"성장 목적\", \"조건부 예측 A\"를 네 줄로 정렬한다. 오른쪽 그룹 제목은 \"B  아세테이트·ATP\"이며 아래에 \"아세테이트 배지\", \"산소 허용\", \"ATP 유지\", \"조건부 예측 B\"를 네 줄로 정렬한다. A와 B 사이에는 넓은 빈 공간만 두며 어떤 화살표나 연결선도 절대 없다. \"조건부 예측 A\" 오른쪽에는 가는 녹색 선 세 개와 열린 화살촉, \"조건부 예측 B\" 오른쪽에는 가는 자주색 선 세 개와 열린 화살촉만 둔다. 제목과 출력 라벨을 추가하거나 복제하지 않는다. \"예측 결과 A\", \"예측 결과 B\", \"배지\"처럼 인용되지 않은 글자를 넣지 않는다. 카드, 패널, 원, 사각형, 캡슐, 칩, 라벨 슬롯, 아이콘, 화학 기호, 분자 그림, 산소 기호와 ATP 배지를 전혀 그리지 않는다. Minimal monochrome black-line technical schema on a completely blank uniform #FCFCFA background. Use only flat black text, the black Y fork, and the two thin colored flux bundles. No enclosing shapes or filled regions anywhere. Do not draw a grid, colored interior, filled marker, filled arrow, texture, dots, decorative lines, or background frame. No gradients, transparency, lighting, highlights, vignettes, shading, glow, bevel, shadow, texture, or tonal variation. 정확한 라벨만 사용하고 과학적으로 정확하게. 캡션·설명문·수치·시점 의존 라벨·로고·워터마크 없이."
+}

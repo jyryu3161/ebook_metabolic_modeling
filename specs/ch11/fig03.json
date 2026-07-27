@@ -1,0 +1,7 @@
+{
+  "name": "ch11_fig03_solver_capability_choice",
+  "out_dir": "figures/ch11",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"문제 유형과 solver 선택\" + smaller warm-grey \"Solver Capability Choice\". 세 개의 세로 패널을 나란히 둔다. 패널 A 제목 \"A  LP\", 분석 칩 \"FBA\", \"FVA\", solver 칩 \"GLPK\", \"Gurobi\". 패널 B 제목 \"B  QP\", 분석 칩 \"원형 MOMA\", solver 칩 \"Gurobi\", 작은 주의 태그 \"QP 지원 필요\". 패널 C 제목 \"C  MILP\", 분석 칩 \"CarveMe\", \"원 ROOM\", solver 칩 \"GLPK\", \"Gurobi\", 작은 주의 태그 \"문제 크기 확인\". 지원되는 연결만 곧은 선으로 연결하고 지원되지 않는 연결을 그리지 않는다. 맨 아래에는 세 패널에 걸친 기록 띠 \"solver 이름 · 버전 · 허용오차\"를 둔다. 강조색은 \"QP 지원 필요\"에 한 번만 사용한다. 속도 순위나 성능 수치로 보이지 않게 한다. 정확한 라벨만 사용하고 과학적으로 정확하게. 캡션·설명문·시점 의존 라벨·로고·워터마크 없이. Place each caution tag in open whitespace so it never covers a connector or another chip. STYLE CORRECTION: every panel, chip, tag, and band must use a perfectly uniform solid fill with no tonal variation; use no gradient, lighting, gloss, depth, or shadow anywhere. Keep all content comfortably inside the canvas."
+}

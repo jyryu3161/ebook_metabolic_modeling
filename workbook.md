@@ -124,9 +124,9 @@ $$
 
 ***
 
-## Chapter 4. FBA, 가능영역, 대안 최적해
+## Chapter 4. FBA 입력과 대안 최적해
 
-### 예제 4.1 — 2변수 LP를 직접 풀기
+### 예제 4.1 — 두 경로에 공급량 배분하기
 
 두 flux $$v_1,v_2$$가 다음을 만족한다고 하자.
 
@@ -140,10 +140,10 @@ $$
 
 ```mermaid
 flowchart TD
-  C[constraints] --> P[feasible polytope]
-  P --> O[objective maximum]
-  O --> FVA[FVA: 각 축의 최적 범위]
-  P --> SMP[sampling: 공동분포]
+  C[물질수지와 반응 범위] --> P[가능한 플럭스 조합]
+  P --> O[목적값이 가장 큰 조합]
+  O --> FVA[FVA: 반응별 허용 범위]
+  P --> SMP[sampling: 여러 조합의 표본]
 ```
 
 <details>
@@ -177,7 +177,7 @@ $$
 
 ***
 
-## Chapter 6. 오믹스 통합과 threshold 감도
+## Chapter 6. 인체 GEM과 오믹스 임계값 감도
 
 ### 예제 6.1 — RAS는 flux가 아니다
 
@@ -203,45 +203,7 @@ threshold를 3으로 두면 반응은 active 후보, 5로 두면 inactive 후보
 
 ***
 
-## Chapter 7. 질병 모델과 표적 선택성
-
-### 예제 7.1 — knockout과 부분 억제는 다르다
-
-질병 모델에서 반응 $$R_T$$의 상한이 $$u_T=10$$이고, 정상 모델과 질병 모델의 성장률이 상한 변화에 따라 아래와 같다고 하자.
-
-| $$u_T$$ | 질병 성장률 | 정상 성장률 |
-| ------: | -----: | -----: |
-|      10 |   1.00 |   1.00 |
-|       5 |   0.30 |   0.85 |
-|       0 |   0.00 |   0.20 |
-
-완전 knockout은 $$u_T=0$$ 한 점만 본다. 약물은 실제로는 $$u_T$$를 연속적으로 낮추는 부분 억제, off-target, 노출 시간, 조직 분포를 갖는다. 따라서 질병 선택성이 있어 보이는 후보도 정상 조직 패널, target engagement, rescue, PK/PD를 추가로 검증해야 한다.
-
-{% hint style="warning" %}
-합성치사 유전자 상호작용 점수와 약물 조합의 Bliss/Loewe/HSA 점수는 같은 척도가 아니다. 유전자 결손과 농도–반응 자료를 혼용하지 않는다.
-{% endhint %}
-
-***
-
-## Chapter 8. 세포공장과 성장–생산 trade-off
-
-### 예제 8.1 — 탄소수지의 최소 검사
-
-기질 glucose 1 mol이 제품 P, biomass, CO2, 부산물 D로 분배된다고 하자. carbon atom 수를 각각 6, 3, 1, 2라고 놓으면, 외부 flux만으로도 다음 같은 최소 수지를 점검할 수 있다.
-
-$$
-6v_{glc}=3v_P+c_{bio}v_{bio}+v_{CO_2}+2v_D.
-$$
-
-이 식은 redox, ATP, 수분·양성자 및 세포내 저장물을 생략한 **첫 점검**이다. 높은 제품 수율이 carbon balance를 만족해도 NADH/NADPH 재생, ATP maintenance, 산소전달, product toxicity, 성장 안정성을 만족한다는 뜻은 아니다.
-
-### 예제 8.2 — production envelope 읽기
-
-목표가 $$v_P$$ 최대화일 때 $$v_{bio}\ge0.1$$을 요구하면, 제품 최적해는 성장 요구를 막 만족시키는 경계에 놓일 수 있다. 반대로 성장률을 고정하고 $$v_P$$의 min/max를 구하면 같은 feasible region을 다른 축으로 절단한 production envelope를 얻는다. 단일 최적점보다 가능한 범위를 보고해야 한다.
-
-***
-
-## Chapter 9. AI+GEM의 benchmark 설계
+## Chapter 9. AI·GEM 입문 평가 설계
 
 ### 예제 9.1 — 같은 모델에서 나온 label의 누출 위험
 

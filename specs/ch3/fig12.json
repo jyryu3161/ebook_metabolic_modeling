@@ -1,0 +1,7 @@
+{
+  "name": "ch3_fig12_gam_ngam",
+  "out_dir": "figures/ch3",
+  "aspect": "16:9",
+  "size": "2K",
+    "prompt": "Title (top): \"GAM과 NGAM의 생물학적 의미\" + smaller warm-grey \"Growth-Associated and Non-Growth-Associated Maintenance\". A/B 두 패널. A와 B 글자는 색 사각형이나 배지 안에 넣지 않고 흰 배경 위의 평범한 검은 텍스트로 쓴다. A \"GAM\"은 크기가 증가하는 세 개의 무라벨 바이오매스 윤곽과 성장 화살표, 그에 비례해 1개·2개·3개로 증가하는 무라벨 ATP 가수분해 아이콘 묶음을 병렬로 그리고 \"바이오매스 생성량에 비례\"를 둔다. 각 무라벨 가수분해 아이콘은 작은 원 하나에서 작은 원 두 개로 갈라지는 Y자 선 윤곽만 사용하며 원 사이에 +, −, 문자, 숫자 또는 다른 기호를 넣지 않는다. \"ATP hydrolysis\"를 포함한 가수분해 설명 라벨은 절대 쓰지 않는다. B \"NGAM\"은 성장 화살표 대신 숫자와 글자가 전혀 없는 짧은 수직 정지선 하나만 보여 주고, 숫자 0을 어디에도 쓰지 않는다. 그와 별개로 계속 작동하는 \"ATPM\" 화살표와 \"기저 ATP 소비율\"을 둔다. ATP, ADP, Pi, Biomass Production 같은 추가 분자·영문 라벨은 넣지 않는다. 두 패널 아래 단위는 GAM \"mmol ATP gDW⁻¹\", NGAM \"mmol ATP gDW⁻¹ h⁻¹\"로 정확히 표시한다. VISIBLE TEXT WHITELIST: \"GAM과 NGAM의 생물학적 의미\", \"Growth-Associated and Non-Growth-Associated Maintenance\", \"A\", \"GAM\", \"바이오매스 생성량에 비례\", \"mmol ATP gDW⁻¹\", \"B\", \"NGAM\", \"ATPM\", \"기저 ATP 소비율\", \"mmol ATP gDW⁻¹ h⁻¹\"만 보이게 하고 다른 글자·숫자·기호는 생략한다. RENDER monochrome stroke-only technical diagram: 균일한 #FCFCFA 배경에 3 px 짙은 남색 윤곽선, 검은 텍스트, 가는 화살표 선·작은 단색 화살촉만 사용하고 모든 도형 내부는 정확히 #FCFCFA로 둔다. 그라데이션, 그림자, 광택, 입체감, 색 면, 반투명 틴트를 전혀 사용하지 않는다. GAM을 시간당 고정 소비로, NGAM을 바이오매스 계수로 뒤바꾸지 않는다. 과학적으로 정확하게. 캡션·설명문·시점 의존 라벨·로고·워터마크 없이."
+}

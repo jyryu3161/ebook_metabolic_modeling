@@ -1,0 +1,7 @@
+{
+  "name": "ch11_fig11_carveme_draft_to_validation",
+  "out_dir": "figures/ch11",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"CarveMe 초안 생성과 검증\" + smaller warm-grey \"Draft Reconstruction to Validation\". 왼쪽 위 입력 카드 \"단백질 FASTA\"에서 반드시 하나의 순차 경로로만 \"DIAMOND 정렬\"을 거쳐 \"반응 증거 점수\"로 연결한다. \"단백질 FASTA\"에서 \"반응 증거 점수\"로 바로 가는 화살표나 분기선은 절대 그리지 않는다. 왼쪽 아래 입력 카드 \"BiGG universe\"에서 오는 별도 경로와 \"반응 증거 점수\" 경로를 중앙의 선택 카드 \"MILP 반응 선택\"에서 합친 뒤 오른쪽의 큰 카드 \"초안 GEM\"으로 연결한다. \"초안 GEM\" 아래에는 네 개의 검증 카드 \"배지 정의\", \"질량·전하\", \"GPR·방향\", \"표현형 시험\"을 2×2 격자로 배치하고 각각 초안에서 내려오는 선을 연결한다. 검증 카드에서 초안으로 돌아가는 가는 피드백 화살표를 둔다. 강조색은 초안 카드 옆의 작은 경고 표시에 한 번만 사용하고 정확한 라벨 \"검증 완료 아님\"을 넣는다. 반응 수, 유전자 수, 성능 수치나 품질 순위를 넣지 않는다. 정확한 라벨만 사용하고 과학적으로 정확하게. 캡션·설명문·시점 의존 라벨·로고·워터마크 없이. STYLE CORRECTION: every card and arrow must use a perfectly uniform solid fill with no tonal variation; use no gradient, lighting, gloss, depth, or shadow anywhere. Keep every card and label comfortably inside the canvas."
+}

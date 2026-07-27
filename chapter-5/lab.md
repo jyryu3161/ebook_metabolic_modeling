@@ -4,6 +4,16 @@
 
 이 실습에서는 게놈 규모 대사 모델(GEM)을 만든 뒤 반드시 거쳐야 하는 **품질 검사와 gap-filling**을 COBRApy로 직접 실행해 봅니다. 서열 정렬 통계(E-value)의 수치 검산에서 시작해, 반응의 질량·전하 균형, 위상학적 dead-end, [MILP](../glossary.md) [gap-filling](../glossary.md), CarveMe 자동 재구축과 수동 모델 비교, [MEMOTE](../glossary.md) 리포트, 단일 유전자 결손 평가까지 한 번에 따라 합니다. 이 장 본문([5장 1절](01.md)~[6절](06.md))에서 개념으로 설명한 검사들을, 여기서는 실제로 실행되는 코드로 확인합니다.
 
+각 단계는 다음 품질관리 질문에 답합니다.
+
+| 품질관리 질문 | 관련 단계 | 결과의 한계 |
+|:---|:---:|:---|
+| 서열 점수의 크기가 검색 조건에 따라 달라지는가? | 1 | 낮은 E-value만으로 효소 기능을 확정하지 않습니다. |
+| 내부 반응이 원소와 전하를 보존하는가? | 2 | biomass·경계·polymer 반응은 별도 범주로 해석합니다. |
+| 알려진 기능 실패가 연결 단절 또는 누락 반응 후보와 관련되는가? | 3–4 | dead-end와 gap-filled 반응은 원인 확정이 아니라 진단 신호와 가설입니다. |
+| 자동 초안과 배포 모델을 같은 기준으로 비교할 수 있는가? | 5–6 | 반응 수와 MEMOTE 총점만으로 생물학적 품질 순위를 정하지 않습니다. |
+| 조건별 유전자 결손 예측이 실험 질문과 일치하는가? | 7 | 같은 균주·배지의 독립 실험 자료가 있어야 외부 정확도를 계산할 수 있습니다. |
+
 검증 환경은 Python 3.10 이상과 COBRApy 0.30.0입니다. 구조 통계의 기준 파일은 [BiGG Models](http://bigg.ucsd.edu/models/iML1515)가 배포하는 iML1515 SBML이며, 원 논문은 [Monk et al. (2017)](https://doi.org/10.1038/nbt.3956)입니다. 2026년 7월 22일에 내려받은 `iML1515.xml.gz`의 SHA-256은 `2555e0f7e55a8cb8e770b9bb29cdaeb5db171941c414e7a232ff2d8e0228e308`이고, 압축을 푼 `iML1515.xml`은 `9c772d44ca43350e40dc7ee86c7aa148796856be1eea45e5406c6df8f7dcde28`입니다. 이 파일에서 genes 1,516, reactions 2,712, metabolites 1,877이 집계됩니다. 집계 기준은 다음과 같습니다. reactions는 경계 반응 337개(교환 331개, demand 6개)를 포함한 전체 반응 수이고, metabolites는 구획별 화학종 수(세포질 1,071 · periplasm 465 · 세포외 341)이므로 구획을 무시한 고유 화합물 수 1,169와 다릅니다. 이 수치는 종의 고정 특성이 아니라 이 release 파일의 속성이므로, 소프트웨어와 모델 release가 바뀌면 결과를 다시 기록합니다.
 
 ## 학습 목표
@@ -21,7 +31,7 @@
 시작하기 전에 다음을 갖춥니다.
 
 - **실행 환경**: [Chapter 11 §1의 가상환경](../chapter-11/01.md) 또는 [설치 가이드](../installation.md)를 따라 만든 Python 3.10 이상 환경. 이 실습의 모든 숫자는 COBRApy 0.30.0 + 기본 GLPK 솔버에서 얻은 값입니다.
-- **필수 패키지**: `cobra`(COBRApy). 가상환경을 활성화한 뒤 `pip install "cobra==0.30.0"`으로 설치합니다. 단계 6·7의 외부 도구(CarveMe, Diamond, MEMOTE)는 해당 단계에서 별도로 설치합니다.
+- **필수 패키지**: `cobra`(COBRApy). 가상환경을 활성화한 뒤 `pip install "cobra==0.30.0"`으로 설치합니다. 단계 5·6의 외부 도구(CarveMe, Diamond, MEMOTE)는 해당 단계에서 별도로 설치합니다.
 - **모델**: iML1515와 `textbook` 모델은 COBRApy에 내장되어 있어 `cobra.io.load_model(...)`이 자동으로 내려받습니다. 별도 다운로드가 필요 없습니다.
 - **선행 지식(선택)**: 정렬 통계는 [5장 2절](02.md), gap-filling 정식화는 [5장 5절](05.md), 품질 관리 개념은 [5장 6절](06.md)에서 다룹니다. 먼저 읽지 않아도 실습은 따라올 수 있습니다.
 
@@ -229,7 +239,7 @@ carve genome.faa -o draft_m9.xml -g M9 -i M9
 이어서 Python에서 두 모델의 구조 지표를 같은 함수로 요약해 나란히 출력합니다.
 
 ```python
-"""동일한 구조 지표로 CarveMe 출력과 iML1515를 비교한다."""
+"""CarveMe 출력과 iML1515의 동일 구조 지표 비교."""
 
 def summarize_model(m, label):
     gpr_coverage = sum(1 for r in m.reactions if r.gene_reaction_rule) / len(m.reactions)

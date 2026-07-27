@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig22_production_envelope_reading",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"생산 포락선의 두 계산 방향\" + smaller warm-grey \"Two Production-Envelope Readings\". Two side-by-side panels with simple axes and no numerical ticks. Panel A marker \"A\" title \"acetate 고정\". X-axis \"acetate flux\", Y-axis \"성장률\", shaded band between curves labeled \"최소 성장\" and \"최대 성장\"; callout \"생산–성장 trade-off\". Panel B marker \"B\" title \"biomass 고정\". X-axis \"성장률\", Y-axis \"acetate flux\", shaded band labeled \"최소 acetate\" and \"최대 acetate\"; highlight one positive-growth position whose lower boundary reaches zero with exact callout \"강제 coupling 입증 안 됨\". Place a red swap icon between panels labeled \"고정 반응·목적함수 확인\". Schematic only, no fabricated values, full-sentence caption, logo, watermark, or stray text."
+}

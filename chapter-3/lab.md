@@ -10,7 +10,7 @@
 
 1. 실행 환경을 확인하고 예제 모델 `e_coli_core`를 불러와 버전과 규모(반응·대사물·유전자 수)를 **확인합니다**.
 2. GPR을 구문 트리로 **분류**하고 단일·OR-only·AND-only·mixed·빈 GPR을 상호 배타적으로 **집계합니다**.
-3. 유전자 결손을 안전하게 **평가**하고, 컨텍스트 매니저로 원본 모델을 **복원합니다**.
+3. 단일 유전자 결손이 AND·OR GPR에 미치는 차이를 **평가**하고, 컨텍스트 매니저로 원본 모델을 **복원합니다**.
 4. 구획·경계·운송 반응을 겹치지 않게 **분류**하고, 바이오매스 반응과 ATP 유지 반응을 **조회합니다**.
 5. 같은 모델에서 배지 조건만 바꿔 성장률을 **비교**하고, `infeasible`(실행 불가능)과 성장률 0을 **구분합니다**.
 
@@ -142,21 +142,22 @@ for reaction_id in ["PGK", "PFK", "PDH", "SUCDi"]:
 
 ---
 
-## 단계 3. GPR을 안전하게 평가하기
+## 단계 3. 단일 결손으로 AND와 OR 비교하기
 
-**무엇을·왜**: `reaction.gpr.eval()`은 결손 유전자 **ID 집합**을 받아 규칙의 참·거짓을 계산합니다. 여기서 참은 유전자 기능 가용성에 따른 구조적 판정이며, 발현량이나 효소 활성의 크기를 뜻하지 않습니다. 먼저 유전자 이름을 모델 내부의 유전자 ID로 바꾼 뒤 평가합니다.
+**무엇을·왜**: `reaction.gpr.eval()`은 결손 유전자 **ID 집합**을 받아 규칙의 참·거짓을 계산합니다. 여기서 참은 유전자 기능 가용성에 따른 구조적 판정이며, 발현량이나 효소 활성의 크기를 뜻하지 않습니다. OR 규칙인 PFK와 AND 규칙인 PDH에서 유전자 하나를 각각 결손하여 동위효소와 효소 복합체의 차이를 확인합니다.
 
 **코드**
 
 ```python
 gene_id_by_name = {gene.name: gene.id for gene in model.genes}
 pfk = model.reactions.get_by_id("PFK")
+pdh = model.reactions.get_by_id("PDH")
 
 pfk_a = gene_id_by_name["pfkA"]
-pfk_b = gene_id_by_name["pfkB"]
+pdh_subunit = next(iter(pdh.genes)).id
 
 print(pfk.gpr.eval({pfk_a}))
-print(pfk.gpr.eval({pfk_a, pfk_b}))
+print(pdh.gpr.eval({pdh_subunit}))
 ```
 
 **예상 출력**
@@ -166,26 +167,26 @@ True
 False
 ```
 
-**확인 포인트**: 첫 줄이 `True`, 둘째 줄이 `False`이면 성공입니다. `pfkA`만 결손되면 `pfkB`가 규칙을 만족하지만, 두 유전자가 모두 결손되면 PFK가 비활성화됩니다.
+**확인 포인트**: 첫 줄이 `True`, 둘째 줄이 `False`이면 성공입니다. `pfkA`만 결손되면 다른 동위효소를 나타내는 `pfkB`가 OR 규칙을 만족합니다. 반면 PDH의 소단위 유전자 하나가 결손되면 완전한 효소 복합체를 만들 수 없어 AND 규칙이 거짓이 됩니다.
 
 실제 모델의 반응 bounds(경계조건)까지 바꾸려면 COBRApy의 유전자 결손 함수를 사용합니다. 변경은 **컨텍스트 매니저**(`with model:`) 안에서 수행하여, 블록을 벗어나면 원본 모델이 자동 복원되도록 합니다.
 
 **코드**
 
 ```python
-original_bounds = pfk.bounds
+original_bounds = pdh.bounds
 
 with model:
-    disabled = knock_out_model_genes(model, [pfk_a, pfk_b])
-    print("PFK" in {reaction.id for reaction in disabled})
-    print(model.reactions.get_by_id("PFK").bounds)
+    disabled = knock_out_model_genes(model, [pdh_subunit])
+    print("PDH" in {reaction.id for reaction in disabled})
+    print(model.reactions.get_by_id("PDH").bounds)
 
-assert model.reactions.get_by_id("PFK").bounds == original_bounds
+assert model.reactions.get_by_id("PDH").bounds == original_bounds
 ```
 
-**예상 출력**: 두 유전자 결손 조건에서는 `PFK`가 비활성 반응 목록에 포함되어 첫 줄이 `True`, 둘째 줄의 bounds가 $$(0,0)$$으로 출력됩니다. 마지막 `assert`는 오류 없이 통과합니다(컨텍스트를 벗어나 bounds가 원래대로 복원되었기 때문입니다).
+**예상 출력**: PDH 소단위 유전자 하나를 결손하면 `PDH`가 비활성 반응 목록에 포함되어 첫 줄이 `True`, 둘째 줄의 bounds가 $$(0,0)$$으로 출력됩니다. 마지막 `assert`는 오류 없이 통과합니다(컨텍스트를 벗어나 bounds가 원래대로 복원되었기 때문입니다).
 
-**확인 포인트**: 블록 안에서는 PFK가 `(0, 0)`으로 닫히고, 블록을 벗어난 뒤 `assert`가 `AssertionError` 없이 지나가면 성공입니다.
+**확인 포인트**: 블록 안에서는 PDH가 `(0, 0)`으로 닫히고, 블록을 벗어난 뒤 `assert`가 `AssertionError` 없이 지나가면 성공입니다.
 
 > **해석상의 주의**
 > - 여기서의 참·거짓은 유전자 기능 가용성에 대한 **구조적 판정**이지, 발현량이나 효소 활성의 크기가 아닙니다.
@@ -445,14 +446,14 @@ assert abs(model.optimize().objective_value - 0.8739) < 1e-4
 
 - 예제 모델 `e_coli_core`를 불러오고, 반응 95개·대사물 72개·유전자 137개라는 규모를 확인했습니다.
 - GPR을 구문 트리로 안전하게 분류(no_gpr 26, single 27, or_only 27, and_only 10, mixed 5)하고, 상호 배타적 범주와 분모 표기의 중요성을 익혔습니다.
-- `gpr.eval`과 `knock_out_model_genes`로 유전자 결손을 평가하되, 컨텍스트 매니저로 원본 모델을 복원하는 습관을 들였습니다.
+- `gpr.eval`과 `knock_out_model_genes`로 단일 유전자 결손을 평가하고, OR 동위효소와 AND 효소 복합체의 차이를 확인했으며, 컨텍스트 매니저로 원본 모델을 복원했습니다.
 - 구획·경계·운송 반응을 겹치지 않게 분류하고, 바이오매스 반응과 ATP 유지 반응(하한 8.39)을 조회했습니다.
 - 배지 조건만 바꿔 호기(약 0.8739)·무산소(약 0.2117)·탄소원 결핍(`infeasible` vs 성장률 0)을 비교하며, “성장하지 않음”과 “정상상태 자체가 없음”을 구분했습니다.
 
 ## 스스로 해보기
 
 1. 단계 2의 `classify_gpr`를 이용해, GPR 유형별로 반응 ID 목록을 실제로 출력해 봅니다(예: `and_only`에 속하는 반응들). 각 유형의 대표 반응이 무엇인지 눈으로 확인해 봅니다.
-2. 단계 3에서 `pfkA`, `pfkB` 대신 다른 반응(예: AND-only인 `PDH`)의 소단위 유전자 하나만 결손시켜 보고, `gpr.eval` 결과가 어떻게 달라지는지 예측한 뒤 확인합니다.
+2. 단계 3에서 다른 OR-only 반응과 AND-only 반응을 하나씩 골라 단일 유전자 결손 전후의 `gpr.eval` 결과를 예측한 뒤 확인합니다.
 3. 단계 6의 배지 전환에서 산소 대신 포도당 흡수(`EX_glc__D_e`)의 하한을 바꿔 가며 성장률이 어떻게 변하는지 관찰합니다. 흡수를 완전히 닫으면 어떤 상태가 되는지도 확인합니다.
 
 이 실습에서 조회한 구조 요소의 이론적 배경은 [2절 GPR](02.md), [3절 구획](03.md), [5절 경계 반응](05.md), [6절 바이오매스와 유지 에너지](06.md)에서, 성장·최적화의 원리는 [Chapter 4](../chapter-4/README.md)에서 이어서 다룹니다.

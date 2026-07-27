@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig19_gapfill_before_candidate_after",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"장난감 네트워크의 gap-filling\" + smaller warm-grey \"Gap-Filling Before and After\". Three panels left-to-right. Panel A marker \"A\" title \"추가 전\" showing \"SOURCE_A\" -> metabolite \"A\" then a visible broken gap before metabolite \"B\" -> \"BIOMASS\"; output tag \"목적 flux 0\". Panel B marker \"B\" title \"후보 풀\" with one candidate reaction card \"R_AB: A → B\" and selection tag \"선택\". Panel C marker \"C\" title \"추가 후\" showing the connected route \"SOURCE_A → A → R_AB → B → BIOMASS\" and output tag \"목적 flux 회복\". Use red only on the broken gap and green only on selected R_AB. Add small bottom label \"교육용 장난감 모델\". Exact labels only, no full sentences, caption, logo, watermark, fabricated database, or stray text."
+}

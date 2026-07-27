@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig06_cobrapy_object_connections",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"COBRApy 객체의 연결\" + smaller warm-grey \"COBRApy Object Connections\". Center large blue rounded container \"Model\". Around it place three distinct cards: left \"Reaction\" with tags \"반응식\", \"bounds\", \"GPR\"; lower right \"Metabolite\" with tags \"구획\", \"화학량론 계수\"; upper right \"Gene\" with tags \"유전자 ID\", \"관련 반응\". Use bidirectional arrows Model↔Reaction, Reaction↔Metabolite, Reaction↔Gene. Add a small search bar below Model labeled \"get_by_id\" and a list pill \"DictList\". Emphasize once in red a wrong-case token \"pgi\" with X and correct token \"PGI\" beside it. Exact labels only, no biological pathway, code paragraph, caption, logo, watermark, or stray text."
+}

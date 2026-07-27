@@ -1,6 +1,6 @@
 # Chapter 10. COBRApy 완전 실행 튜토리얼
 
-> 지금까지 배운 [FBA](../chapter-4/README.md)·pFBA·FVA·유전자 결손·[MOMA·ROOM](../chapter-8/README.md)·[gap-filling](../chapter-5/README.md)을 하나의 재현 가능한 노트북 흐름으로 연결합니다. 모든 기준값은 **[COBRApy](https://opencobra.github.io/cobrapy/) 0.30.0 + [GLPK](https://www.gnu.org/software/glpk/) + `textbook`([BiGG](http://bigg.ucsd.edu/) `e_coli_core`) 모델**에서 검산했습니다. 이 장을 위에서 아래로 실행하면 모델을 불러오는 데서 시작해 결과와 환경 정보를 JSON으로 남기는 데까지 한 번에 도달합니다.
+> 지금까지 배운 [FBA·유전자 결손](../chapter-4/README.md)·pFBA·FVA·[MOMA](../chapter-4/11.md)·[ROOM](../chapter-4/12.md)·[gap-filling](../chapter-5/README.md)을 하나의 재현 가능한 노트북 흐름으로 연결합니다. 모든 기준값은 **[COBRApy](https://opencobra.github.io/cobrapy/) 0.30.0 + [GLPK](https://www.gnu.org/software/glpk/) + `textbook`([BiGG](http://bigg.ucsd.edu/) `e_coli_core`) 모델**에서 검산했습니다. 이 장을 위에서 아래로 실행하면 모델을 불러오는 데서 시작해 결과와 환경 정보를 JSON으로 남기는 데까지 한 번에 도달합니다.
 
 ## 표기와 읽기 원칙
 
@@ -39,9 +39,9 @@ flowchart TD
     M --> N["§14 미니 프로젝트"]
 ```
 
-*그림 10.1. 제10장의 재현 가능한 노트북 흐름. 버전·solver·모델을 기록한 뒤 COBRApy 객체와 경계조건을 확인하고, FBA 계열 분석·섭동·MILP·gap-filling·production envelope를 순서대로 실행하며, 마지막에는 SBML 왕복·해시와 JSON provenance로 계산 상태를 보존합니다. 화살표는 셀의 데이터 의존성을 뜻합니다. 출처: 저자 자체 제작; 이 저장소의 튜토리얼 구조를 요약한 도식이며 외부 그림을 재사용하지 않았습니다.*
+_그림 10.1:_ 제10장의 재현 가능한 노트북 흐름. 버전·solver·모델을 기록한 뒤 COBRApy 객체와 경계조건을 확인하고, FBA 계열 분석·섭동·MILP·gap-filling·production envelope를 순서대로 실행하며, 마지막에는 SBML 왕복·해시와 JSON provenance로 계산 상태를 보존합니다. 화살표는 셀의 데이터 의존성을 뜻합니다. 출처: 저자 자체 제작; 이 저장소의 튜토리얼 구조를 요약한 도식이며 외부 그림을 재사용하지 않았습니다.
 
-이 장의 목적은 API 이름을 외우는 것이 아닙니다. 각 계산에서 다음 네 질문에 답하는 습관을 만드는 것이 목적입니다. 이 네 질문은 이 장 안에서만 유효한 규칙이 아니라, [Chapter 4](../chapter-4/README.md)의 FBA든 [Chapter 8](../chapter-8/README.md)의 균주 설계든 어떤 제약 기반 계산에도 적용되는 일반적인 습관입니다.
+이 장의 목적은 API 이름을 외우는 것이 아닙니다. 각 계산에서 다음 네 질문에 답하는 습관을 만드는 것이 목적입니다. 이 네 질문은 이 장 안에서만 유효한 규칙이 아니라, [Chapter 4](../chapter-4/README.md)의 FBA·교란 분석이나 [Chapter 11 §4](../chapter-11/04.md)의 결손 실습에도 적용되는 일반적인 습관입니다.
 
 1. 지금 바꾼 것은 모델, 배지, 목적함수 중 무엇인가?
 2. solver가 반환한 상태는 정말 `optimal`인가?
@@ -68,7 +68,7 @@ flowchart TD
 
 ![COBRApy textbook 모델에서 최대 성장률 90퍼센트 이상을 유지할 때 선택 반응들의 FVA 최소·최대 구간과 하나의 pFBA 해](../.gitbook/assets/fva-intervals.png)
 
-_그림 4.6 재수록. `e_coli_core`의 FVA 구간과 한 pFBA 해. 가로축은 flux(_$$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$_), 세로축은 반응 ID이며, 파란 선은 각 반응을 따로 최소화·최대화해 얻은 FVA 최소–최대 구간이고 주황 마름모는 그 구간 안의 한 pFBA 해입니다. 대상 반응은 `PGI`·`PFK`·`PYK`·`G6PDH2r`·`EX_ac_e`·`EX_etoh_e`·`EX_for_e` 일곱 개입니다. 파란 끝점을 동시에 갖는 단일 flux 벡터가 존재한다는 뜻이 아니며, 구간 폭은 통계적 신뢰구간도 아닙니다. 출처: 저자 계산(모식도가 아니라 실제 모델 계산 결과); 생성:_ [_`scripts/generate_optimization_figures.py`_](../scripts/generate_optimization_figures.py)_의 `draw_fva_intervals()`; 조건: COBRApy 0.30.0 `textbook` 모델(_[_BiGG `e_coli_core`_](http://bigg.ucsd.edu/models/e_coli_core)_), 기본 배지·biomass 목적함수, `fraction_of_optimum=0.9`, GLPK(세부 버전 미기록), 단일 process(`processes=1`). 이 장의 [§5](06.md)는 `PGI`·`PFK`·`TPI`만 같은 방식으로 계산하므로 반응 목록이 이 그림과 다르며, 이 그림을 그대로 재현하지는 않습니다. 그림 4.6([Chapter 4 §9](../chapter-4/09.md))과 동일 PNG를 재수록한 것이고 외부 그림은 재사용하지 않았습니다([FIGURE_SOURCES.md](../FIGURE_SOURCES.md) A-04). 개념 근거: FVA(_[_Mahadevan & Schilling, 2003_](https://doi.org/10.1016/j.ymben.2003.09.002)_), pFBA(_[_Lewis et al., 2010_](https://doi.org/10.1038/msb.2010.47)_)._
+_그림 4.6 재수록:_ `e_coli_core`의 FVA 구간과 한 pFBA 해. 가로축은 flux(_$$\mathrm{mmol\,gDW^{-1}\,h^{-1}}$$_), 세로축은 반응 ID이며, 파란 선은 각 반응을 따로 최소화·최대화해 얻은 FVA 최소–최대 구간이고 주황 마름모는 그 구간 안의 한 pFBA 해입니다. 대상 반응은 `PGI`·`PFK`·`PYK`·`G6PDH2r`·`EX_ac_e`·`EX_etoh_e`·`EX_for_e` 일곱 개입니다. 파란 끝점을 동시에 갖는 단일 flux 벡터가 존재한다는 뜻이 아니며, 구간 폭은 통계적 신뢰구간도 아닙니다. 출처: 저자 계산(모식도가 아니라 실제 모델 계산 결과); 생성: [_`scripts/generate_optimization_figures.py`_](../scripts/generate_optimization_figures.py)의 `draw_fva_intervals()`; 조건: COBRApy 0.30.0 `textbook` 모델([_BiGG `e_coli_core`_](http://bigg.ucsd.edu/models/e_coli_core)), 기본 배지·biomass 목적함수, `fraction_of_optimum=0.9`, GLPK(세부 버전 미기록), 단일 process(`processes=1`). 이 장의 [§5](06.md)는 `PGI`·`PFK`·`TPI`만 같은 방식으로 계산하므로 반응 목록이 이 그림과 다르며, 이 그림을 그대로 재현하지는 않습니다. 그림 4.6([Chapter 4 §9](../chapter-4/09.md))과 동일 PNG를 재수록한 것이고 외부 그림은 재사용하지 않았습니다([FIGURE_SOURCES.md](../FIGURE_SOURCES.md) A-04). 개념 근거: FVA([_Mahadevan & Schilling, 2003_](https://doi.org/10.1016/j.ymben.2003.09.002)), pFBA([_Lewis et al., 2010_](https://doi.org/10.1038/msb.2010.47)).
 
 ## 이 장을 읽는 방법
 
@@ -91,9 +91,9 @@ _그림 4.6 재수록. `e_coli_core`의 FVA 구간과 한 pFBA 해. 가로축은
 - `model.medium`과 context manager로 조건을 안전하게 바꿉니다.
 - FBA 결과의 solver 상태와 $$\mathbf{S}\mathbf{v}=\mathbf{0}$$ 잔차를 검산합니다 ([Chapter 2](../chapter-2/README.md)의 질량보존, [Chapter 4](../chapter-4/README.md)의 FBA).
 - pFBA와 FVA가 각각 답하는 질문을 구분합니다 ([Chapter 4](../chapter-4/README.md)).
-- infeasible/`NaN`을 안전하게 처리하며 유전자 결손을 분류합니다 ([Chapter 8](../chapter-8/README.md)의 필수성 매핑).
-- `tpiA` 결손을 FBA, 선형 MOMA, 선형 ROOM으로 비교합니다 ([Chapter 8](../chapter-8/README.md)).
-- `optlang`으로 작은 GLPK MILP를 만들고 binary variable의 역할을 설명합니다 (MILP·optlang의 이론은 [균주 설계 보충 자료](../supplements/perturbation-analysis.md)).
+- infeasible/`NaN`을 안전하게 처리하며 유전자 결손을 분류합니다 ([Chapter 4 §5](../chapter-4/05.md)의 조건부 필수성).
+- `tpiA` 결손을 FBA, 선형 MOMA, 선형 ROOM으로 비교합니다 ([Chapter 4 §11](../chapter-4/11.md)·[§12](../chapter-4/12.md)·[§13](../chapter-4/13.md), [Chapter 11 §4](../chapter-11/04.md)).
+- `optlang`으로 작은 GLPK MILP를 만들고 binary variable이 경로 선택을 코드로 표현하는 방식을 설명합니다.
 - 장난감 모델에서 gap-filling, production envelope, SBML 왕복 검증을 수행합니다 (gap-filling 이론은 [Chapter 5](../chapter-5/README.md), SBML은 [SBML 실무 보충 자료](../supplements/sbml-practical.md)).
 - Plotly와 ipywidgets로 조건을 대화형으로 탐색하고 실행 기록을 저장합니다.
 

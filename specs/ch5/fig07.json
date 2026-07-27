@@ -1,0 +1,7 @@
+{
+  "name": "ch5_fig07_function_failure_diagnosis",
+  "out_dir": "figures/ch5",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"기능 실패를 진단하는 순서\" + smaller warm-grey \"Function-failure diagnosis\". 왼쪽 시작 카드 \"성장·대사 과제 실패\"에서 오른쪽으로 다섯 개의 게이트가 정확히 A→B→C→D→E 순서로 한 방향 연결된다: \"A\" \"배지·교환 경계\", \"B\" \"대사물 ID·구획\", \"C\" \"반응식·방향성\", \"D\" \"GPR·biomass\", \"E\" \"누락 반응 후보\". A·B·C·D 게이트 아래에 순수 텍스트 \"수정 후 재시험\"을 각각 두고, 네 출력에서 시작 카드로 돌아가는 하나의 얇은 공통 피드백 선을 둔다. E에는 이 출력 문구를 두지 않는다. E에서만 \"gap-filling 가설\" 카드로 화살표가 가고, 그 뒤에 \"독립 검증\" 카드가 이어진다. gap-filling으로 직접 건너뛰는 다른 화살표는 없다. VISIBLE TEXT WHITELIST: \"기능 실패를 진단하는 순서\", \"Function-failure diagnosis\", \"성장·대사 과제 실패\", \"A\", \"배지·교환 경계\", \"B\", \"대사물 ID·구획\", \"C\", \"반응식·방향성\", \"D\", \"GPR·biomass\", \"E\", \"누락 반응 후보\", \"수정 후 재시험\", \"gap-filling 가설\", \"독립 검증\"만 보이게 하고 다른 글자·숫자·기호는 생략한다. \"수정 후 재시험\"만 A·B·C·D 아래에 네 번 반복하고 나머지는 한 번씩 표시한다. HIGHEST-PRIORITY OVERRIDE: 균일한 #FCFCFA 배경의 black-and-white stroke-only process diagram으로 그린다. 모든 카드 내부는 배경과 같은 #FCFCFA이며, 검정/남색 단색 윤곽선·연결선·텍스트·화살촉만 사용한다. 색칠된 카드·pill·헤더·아이콘 없이, 그라데이션·그림자·glow·bevel·광택·반투명 틴트·입체감·밝기 변화가 단 한 픽셀도 없어야 한다. 캡션·설명문·수치·로고·워터마크 없이."
+}

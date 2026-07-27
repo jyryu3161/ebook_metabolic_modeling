@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig03_unexpected_output_diagnosis",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"예상과 다른 출력의 진단 순서\" + smaller warm-grey \"Unexpected Output Diagnosis\". A clean left-to-right five-stage flow with exact stage labels: \"출력·assert 이상\" -> \"커널 재시작\" -> \"위에서부터 실행\" -> \"COBRApy 0.30.0 확인\" -> \"가상환경 커널 확인\". Under the fourth stage add compact command tag \"pip show cobra\". Under the fifth stage add compact tag \"sys.executable\" and terminal pill \".venv\". Use one red emphasis marker only at the first stage and green check only after the last stage with label \"다시 검산\". Do not imply that rerunning always fixes a model error. Exact labels only, no paragraph, caption, logo, watermark, invented error message, or stray text."
+}

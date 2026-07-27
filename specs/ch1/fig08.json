@@ -1,0 +1,7 @@
+{
+  "name": "ch1_fig08_constraints_vs_dynamics",
+  "out_dir": "figures/ch1",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"가능한 상태와 시간 변화\" + smaller warm-grey \"Constraint-Based vs Kinetic Modeling\". 두 개의 같은 너비 패널을 나란히 둔다. 왼쪽 패널 제목은 배경 도형 없이 단순 글자 \"A  제약 기반\"이다. 왼쪽에는 정확히 하나의 큰 입력 카드만 두고 그 안에 \"화학량론\", \"반응 경계\", \"배지\", \"목적\"을 네 줄로 정렬한다. 오른쪽에는 여러 개의 가는 파란 경로 선과 열린 화살촉이 공존하고, 그중 한 경로만 굵기 8px의 단색 적색 선과 열린 화살촉으로 강조한다. 강조 경로에도 채운 내부, 두꺼운 테두리, 빛 효과가 없다. 패널 A에는 시계나 시간축을 넣지 않는다. 오른쪽 패널 제목은 배경 도형 없이 단순 글자 \"B  동역학\"이다. 왼쪽에는 정확히 하나의 큰 입력 카드만 두고 그 안에 \"초기 농도\", \"속도식\", \"매개변수\"를 세 줄로 정렬한다. 오른쪽에는 가로축 \"시간\", 세로축 \"농도\"인 그래프를 그린다. \"농도\"는 회전하지 말고 세로축 왼쪽 위에 수평으로 정확히 표시한다. 그래프에는 정확히 두 개의 선만 둔다: 녹색 감소 곡선 하나와 적색 증가 곡선 하나. 두 곡선은 색이 있는 가는 선일 뿐이며 곡선 아래, 곡선 사이, 그래프 배경을 어떤 색으로도 채우지 않는다. 입력 카드와 그래프 사이 화살표에는 어떤 글자나 기호도 넣지 않는다. 아래에는 \"상태의 범위\"와 \"시간 궤적\"을 각각 한 번씩 단순한 글자로만 두고 캡슐·태그·배경 도형으로 감싸지 않는다. 실제 데이터처럼 보이는 수치 눈금이나 점은 사용하지 않는다. Minimal outline-first SVG wireframe on a uniform #FCFCFA background. A and B are plain text, not circles, badges, tabs or filled markers. Panels and input cards have one crisp flat black outline and #FCFCFA interior. The graph background is #FCFCFA with only hairline grid, axes, and exactly two unfilled line curves. There are no solid or translucent colored regions anywhere. No gradient, transparency, shadow, highlight, glow, shading, bevel, texture, area fill, or lighting. 과학적으로 정확하게. 캡션·설명문·시점 의존 라벨·로고·워터마크 없이."
+}

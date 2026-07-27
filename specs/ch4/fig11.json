@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig11_reproducibility_record",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"FBA 실행 기록\" + smaller warm-grey \"Reproducibility Record\". Draw one clean central report sheet, not a software screenshot. Arrange exactly six empty labeled fields in a two-column grid: \"모델\", \"COBRApy\", \"솔버\", \"배지\", \"목적함수\", \"허용오차\". A green arrow enters from \"계산 조건\" and a blue arrow exits to \"상태·목적값·플럭스\". Add one red stamp-like label \"조건과 값 함께\". FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every sheet region, field, arrow, and stamp has one perfectly uniform solid fill. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; no invented versions, numbers, captions, logos, or interface labels."
+}

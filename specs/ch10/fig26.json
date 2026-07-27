@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig26_checksum_vs_model_meaning",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"파일 동일성과 모델 동일성\" + smaller warm-grey \"Byte Identity vs Model Meaning\". Two side-by-side panels. Panel A marker \"A\" title \"SHA-256\" with two XML file icons, byte rows, and a fingerprint symbol; exact labels \"바이트 단위 동일\", \"파일 식별\". Panel B marker \"B\" title \"모델 의미 비교\" with two model cards and comparison rows \"반응\", \"대사물\", \"bounds\", \"목적함수\", \"최적값\". Between panels show two separate arrows, not equivalence: top arrow \"같은 해시 → 같은 파일\", bottom dashed arrow with red X \"다른 해시 ≠ 다른 생물학\". Avoid any real hash string or claim that the semantic checklist proves complete biological equivalence. Exact labels only, no caption, paragraph, logo, watermark, or stray text."
+}

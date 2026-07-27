@@ -27,12 +27,12 @@
 
 ```mermaid
 flowchart LR
-    FBA["FBA<br/>LP: 주 목적 최대화"]
-    FVA["FVA<br/>반복 LP: 반응별 가능 범위"]
-    PFBA["pFBA<br/>2단계 LP: 총 flux 최소화"]
-    MOMA["MOMA<br/>QP: 기준 flux와 거리 최소화"]
-    ROOM["ROOM<br/>MILP: 유의 변화 반응 수 최소화"]
-    OK["OptKnock<br/>이중 수준 MILP: 결손 설계"]
+    FBA["FBA<br/>주 목적 최대화"]
+    FVA["FVA<br/>반응별 가능 범위"]
+    PFBA["pFBA<br/>같은 목적값에서 총 flux 감소"]
+    MOMA["MOMA<br/>기준 flux와 변화 최소화"]
+    ROOM["ROOM<br/>크게 바뀌는 반응 수 최소화"]
+    OK["OptKnock<br/>성장과 생산을 잇는 결손 설계"]
 
     FBA -->|"대안해 범위 질문"| FVA
     FBA -->|"주 목적을 고정하고 2차 기준 추가"| PFBA
@@ -51,7 +51,7 @@ flowchart LR
 **논문**: Savinell, J. M., & Palsson, B. O. [Network analysis of intermediary metabolism using linear optimization. I. Development of mathematical formalism](https://doi.org/10.1016/S0022-5193(05)80161-4). *Journal of Theoretical Biology*, 154, 421–454.
 
 - **질문**: 모든 효소 동역학을 몰라도 화학량론·영양분 제약만으로 성장 능력과 제한 요인을 계산할 수 있는가?
-- **방법**: $$\max\mathbf c^\mathsf T\mathbf v$$, $$\mathbf S\mathbf v=0$$, flux bounds를 갖는 LP와 쌍대 변수 해석을 제시했습니다.
+- **방법**: 대사물별 생성·소비 균형, 반응의 허용 범위와 하나의 목적함수를 결합한 선형 최적화 형식을 제시했습니다.
 - **결과**: 작은 hybridoma 대사망에서 최적 nutrient ratio와 제한 대사물·반응을 계산했습니다.
 - **기억할 결론**: FBA는 실제 세포 상태를 자동 복원하는 것이 아니라 **명시한 목적과 제약 아래 가능한 최적 능력**을 계산합니다.
 - **한계**: 현대 genome-scale 모델 이전의 작은 네트워크이며, 목적함수와 uptake bound에 결론이 의존합니다.
@@ -143,7 +143,7 @@ COBRApy 0.30.0 `textbook` 모델에서는 solver가 반환한 표준 FBA 해와 
 - **기억할 결론**: 실제 조절망을 모두 모델링하지 않아도 “소수의 큰 조정”이라는 가정이 유용할 수 있습니다.
 - **한계**: ROOM은 전사조절망을 직접 포함하지 않고 threshold와 reference flux, MILP 대안해에 의존합니다. 보편적인 시간 시계를 제시한 논문은 아닙니다.
 
-자세한 수식과 올바른 COBRApy 결과 해석은 [유전자 교란 보충](supplements/perturbation-analysis.md)을 참고하십시오.
+입문 수준의 수식과 COBRApy 결과 해석은 [Chapter 4의 MOMA](chapter-4/11.md)·[ROOM](chapter-4/12.md)·[방법 비교](chapter-4/13.md)를 참고하십시오.
 
 ## 4. 생산을 성장에 결합하기
 
@@ -160,7 +160,7 @@ $$
 \mathbf v\in\arg\max_{\mathbf v}v_{biomass}
 $$
 
-상위 문제는 knockout, 하위 문제는 세포의 최적 성장을 선택합니다. 하위 LP의 primal–dual 조건과 strong duality로 하나의 MILP로 변환합니다.
+바깥쪽 질문은 어떤 결손을 선택할지, 안쪽 질문은 그 결손 아래에서 세포가 얼마나 성장할지를 묻습니다. 실제 구현은 이 두 질문을 솔버가 다룰 수 있는 하나의 계산 문제로 바꿉니다.
 
 - **결과**: succinate, lactate, 1,3-propanediol 전략이 기존 문헌 mutant와 부합했고 비직관적 결손 조합도 제안했습니다.
 - **기억할 결론**: 생산과 성장을 결합할 결손 설계 틀을 확립하고 문헌 균주와 부합하는 전략 및 비직관적 후보를 제안했습니다. production-envelope 하한까지 양수인 설계라면 성장 선택압을 생산성 유지에 이용할 수 있습니다.

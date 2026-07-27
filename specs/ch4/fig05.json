@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig05_mass_balance",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"내부 대사물의 물질수지\" + smaller warm-grey \"Steady-State Mass Balance\". Draw one central blue circular metabolite labeled \"M\". Exactly two green incoming arrows share the label \"생성\" and exactly two mauve outgoing arrows share the label \"소비\". Above the node show \"생성률 합 = 소비률 합\". At right stack two compact badges: \"순축적 0\" and \"플럭스 0 아님\", with only the latter emphasized in red. FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every node, arrow, and badge has one perfectly uniform solid fill. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; no other text, numbers, equations, captions, or labels."
+}

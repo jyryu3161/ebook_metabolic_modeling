@@ -1,0 +1,7 @@
+{
+  "name": "ch9_fig06_computed_vs_experimental_labels",
+  "out_dir": "figures/ch9",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"계산 레이블과 실험 레이블\" + smaller warm-grey \"Computed vs Experimental Labels\". Two parallel horizontal pipelines, clearly separated. Top pipeline marker \"A\" and title \"계산 레이블\": cards \"GEM·GPR\", \"배지·목적\", \"유전자 결손\", \"성장 임계값\" leading to pill \"필수 / 비필수\". Bottom pipeline marker \"B\" and title \"실험 레이블\": cards \"균주·세포주\", \"교란 방법\", \"배양·측정\", \"판정 기준\" leading to pill \"의존 / 비의존\". On the right, connect both output pills to a four-cell comparison grid with exact cell labels \"둘 다 필수\", \"계산만 필수\", \"실험만 필수\", \"둘 다 비필수\". Use a small red emphasis marker only between the two pipelines with exact label \"같은 정답표 아님\". Preserve both separate pipeline sequences, their arrows, and all four comparison cells exactly. Draw every pipeline card and output pill with the same plain warm-off-white interior as the page and a single solid colored outline only; no tinted interior is needed. Draw each comparison grid cell as one uniform flat solid fill. Every marker, card, pill, grid cell, and page background must have zero gradients, zero highlights, zero tonal shading, zero glow. Keep arrows strictly within each pipeline until the comparison grid; never merge the source cards. Exact labels only, no full-sentence explanation, caption, logo, watermark, numeric results, or stray text."
+}

@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig12_exchange_profile",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"성장률과 교환 플럭스를 함께 읽기\" + smaller warm-grey \"Growth and Exchange Flux Profile\". Center one plain blue cell with no internal detail. At left, exactly three green incoming arrows labeled \"포도당\", \"산소\", and \"암모늄\" under group heading \"섭취\". At right, exactly three mauve outgoing arrows labeled \"이산화탄소\", \"아세테이트\", and \"에탄올\" under group heading \"분비\". Above the cell place one compact badge \"성장률\" with no value, emphasized once in red. FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every cell, arrow, label box, and badge has one perfectly uniform solid fill. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; no values, chemical formulae, captions, or other labels."
+}

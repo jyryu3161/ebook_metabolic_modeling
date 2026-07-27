@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig11_objective_switch_outputs",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"같은 모델, 다른 목적함수\" + smaller warm-grey \"Changing the Objective\". Shared left input block \"같은 S·bounds·배지\" splits into two branches. Top green branch marker \"A\" title \"biomass 최대화\" with output cards \"성장률\" and \"biomass flux\". Bottom mauve branch marker \"B\" title \"ATPM 최대화\" with output cards \"ATPM 최댓값\" and \"유지 ATP 능력\". Between outputs place one red warning marker with exact label \"서로 다른 질문\". Add small return arrow from branch B to the shared baseline labeled \"with model 복원\". Do not show numerical results or imply ATPM is experimental ATP production. Exact labels only, no full sentences, caption, logo, watermark, or stray text."
+}

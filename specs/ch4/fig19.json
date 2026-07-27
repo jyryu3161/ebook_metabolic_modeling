@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig19_fba_limitations",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"표준 FBA가 직접 담지 않는 정보\" + smaller warm-grey \"Scope of Standard FBA\". Center one blue hexagon labeled \"표준 FBA\" with three inner tags \"화학량론\", \"경계\", and \"목적\". Around it place exactly five external cards, all fully inside the safe margin, connected to the core only by dashed grey lines: \"시간 변화\", \"효소 용량\", \"유전자 조절\", \"열역학\", and \"교란 적응\". Use one red emphasis ring around only \"교란 적응\". FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every hexagon, tag, card, and ring has one perfectly uniform solid fill or stroke. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; no solution names, caption, logo, or other text."
+}

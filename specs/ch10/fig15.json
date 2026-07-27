@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig15_status_aware_nonfinite_policy",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"비유한 성장값의 안전한 처리\" + smaller warm-grey \"Status-Aware Nonfinite Policy\". A decision flow. Start card \"single_gene_deletion 출력\" splits by diamond \"growth 유한?\". Green yes route goes to \"성장 비율 계산\". Red no route goes to second diamond \"status = infeasible?\". Yes route passes through a policy card \"분류용 성장 0\" then joins \"성장 비율 계산\". No route ends at red stop card \"데이터·계산 오류 조사\". Final three output pills \"essential\", \"growth-reduced\", \"non-essential\". Add one red X next to a direct NaN-to-zero shortcut labeled \"상태 확인 생략 금지\". Exact labels only, no full-sentence explanation, caption, logo, watermark, counts, or stray text."
+}

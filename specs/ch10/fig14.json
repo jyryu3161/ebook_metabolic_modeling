@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig14_gene_deletion_pipeline",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"유전자 결손에서 성장 분류까지\" + smaller warm-grey \"Gene Deletion Pipeline\". Five-stage left-to-right flow with exact labels: \"유전자 ID\" -> \"GPR 평가\" -> \"반응 bounds 변경\" -> \"FBA 재계산\" -> \"성장 비율 분류\". Under GPR stage show two tiny examples: \"g1 or g2\" leading to \"하나 남으면 유지\", and \"g3 and g4\" leading to \"하나 없으면 차단\". Final stage branches to three pills \"essential\", \"growth-reduced\", \"non-essential\". Add one small condition banner across the top \"같은 모델·배지·목적·임계값\". Do not imply experimental lethality or drug efficacy. Exact labels only, no caption, paragraph, logo, watermark, counts, or stray text."
+}

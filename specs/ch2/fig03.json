@@ -1,0 +1,7 @@
+{
+  "name": "ch2_fig03_reaction_record",
+  "out_dir": "figures/ch2",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "ABSOLUTE PASS REQUIREMENT — OUTLINE-ONLY TECHNICAL DIAGRAM. Override any general request for light colored fills: fill EVERY background, card, node, arrow, gauge, badge, and panel with the identical plain warm off-white #FCFCFA. Use color ONLY for crisp constant-width outline strokes and text. No colored interiors anywhere; no gradients, fades, highlights, glow, shadows, transparency, texture, lighting, or tonal variation. Title (top): \"반응 기록의 구성\" + smaller warm-grey \"Reaction record\". Build one central horizontal reaction card containing the exact single-line equation \"A + 2B → 3C\" with both plus signs and the right arrow visibly present. Around it, arrange six separate tidy labeled fields connected to the central card: \"반응 ID\" with \"R1\"; \"화학량론\" with \"−1, −2, +3\"; \"플럭스 범위\" with \"0 ≤ v₁ ≤ 10\"; \"유전자 규칙\" with \"geneA and geneB\"; \"구획\" with \"세포질\"; \"주석\" with \"데이터베이스 ID\". Add one separate small outline gauge labeled \"플럭스 v₁\". Do not substitute molecule icons for any character in the exact equation. VISIBLE TEXT MANIFEST: only the quoted strings in this prompt may appear, each exactly spelled; never render any style instruction, especially never render \"PROFESSIONAL FLAT VECTOR INFOGRAPHIC\". No extra prose, caption, logo, watermark, gradient, or shadow."
+}

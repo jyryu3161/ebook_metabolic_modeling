@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig05_textbook_to_user_sbml",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"예제 모델에서 내 SBML로 전환\" + smaller warm-grey \"Switching to a User SBML Model\". Two parallel paths. Top path marker \"A\" and title \"예제 모델\" with input card \"load_model('textbook')\", identity tags \"BiGG ID\", \"기본 반응 ID\", then output \"실습 기준값\". Bottom path marker \"B\" and title \"내 모델\" with input card \"my_model.xml\", check gates exact labels \"파일 존재\", \"exchange ID\", \"biomass ID\", \"구획\", \"GPR\", then output \"자체 기준값\". Place a single red X between the two outputs labeled \"ID·기준값 복사 금지\". Show no real file path or fabricated model counts. Exact labels only, no full-sentence explanation, caption, logo, watermark, or stray text."
+}

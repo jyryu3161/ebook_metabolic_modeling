@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig26_method_selection",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top, Korean and English on separate lines): \"교란 예측법 선택 지도\" + smaller warm-grey \"Method Selection Map\". Start at left card \"연구 질문\" and branch to exactly three question cards: \"최대 능력\" points to \"FBA\", \"WT 근접성\" points to \"MOMA\", and \"희소한 재배선\" points to \"ROOM\". The three method branches all converge, in the same left-to-right direction, on one final green card \"같은 실험 자료로 검증\". Along the bottom place exactly three compact checks: \"기준 플럭스\", \"임계값\", and \"실험 시점\". Use one red emphasis marker on the convergence only. FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every card, method tag, check, arrow, and marker has one perfectly uniform solid fill. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; no fixed time ordering, rankings, captions, logos, or other text."
+}

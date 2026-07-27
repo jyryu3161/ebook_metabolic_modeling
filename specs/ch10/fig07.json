@@ -1,0 +1,7 @@
+{
+  "name": "ch10_fig07_exchange_bounds_and_medium",
+  "out_dir": "figures/ch10",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"교환 반응 부호와 medium 표기\" + smaller warm-grey \"Exchange Bounds and Medium\". Center a blue cell boundary. Left green glucose symbol with inward arrow labeled exactly \"섭취 flux < 0\"; right mauve acetate symbol with outward arrow labeled \"분비 flux > 0\". Bottom panel A title \"reaction.bounds\" with a horizontal scale from \"-10\" through \"0\" to \"+1000\" and negative side label \"섭취 허용\". Bottom panel B title \"model.medium\" with a positive capacity card \"10\" and label \"섭취 용량\". Connect -10 to 10 with a curved arrow labeled \"부호만 반대\". Use one red emphasis on zero only. Exact labels only, no caption, sentence, logo, watermark, or unrelated molecules."
+}

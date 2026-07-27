@@ -1,0 +1,7 @@
+{
+  "name": "ch4_fig08_result_validation",
+  "out_dir": "figures/ch4",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top, spell exactly): \"FBA 결과 검산\" + smaller warm-grey \"Post-Solution Validation\". Show a left blue card \"optimal\" feeding one vertical four-item checklist in this order: \"물질수지\", \"반응 경계\", \"탄소원 조건\", \"목적 단위\". From the completed checklist branch at right to green \"해석 진행\" and red \"설정 재검토\". Include only abstract hairline balance and bound icons with no internal text. Emphasize only \"설정 재검토\". FINAL RASTER OVERRIDE: make every large shape interior exactly the same uniform off-white as the background and communicate semantic color with a single-color outline only. Allow solid color only in tiny markers. Render as a stark SVG wire diagram with fills disabled, never as polished presentation art or glassmorphism. Within any object, every interior pixel must have identical RGB; a lighter center, darker edge, glow, or soft transition is total failure. HARD QA: every card, checklist item, arrow, and icon has one perfectly uniform solid fill. No gradient, highlight, lighting, transparency, glow, bevel, shadow, or tonal variation anywhere. Keep all artwork at least 120 px from every canvas edge. Visible text is restricted to the exact double-quoted strings in this prompt; add no other text."
+}

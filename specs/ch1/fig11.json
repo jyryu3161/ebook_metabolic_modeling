@@ -1,0 +1,7 @@
+{
+  "name": "ch1_fig11_history_claim_contract",
+  "out_dir": "figures/ch1",
+  "aspect": "16:9",
+  "size": "2K",
+  "prompt": "Title (top): \"역사적 비교의 세 가지 기록\" + smaller warm-grey \"Evidence Contract for Historical Claims\". 왼쪽에서 오른쪽으로 세 개의 큰 카드가 이어지는 구조를 만든다. 카드 A 제목은 \"A  원 출처\"이고 내부 라벨은 \"논문\", \"발표 시점\", \"주장 범위\"이다. 카드 B 제목은 \"B  모델 파일\"이고 내부 라벨은 \"릴리스\", \"파일 ID\", \"집계 규칙\"이다. 카드 C 제목은 \"C  검증 계약\"이고 내부 라벨은 \"균주·배지\", \"데이터셋\", \"판정 기준\"이다. 각 내부 라벨은 글자만 있는 단순 빈 칸에 표시한다. 책, 달력, 돋보기, ID 카드, 태그, 그래프, 저울, 균주, 문서 같은 아이콘이나 작은 그림을 전혀 넣지 않는다. 버전 문자열, 샘플 ID, 임의 숫자, 무작위 문자도 절대 넣지 않는다. 세 카드의 아래 연결선은 모두 같은 중립 잉크색으로 하나의 결과 카드 \"비교 가능한 주장\"으로 모이게 한다. 별도의 빨간 X가 있는 작은 회색 카드 \"모델 이름의 숫자만\"은 결과 카드에 연결되지 않게 배치하며, 그 카드에도 숫자 예시를 넣지 않는다. 어떤 모델이 더 크거나 더 우수하다는 순위를 암시하지 않는다. Use an outline-first SVG diagram: leave all large cards, internal label slots and result cards completely unfilled plain #FCFCFA. A/B/C letter markers must also be unfilled #FCFCFA circles or tabs with crisp blue, mauve and ochre outlines and matching flat text; do not fill them. Every internal label slot is a flat unfilled rectangle with one uniform outline and no tonal variation. No gradient, transparency, shadow, highlight, glow, shading, bevel, texture, or lighting. 정확한 라벨만 사용하고 과학적으로 정확하게. 캡션·설명문·임의 수치·현재 시점 라벨·로고·워터마크 없이."
+}
